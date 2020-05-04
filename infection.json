@@ -1,0 +1,16 @@
+{
+  "timeout": 10,
+  "source": {
+    "directories": [
+      "src/**/src"
+    ],
+    "excludes": [
+      "src/**/tests"
+    ]
+  },
+  "tmpDir": "test-results/cache",
+  "logs": {
+    "text": "test-results/infection/infection.txt",
+    "summary": "test-results/infection/summary.log"
+  }
+}

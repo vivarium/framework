@@ -1,0 +1,50 @@
+{
+    "name": "vivarium/framework",
+    "description": "The Vivarium Framework",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Luca Cantoreggi",
+            "email": "luca@cantoreggi.xyz"
+        }
+    ],
+    "replace": {
+        "vivarium/assertion": "self.version",
+        "vivarium/equality": "self.version",
+        "vivarium/float": "self.version"
+    },
+    "require": {
+        "php": ">= 7.4",
+        "ext-mbstring": "*",
+        "psr/container": "^1.0",
+        "psr/event-dispatcher": "^1.0"
+    },
+    "require-dev": {
+        "doctrine/coding-standard": "^7.0",
+        "infection/infection": "^0.16",
+        "mockery/mockery": "^1.0",
+        "phpmd/phpmd": "^2.8",
+        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-mockery": "^0.12",
+        "phpstan/phpstan-strict-rules": "^0.12",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vivarium\\Assertion\\": "src/Assertion/src",
+            "Vivarium\\Equality\\": "src/Equality/src",
+            "Vivarium\\Float\\": "src/Float/src",
+            "Vivarium\\Type\\": "src/Type/src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vivarium\\Assertion\\Test\\": "src/Assertion/tests",
+            "Vivarium\\Equality\\Test\\": "src/Equality/tests",
+            "Vivarium\\Float\\Test\\": "src/Float/tests"
+        }
+    }
+}
