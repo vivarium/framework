@@ -1,0 +1,63 @@
+name: build
+
+on: [push]
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Source checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: xdebug
+
+      - name: Cache PHP dependencies
+        uses: actions/cache@v1
+        with:
+          path: vendor
+          key: ${{ runner.OS }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Composer install
+        run: composer install -o -n --prefer-dist
+
+      - name: Create directories
+        run: |
+          mkdir test-results
+          mkdir test-results/cache
+          mkdir test-results/infection
+          mkdir test-results/phpcs
+          mkdir test-results/phpmd
+          mkdir test-results/phpstan
+          mkdir test-results/phpunit
+
+      - name: Run Code Sniffer
+        run: vendor/bin/phpcs --report=junit --report-file=test-results/phpcs/phpcs.xml src
+
+      - name: Run Mess Detector
+        run: vendor/bin/phpmd src xml phpmd.xml --report-file test-results/phpmd/phpmd.xml
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse --no-ansi --error-format=checkstyle > test-results/phpstan/phpstan.xml
+
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit
+
+      - name: Run Infection
+        run: vendor/bin/infection --coverage=test-results/phpunit --min-msi=85 --min-covered-msi=95 --threads=4
+
+      - name: Codecov
+        run: bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
+
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: test-results
+          path: test-results/
