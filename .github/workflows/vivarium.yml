@@ -56,6 +56,11 @@ jobs:
       - name: Codecov
         run: bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Codacy
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh)
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+
       - uses: actions/upload-artifact@v1
         if: failure()
         with:
