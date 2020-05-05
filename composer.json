@@ -44,7 +44,8 @@
         "psr-4": {
             "Vivarium\\Assertion\\Test\\": "src/Assertion/tests",
             "Vivarium\\Equality\\Test\\": "src/Equality/tests",
-            "Vivarium\\Float\\Test\\": "src/Float/tests"
+            "Vivarium\\Float\\Test\\": "src/Float/tests",
+            "Vivarium\\Type\\Test\\": "src/Type/tests"
         }
     }
 }
