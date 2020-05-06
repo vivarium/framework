@@ -52,6 +52,8 @@ jobs:
 
       - name: Run Infection
         run: vendor/bin/infection --coverage=test-results/phpunit --min-msi=85 --min-covered-msi=95 --threads=4
+        env:
+          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
 
       - name: Codecov
         run: bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
