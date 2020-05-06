@@ -12,6 +12,7 @@ namespace Vivarium\Type\Test;
 
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use Vivarium\Type\Clazz;
 use Vivarium\Type\Native;
 
 /**
@@ -31,6 +32,18 @@ final class NativeTest extends TestCase
         static::assertFalse(
             Native::integer()->acceptVar('Foo')
         );
+
+        static::assertTrue(
+            Native::integer()->accept(
+                Native::integer()
+            )
+        );
+
+        static::assertFalse(
+            Native::integer()->accept(
+                Native::float()
+            )
+        );
     }
 
     /**
@@ -45,6 +58,18 @@ final class NativeTest extends TestCase
         static::assertFalse(
             Native::float()->acceptVar('Bar')
         );
+
+        static::assertTrue(
+            Native::float()->accept(
+                Native::float()
+            )
+        );
+
+        static::assertFalse(
+            Native::float()->accept(
+                Native::integer()
+            )
+        );
     }
 
     /**
@@ -58,6 +83,18 @@ final class NativeTest extends TestCase
 
         static::assertFalse(
             Native::string()->acceptVar(42)
+        );
+
+        static::assertTrue(
+            Native::string()->accept(
+                Native::string()
+            )
+        );
+
+        static::assertFalse(
+            Native::string()->accept(
+                Native::mixed()
+            )
         );
     }
 
@@ -76,6 +113,36 @@ final class NativeTest extends TestCase
 
         static::assertTrue(
             Native::mixed()->acceptVar('Foo')
+        );
+
+        static::assertTrue(
+            Native::mixed()->accept(
+                Native::mixed()
+            )
+        );
+
+        static::assertTrue(
+            Native::mixed()->accept(
+                Native::integer()
+            )
+        );
+
+        static::assertTrue(
+            Native::mixed()->accept(
+                Native::float()
+            )
+        );
+
+        static::assertTrue(
+            Native::mixed()->accept(
+                Native::string()
+            )
+        );
+
+        static::assertTrue(
+            Native::mixed()->accept(
+                new Clazz(stdClass::class)
+            )
         );
     }
 }

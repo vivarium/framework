@@ -59,7 +59,7 @@ final class TupleTest extends TestCase
     public function testNth() : void
     {
         static::expectException(OutOfBoundsException::class);
-        static::expectExceptionMessage('Index out of bound. Count: 3, Index: 4');
+        static::expectExceptionMessage('Index out of bound. Count: 3, Index: 3');
 
         $type1 = $this->createMock(Type::class);
         $type2 = $this->createMock(Type::class);
@@ -70,7 +70,7 @@ final class TupleTest extends TestCase
         static::assertSame($type1, $tuple->nth(0));
         static::assertSame($type2, $tuple->nth(1));
         static::assertSame($type3, $tuple->nth(2));
-        static::assertSame($type1, $tuple->nth(4));
+        static::assertSame($type1, $tuple->nth(3));
     }
 
     /**
