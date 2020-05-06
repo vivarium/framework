@@ -42,7 +42,7 @@ jobs:
         run: vendor/bin/phpcs --report=junit --report-file=test-results/phpcs/phpcs.xml src
 
       - name: Run Mess Detector
-        run: vendor/bin/phpmd src xml phpmd.xml --report-file test-results/phpmd/phpmd.xml
+        run: vendor/bin/phpmd src xml phpmd.xml --ignore-violations-on-exit --report-file test-results/phpmd/phpmd.xml
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse --no-ansi --error-format=checkstyle > test-results/phpstan/phpstan.xml
