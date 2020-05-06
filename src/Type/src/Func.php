@@ -10,10 +10,11 @@ declare(strict_types=1);
 
 namespace Vivarium\Type;
 
-use ReflectionException;
+use ReflectionClass;
 use ReflectionFunction;
+use ReflectionNamedType;
 use ReflectionParameter;
-use ReflectionType;
+use Vivarium\Assertion\Type\IsCallable;
 use function assert;
 
 final class Func implements Type
@@ -31,9 +32,7 @@ final class Func implements Type
             return false;
         }
 
-        return $this->tuple->accept(
-            $type->tuple
-        );
+        return $this->tuple->accept($type->tuple);
     }
 
     /**
@@ -41,23 +40,23 @@ final class Func implements Type
      */
     public function acceptVar($value) : bool
     {
-        try {
-            $reflector = new ReflectionFunction($value);
+        if (! (new IsCallable())($value)) {
+            return false;
+        }
 
-            if ($this->tuple->count() !== $reflector->getNumberOfParameters()) {
+        $reflector = new ReflectionFunction($value);
+
+        if ($this->tuple->count() !== $reflector->getNumberOfParameters()) {
+            return false;
+        }
+
+        $parameters = $reflector->getParameters();
+        for ($i = 0; $i < $this->tuple->count(); $i++) {
+            if (! $this->tuple->nth($i)->accept(
+                $this->extractParameter($parameters[$i])
+            )) {
                 return false;
             }
-
-            $parameters = $reflector->getParameters();
-            for ($i = 0; $i < $this->tuple->count(); $i++) {
-                if (! $this->tuple->nth($i)->accept(
-                    $this->extractParameter($parameters[$i])
-                )) {
-                    return false;
-                }
-            }
-        } catch (ReflectionException $e) {
-            return false;
         }
 
         return true;
@@ -65,13 +64,27 @@ final class Func implements Type
 
     private function extractParameter(ReflectionParameter $parameter) : Type
     {
-        if (! $parameter->hasType()) {
-            return Native::mixed();
+        if ($parameter->hasType()) {
+            $type = $parameter->getType();
+            assert($type instanceof ReflectionNamedType);
+
+            if (! $type->isBuiltin()) {
+                $class = $parameter->getClass();
+                assert($class instanceof ReflectionClass);
+
+                return new Clazz($class->getName());
+            }
+
+            switch ($type->getName()) {
+                case 'int':
+                    return Native::integer();
+                case 'string':
+                    return Native::string();
+                case 'float':
+                    return Native::float();
+            }
         }
 
-        $type = $parameter->getType();
-        assert($type instanceof ReflectionType);
-
-        return new Clazz($type->getName());
+        return Native::mixed();
     }
 }
