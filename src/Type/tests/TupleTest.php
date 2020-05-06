@@ -14,6 +14,7 @@ use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Type\Tuple;
 use Vivarium\Type\Type;
+use function count;
 
 /**
  * @coversDefaultClass \Vivarium\Type\Tuple
@@ -26,7 +27,7 @@ final class TupleTest extends TestCase
      */
     public function testCount() : void
     {
-        $type = $this->createMock(Type::class);
+        $type  = $this->createMock(Type::class);
         $tuple = new Tuple($type, $type, $type);
 
         static::assertCount(3, $tuple);
@@ -42,13 +43,13 @@ final class TupleTest extends TestCase
         $type3 = $this->createMock(Type::class);
 
         $tuple = new Tuple($type3, $type1, $type2);
-        $it = $tuple->getIterator();
-        $it->rewind();
+        $iter  = $tuple->getIterator();
+        $iter->rewind();
 
         $expected = [$type3, $type1, $type2];
         for ($i=0; $i < count($expected); $i++) {
-            static::assertSame($expected[$i], $it->current());
-            $it->next();
+            static::assertSame($expected[$i], $iter->current());
+            $iter->next();
         }
     }
 
@@ -58,7 +59,7 @@ final class TupleTest extends TestCase
     public function testNth() : void
     {
         static::expectException(OutOfBoundsException::class);
-        static::expectExceptionMessage("Index out of bound. Count: 3, Index: 4");
+        static::expectExceptionMessage('Index out of bound. Count: 3, Index: 4');
 
         $type1 = $this->createMock(Type::class);
         $type2 = $this->createMock(Type::class);
@@ -75,15 +76,31 @@ final class TupleTest extends TestCase
     /**
      * @covers ::accept()
      */
-    public function testAcceptFailOnCount() : void
+    public function testAccept() : void
     {
         $type1 = $this->createMock(Type::class);
         $type2 = $this->createMock(Type::class);
         $type3 = $this->createMock(Type::class);
 
+        $type1
+            ->expects(static::exactly(2))
+            ->method('accept')
+            ->withConsecutive([$type1], [$type1])
+            ->willReturnOnConsecutiveCalls(true, true);
+
+        $type3
+            ->expects(static::exactly(2))
+            ->method('accept')
+            ->withConsecutive([$type2], [$type3])
+            ->willReturnOnConsecutiveCalls(false, true);
+
         $tuple1 = new Tuple($type1, $type2);
         $tuple2 = new Tuple($type3);
+        $tuple3 = new Tuple($type1, $type3);
+        $tuple4 = new Tuple($type1, $type3);
 
         static::assertFalse($tuple1->accept($tuple2));
+        static::assertFalse($tuple3->accept($tuple1));
+        static::assertTrue($tuple4->accept($tuple3));
     }
 }
