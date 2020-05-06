@@ -12,8 +12,10 @@ namespace Vivarium\Type;
 
 interface Type
 {
+    public function accept(Type $type) : bool;
+
     /**
      * @param mixed $value
      */
-    public function accept($value) : bool;
+    public function acceptVar($value) : bool;
 }

@@ -12,7 +12,9 @@ namespace Vivarium\Type;
 
 use ReflectionException;
 use ReflectionFunction;
+use ReflectionParameter;
 use ReflectionType;
+use function assert;
 
 final class Func implements Type
 {
@@ -23,7 +25,21 @@ final class Func implements Type
         $this->tuple = $tuple;
     }
 
-    public function accept($value) : bool
+    public function accept(Type $type) : bool
+    {
+        if (! $type instanceof Func) {
+            return false;
+        }
+
+        return $this->tuple->accept(
+            $type->tuple
+        );
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function acceptVar($value) : bool
     {
         try {
             $reflector = new ReflectionFunction($value);
@@ -35,7 +51,7 @@ final class Func implements Type
             $parameters = $reflector->getParameters();
             for ($i = 0; $i < $this->tuple->count(); $i++) {
                 if (! $this->tuple->nth($i)->accept(
-                    $parameters[$i]->getType()->getName()
+                    $this->extractParameter($parameters[$i])
                 )) {
                     return false;
                 }
@@ -45,5 +61,17 @@ final class Func implements Type
         }
 
         return true;
+    }
+
+    private function extractParameter(ReflectionParameter $parameter) : Type
+    {
+        if (! $parameter->hasType()) {
+            return Native::mixed();
+        }
+
+        $type = $parameter->getType();
+        assert($type instanceof ReflectionType);
+
+        return new Clazz($type->getName());
     }
 }

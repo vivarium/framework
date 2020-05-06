@@ -20,7 +20,15 @@ final class Native
     {
         return new class implements Type
         {
-            public function accept($value) : bool
+            public function accept(Type $type) : bool
+            {
+                return $type instanceof self;
+            }
+
+            /**
+             * @param mixed $value
+             */
+            public function acceptVar($value) : bool
             {
                 return (new IsInteger())($value);
             }
@@ -31,7 +39,15 @@ final class Native
     {
         return new class implements Type
         {
-            public function accept($value) : bool
+            public function accept(Type $type) : bool
+            {
+                return $type instanceof self;
+            }
+
+            /**
+             * @param mixed $value
+             */
+            public function acceptVar($value) : bool
             {
                 return (new IsFloat())($value);
             }
@@ -42,7 +58,15 @@ final class Native
     {
         return new class implements Type
         {
-            public function accept($value) : bool
+            public function accept(Type $type) : bool
+            {
+                return $type instanceof self;
+            }
+
+            /**
+             * @param mixed $value
+             */
+            public function acceptVar($value) : bool
             {
                 return (new IsString())($value);
             }
@@ -53,7 +77,15 @@ final class Native
     {
         return new class implements Type
         {
-            public function accept($value) : bool
+            public function accept(Type $type) : bool
+            {
+                return true;
+            }
+
+            /**
+             * @param mixed $value
+             */
+            public function acceptVar($value) : bool
             {
                 return true;
             }

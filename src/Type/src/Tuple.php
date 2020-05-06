@@ -17,6 +17,7 @@ use IteratorAggregate;
 use OutOfBoundsException;
 use function array_merge;
 use function count;
+use function sprintf;
 
 /**
  * @template-implements IteratorAggregate<Type>

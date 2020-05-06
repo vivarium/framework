@@ -22,12 +22,22 @@ final class Generic implements Type
         $this->tuple = $tuple;
     }
 
+    public function accept(Type $type) : bool
+    {
+        if (! $type instanceof Generic) {
+            return false;
+        }
+
+        return $this->class->accept($type->class) &&
+               $this->tuple->accept($type->tuple);
+    }
+
     /**
      * @param mixed $value
      */
-    public function accept($value) : bool
+    public function acceptVar($value) : bool
     {
-        if (! $this->class->accept($value)) {
+        if (! $this->class->acceptVar($value)) {
             return false;
         }
 

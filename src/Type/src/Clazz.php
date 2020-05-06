@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Vivarium\Type;
 
 use Vivarium\Assertion\Conditional\Either;
+use Vivarium\Assertion\Hierarchy\IsAssignableTo;
 use Vivarium\Assertion\Object\IsInstanceOf;
 use Vivarium\Assertion\String\IsClass;
 use Vivarium\Assertion\String\IsInterface;
@@ -30,7 +31,19 @@ final class Clazz implements Type
         $this->class = $class;
     }
 
-    public function accept($value) : bool
+    public function accept(Type $type) : bool
+    {
+        if (! $type instanceof Clazz) {
+            return false;
+        }
+
+        return (new IsAssignableTo($this->class))($type->class);
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function acceptVar($value) : bool
     {
         if (! (new IsObject())($value)) {
             return false;
