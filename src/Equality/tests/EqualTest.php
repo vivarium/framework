@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace Vivarium\Equality\Test;
 
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Equality\Equal;
 use Vivarium\Equality\Equality;
@@ -20,8 +19,6 @@ use Vivarium\Equality\Equality;
  */
 final class EqualTest extends TestCase
 {
-    use MockeryPHPUnitIntegration;
-
     /**
      * @covers ::areEquals()
      */

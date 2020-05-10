@@ -13,8 +13,11 @@
     ],
     "replace": {
         "vivarium/assertion": "self.version",
+        "vivarium/collection": "self.version",
+        "vivarium/comparator": "self.version",
         "vivarium/equality": "self.version",
-        "vivarium/float": "self.version"
+        "vivarium/float": "self.version",
+        "vivarium/type": "self.version"
     },
     "require": {
         "php": ">= 7.4",

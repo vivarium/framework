@@ -1,0 +1,22 @@
+{
+  "name": "vivarium/comparator",
+  "description": "A module for comparing objects",
+  "type": "library",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Luca Cantoreggi",
+      "email": "luca@cantoreggi.xyz"
+    }
+  ],
+  "require": {
+    "php": "^7.4",
+    "vivarium/float": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Vivarium\\Comparator\\": "src/"
+    }
+  }
+}

@@ -18,6 +18,12 @@
         <testsuite name="Assertion Tests">
             <directory>src/Assertion/tests</directory>
         </testsuite>
+        <testsuite name="Collection Tests">
+            <directory>src/Collection/tests</directory>
+        </testsuite>
+        <testsuite name="Comparator Tests">
+            <directory>src/Comparator/tests</directory>
+        </testsuite>
         <testsuite name="Equality Tests">
             <directory>src/Equality/tests</directory>
         </testsuite>

@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace Vivarium\Equality\Test;
 
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Vivarium\Equality\Equality;
@@ -21,12 +20,8 @@ use Vivarium\Equality\HashBuilder;
  */
 class HashBuilderTest extends TestCase
 {
-    use MockeryPHPUnitIntegration;
-
     /**
      * @param mixed $value
-     *
-     * @psalm-param scalar|null $value
      *
      * @covers ::__construct
      * @covers ::append
