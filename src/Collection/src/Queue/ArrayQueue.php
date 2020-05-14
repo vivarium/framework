@@ -35,9 +35,7 @@ final class ArrayQueue extends CommonQueue
 
     /**
      * @template T0
-     *
      * @phpstan-param T0[] $elements
-     *
      * @phpstan-return ArrayQueue<T0>
      */
     public static function fromArray(array $elements) : ArrayQueue

@@ -43,10 +43,8 @@ final class PriorityQueue extends CommonQueue
 
     /**
      * @template T0
-     *
      * @phpstan-param Comparator<T0> $comparator
      * @phpstan-param T0[] $elements
-     *
      * @phpstan-return PriorityQueue<T0>
      */
     public static function fromArray(Comparator $comparator, array $elements) : PriorityQueue

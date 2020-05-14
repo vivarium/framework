@@ -12,11 +12,13 @@ namespace Vivarium\Collection\Sequence;
 
 use ArrayIterator;
 use Iterator;
-use Vivarium\Assertion\Numeric\IsInOpenRightRange;
+use Vivarium\Assertion\Numeric\IsInClosedRange;
+use Vivarium\Assertion\Numeric\IsInHalfOpenRightRange;
 use Vivarium\Comparator\Comparator;
 use Vivarium\Equality\Equal;
 use function array_values;
 use function count;
+use function max;
 use function usort;
 
 /**
@@ -27,7 +29,6 @@ final class ArraySequence implements Sequence
 {
     /**
      * @var mixed[]
-     *
      * @phpstan-var T[]
      */
     private array $elements;
@@ -44,9 +45,7 @@ final class ArraySequence implements Sequence
 
     /**
      * @template T0
-     *
      * @phpstan-param T0[] $elements
-     *
      * @phpstan-return Sequence<T0>
      */
     public static function fromArray(array $elements) : Sequence
@@ -115,8 +114,7 @@ final class ArraySequence implements Sequence
      */
     public function getAtIndex(int $index)
     {
-        (new IsInOpenRightRange(0, $this->count()))
-            ->assert($index);
+        $this->checkBounds($index);
 
         return $this->elements[$index];
     }
@@ -128,7 +126,7 @@ final class ArraySequence implements Sequence
      */
     public function setAtIndex(int $index, $element) : void
     {
-        (new IsInOpenRightRange(0, $this->count()))
+        (new IsInClosedRange(0, $this->count()))
             ->assert($index);
 
         $this->elements[$index] = $element;
@@ -136,8 +134,7 @@ final class ArraySequence implements Sequence
 
     public function removeAtIndex(int $index) : void
     {
-        (new IsInOpenRightRange(0, $this->count()))
-            ->assert($index, 'Index out of bound. Count: %2$s, Index: %s');
+        $this->checkBounds($index);
 
         unset($this->elements[$index]);
         $this->elements = array_values($this->elements);
@@ -161,8 +158,6 @@ final class ArraySequence implements Sequence
     }
 
     /**
-     * @param Comparator $comparator
-     *
      * @phpstan-param Comparator<T> $comparator
      */
     public function sort(Comparator $comparator) : void
@@ -183,5 +178,11 @@ final class ArraySequence implements Sequence
     public function isEmpty() : bool
     {
         return $this->count() === 0;
+    }
+
+    private function checkBounds(int $index) : void
+    {
+        (new IsInHalfOpenRightRange(0, max(1, $this->count())))
+            ->assert($index);
     }
 }

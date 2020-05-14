@@ -16,7 +16,6 @@ use Vivarium\Comparator\Comparator;
 /**
  * @template K
  * @template V
- *
  * @template-implements Comparator<Pair<K, V>>
  */
 final class PairComparator implements Comparator

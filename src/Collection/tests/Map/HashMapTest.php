@@ -40,6 +40,8 @@ final class HashMapTest extends TestCase
     /**
      * @covers ::put()
      * @covers ::count()
+     * @covers ::hash()
+     * @covers ::isPossibleKey()
      */
     public function testPut() : void
     {

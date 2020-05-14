@@ -119,6 +119,7 @@ final class SortedSetTest extends TestCase
      * @covers ::union()
      * @covers ::add()
      * @covers ::toArray()
+     * @covers ::emptySet()
      */
     public function testUnion() : void
     {
@@ -137,6 +138,7 @@ final class SortedSetTest extends TestCase
      * @covers ::intersection()
      * @covers ::count()
      * @covers ::toArray()
+     * @covers ::emptySet()
      */
     public function testIntersection() : void
     {
@@ -155,6 +157,7 @@ final class SortedSetTest extends TestCase
      * @covers ::difference()
      * @covers ::count()
      * @covers ::toArray()
+     * @covers ::emptySet()
      */
     public function testDifference() : void
     {
@@ -174,7 +177,7 @@ final class SortedSetTest extends TestCase
      */
     public function testIsSubsetOf() : void
     {
-        $set = new SortedSet(new IntegerComparator(), 6, 4, 3, 2, 1, 5);
+        $set    = new SortedSet(new IntegerComparator(), 6, 4, 3, 2, 1, 5);
         $subset = new SortedSet(new IntegerComparator(), 2, 3, 1);
 
         static::assertTrue($subset->isSubsetOf($set));

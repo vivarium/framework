@@ -10,10 +10,11 @@ declare(strict_types=1);
 
 namespace Vivarium\Collection\Test\Sequence;
 
-use OutOfBoundsException;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Collection\Sequence\ArraySequence;
 use function count;
+use function max;
 use function sprintf;
 
 /**
@@ -25,12 +26,18 @@ final class ArrayListExceptionTest extends TestCase
      * @param array<int, int> $elements
      *
      * @covers ::getAtIndex()
+     * @covers ::checkBounds()
      * @dataProvider getTestIndexOutOfBoundData
      */
     public function testGetAtIndexOutOfBound(array $elements, int $index) : void
     {
-        $message = sprintf('Index out of bound. Count: %s, Index: %s', count($elements), $index);
-        static::expectException(OutOfBoundsException::class);
+        $message = sprintf(
+            'Expected number to be in half open right range [0, %s). Got %2$s.',
+            max(1, count($elements)),
+            $index
+        );
+
+        static::expectException(InvalidArgumentException::class);
         static::expectExceptionMessage($message);
 
         $list = ArraySequence::fromArray($elements);
@@ -41,12 +48,22 @@ final class ArrayListExceptionTest extends TestCase
      * @param array<int, int> $elements
      *
      * @covers ::setAtIndex()
+     * @covers ::checkBounds()
      * @dataProvider getTestIndexOutOfBoundData
      */
     public function testSetAtIndexOutOfBound(array $elements, int $index) : void
     {
-        $message = sprintf('Index out of bound. Count: %s, Index: %s', count($elements), $index);
-        static::expectException(OutOfBoundsException::class);
+        if ($index === count($elements)) {
+            ++$index;
+        }
+
+        $message = sprintf(
+            'Expected number to be in closed range [0, %s]. Got %2$s.',
+            count($elements),
+            $index
+        );
+
+        static::expectException(InvalidArgumentException::class);
         static::expectExceptionMessage($message);
 
         $list = ArraySequence::fromArray($elements);
@@ -57,12 +74,18 @@ final class ArrayListExceptionTest extends TestCase
      * @param array<int, int> $elements
      *
      * @covers ::removeAtIndex()
+     * @covers ::checkBounds()
      * @dataProvider getTestIndexOutOfBoundData
      */
     public function testRemoveAtIndexOutOfBound(array $elements, int $index) : void
     {
-        $message = sprintf('Index out of bound. Count: %s, Index: %s', count($elements), $index);
-        static::expectException(OutOfBoundsException::class);
+        $message = sprintf(
+            'Expected number to be in half open right range [0, %s). Got %2$s.',
+            max(1, count($elements)),
+            $index
+        );
+
+        static::expectException(InvalidArgumentException::class);
         static::expectExceptionMessage($message);
 
         $list = ArraySequence::fromArray($elements);

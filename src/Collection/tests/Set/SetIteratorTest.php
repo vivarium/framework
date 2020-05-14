@@ -52,7 +52,6 @@ final class SetIteratorTest extends TestCase
 
     /**
      * @template T
-     *
      * @phpstan-param T[] $expected
      * @phpstan-param T[] $values
      */

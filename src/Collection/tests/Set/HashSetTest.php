@@ -21,6 +21,7 @@ use function count;
 final class HashSetTest extends TestCase
 {
     /**
+     * @covers \Vivarium\Collection\Set\MapBasedSet::__construct()
      * @covers ::__construct()
      */
     public function testEmptyConstructor() : void
@@ -104,6 +105,7 @@ final class HashSetTest extends TestCase
      * @covers ::union()
      * @covers ::add()
      * @covers ::toArray()
+     * @covers ::emptySet()
      */
     public function testUnion() : void
     {
@@ -122,6 +124,7 @@ final class HashSetTest extends TestCase
      * @covers ::intersection()
      * @covers ::count()
      * @covers ::toArray()
+     * @covers ::emptySet()
      */
     public function testIntersection() : void
     {
@@ -142,6 +145,7 @@ final class HashSetTest extends TestCase
      * @covers ::difference()
      * @covers ::count()
      * @covers ::toArray()
+     * @covers ::emptySet()
      */
     public function testDifference() : void
     {

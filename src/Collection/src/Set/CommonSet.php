@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace Vivarium\Collection\Set;
 
-use Vivarium\Type\Assertion\IsAssignaleTuple;
-
 /**
  * @template T
  * @template-implements Set<T>
@@ -20,7 +18,6 @@ abstract class CommonSet implements Set
 {
     /**
      * @phpstan-param Set<T> $set
-     *
      * @phpstan-return Set<T>
      */
     public function union(Set $set) : Set
@@ -40,7 +37,6 @@ abstract class CommonSet implements Set
 
     /**
      * @phpstan-param Set<T> $set
-     *
      * @phpstan-return Set<T>
      */
     public function intersection(Set $set) : Set
@@ -59,7 +55,6 @@ abstract class CommonSet implements Set
 
     /**
      * @phpstan-param Set<T> $set
-     *
      * @phpstan-return Set<T>
      */
     public function difference(Set $set) : Set

@@ -20,21 +20,18 @@ interface Set extends Collection
 {
     /**
      * @phpstan-param Set<T> $set
-     *
      * @phpstan-return Set<T>
      */
     public function union(Set $set) : Set;
 
     /**
      * @phpstan-param Set<T> $set
-     *
      * @phpstan-return Set<T>
      */
     public function intersection(Set $set) : Set;
 
     /**
      * @phpstan-param Set<T> $set
-     *
      * @phpstan-return Set<T>
      */
     public function difference(Set $set) : Set;

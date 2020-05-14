@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Vivarium\Collection\Test\Queue;
 
+use DomainException;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Collection\Queue\PriorityQueue;
 use Vivarium\Comparator\IntegerComparator;
@@ -35,7 +36,7 @@ final class PriorityQueueTest extends TestCase
         $queue->enqueue(3);
         $queue->enqueue(3);
         $queue->enqueue(0);
-        $queue ->add(1);
+        $queue->add(1);
 
         static::assertCount(5, $queue);
         static::assertEquals(0, $queue->peek());
@@ -64,6 +65,18 @@ final class PriorityQueueTest extends TestCase
         }
 
         static::assertTrue($queue->isEmpty());
+    }
+
+    /**
+     * @covers ::dequeue()
+     */
+    public function testDequeueOnEmpty() : void
+    {
+        static::expectException(DomainException::class);
+        static::expectExceptionMessage('Cannot dequeue from an empty queue.');
+
+        $queue = new PriorityQueue(new StringComparator());
+        $queue->dequeue();
     }
 
     /**

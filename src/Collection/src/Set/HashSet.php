@@ -11,6 +11,8 @@ declare(strict_types=1);
 namespace Vivarium\Collection\Set;
 
 use Vivarium\Collection\Map\HashMap;
+use function array_fill;
+use function count;
 
 /**
  * @template T
@@ -35,9 +37,7 @@ final class HashSet extends MapBasedSet
 
     /**
      * @template T0
-     *
      * @phpstan-param T0[] $elements
-     *
      * @phpstan-return HashSet<T0>
      */
     public static function fromArray(array $elements) : HashSet

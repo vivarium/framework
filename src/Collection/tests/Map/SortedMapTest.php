@@ -25,6 +25,19 @@ use function usort;
 final class SortedMapTest extends TestCase
 {
     /**
+     * @covers ::__construct()
+     * @covers ::count
+     * @covers ::isEmpty()
+     */
+    public function testEmpty() : void
+    {
+        $map = new SortedMap(new IntegerComparator());
+
+        static::assertCount(0, $map);
+        static::assertTrue($map->isEmpty());
+    }
+
+    /**
      * @covers ::keys()
      * @covers ::fromKeyValue()
      */
@@ -36,9 +49,25 @@ final class SortedMapTest extends TestCase
         $map = SortedMap::fromKeyValue(new StringComparator(), $keys, $values);
 
         $expected = ['a', 'b', 'c', 'd'];
-        $keys     = $map->keys();
 
-        static::assertEquals($expected, $keys);
+        static::assertEquals($expected, $map->keys());
+    }
+
+    /**
+     * @covers ::__construct()
+     */
+    public function testKeyOrderInConstructor() : void
+    {
+        $map = new SortedMap(
+            new IntegerComparator(),
+            new Pair(5, 'a'),
+            new Pair(1, 'd'),
+            new Pair(2, 'c')
+        );
+
+        $expected = [1, 2, 5];
+
+        static::assertEquals($expected, $map->keys());
     }
 
     /**
@@ -94,7 +123,7 @@ final class SortedMapTest extends TestCase
         $map->put('Hello', 1);
         $map->put('H', 1);
         $map->put('Ab', 1);
-        $map->put('A', 1);;
+        $map->put('A', 1);
 
         $keys = ['A', 'Ab', 'H', 'Hello'];
         static::assertEquals($keys, $map->keys());
@@ -196,7 +225,6 @@ final class SortedMapTest extends TestCase
 
     /**
      * @covers ::clear()
-     * @covers ::isEmpty()
      * @covers ::fromKeyValue()
      */
     public function testClear() : void
@@ -208,7 +236,6 @@ final class SortedMapTest extends TestCase
         $map->clear();
 
         static::assertCount(0, $map);
-        static::assertTrue($map->isEmpty());
     }
 
     /**

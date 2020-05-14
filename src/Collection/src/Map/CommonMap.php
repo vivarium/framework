@@ -103,7 +103,7 @@ abstract class CommonMap implements Map
     /**
      * @param mixed $key
      */
-    private function isPossibleKey($key) : bool
+    protected function isPossibleKey($key) : bool
     {
         return is_string($key) || is_int($key);
     }

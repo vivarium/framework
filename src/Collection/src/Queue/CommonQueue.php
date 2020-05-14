@@ -21,7 +21,7 @@ abstract class CommonQueue implements Queue
     /**
      * @phpstan-param T $element
      */
-    public function add($element): void
+    public function add($element) : void
     {
         $this->enqueue($element);
     }
@@ -29,7 +29,7 @@ abstract class CommonQueue implements Queue
     /**
      * @phpstan-param T $element
      */
-    public function remove($element): void
+    public function remove($element) : void
     {
         if (! $this->contains($element)) {
             return;

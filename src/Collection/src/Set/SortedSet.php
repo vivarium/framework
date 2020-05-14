@@ -12,8 +12,8 @@ namespace Vivarium\Collection\Set;
 
 use Vivarium\Collection\Map\SortedMap;
 use Vivarium\Comparator\Comparator;
-use Vivarium\Type\Native;
-use Vivarium\Type\Type;
+use function array_fill;
+use function count;
 
 /**
  * @template T
@@ -45,10 +45,8 @@ final class SortedSet extends MapBasedSet
 
     /**
      * @template T0
-     *
      * @phpstan-param Comparator<T0> $comparator
      * @phpstan-param T0[] $elements
-     *
      * @phpstan-return SortedSet<T0>
      */
     public static function fromArray(Comparator $comparator, array $elements) : SortedSet
@@ -59,7 +57,7 @@ final class SortedSet extends MapBasedSet
     /**
      * @phpstan-return SortedSet<T>
      */
-    protected function emptySet(): Set
+    protected function emptySet() : Set
     {
         return new SortedSet($this->comparator);
     }

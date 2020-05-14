@@ -39,9 +39,7 @@ final class ArrayStack implements Stack
 
     /**
      * @template T0
-     *
      * @phpstan-param T0[] $elements
-     *
      * @phpstan-return ArrayStack<T0>
      */
     public static function fromArray(array $elements) : ArrayStack

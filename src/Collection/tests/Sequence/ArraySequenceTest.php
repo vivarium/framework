@@ -107,6 +107,7 @@ final class ArraySequenceTest extends TestCase
 
     /**
      * @covers ::getAtIndex()
+     * @covers ::checkBounds()
      */
     public function testGetAtIndex() : void
     {
@@ -121,7 +122,7 @@ final class ArraySequenceTest extends TestCase
      */
     public function testSetAtIndex() : void
     {
-        $list    = new ArraySequence(1, 2, 3, 4, 5);
+        $list = new ArraySequence(1, 2, 3, 4, 5);
         $list->setAtIndex(1, 5);
 
         static::assertEquals(5, $list->getAtIndex(1));
@@ -197,7 +198,7 @@ final class ArraySequenceTest extends TestCase
         $list     = new ArraySequence($pair2, $pair1, $pair3);
         $expected = new ArraySequence($pair3, $pair2, $pair1);
 
-       $list->sort(new PairComparator());
+        $list->sort(new PairComparator());
 
         static::assertEquals($expected->toArray(), $list->toArray());
     }
