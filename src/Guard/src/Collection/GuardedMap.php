@@ -41,7 +41,7 @@ final class GuardedMap implements Map, Typed
         $this->map = $map;
     }
 
-    public function put($key, $value): void
+    public function put($key, $value) : void
     {
         (new IsAssignableVar($this->keyType))
             ->assert($key);
@@ -60,7 +60,7 @@ final class GuardedMap implements Map, Typed
         return $this->map->get($key);
     }
 
-    public function remove($key): void
+    public function remove($key) : void
     {
         (new IsAssignableVar($this->keyType))
             ->assert($key);
@@ -68,7 +68,7 @@ final class GuardedMap implements Map, Typed
         $this->map->remove($key);
     }
 
-    public function containsKey($key): bool
+    public function containsKey($key) : bool
     {
         (new IsAssignableVar($this->keyType))
             ->assert($key);
@@ -76,7 +76,7 @@ final class GuardedMap implements Map, Typed
         return $this->map->containsKey($key);
     }
 
-    public function containsValue($value): bool
+    public function containsValue($value) : bool
     {
         (new IsAssignableVar($this->valueType))
             ->assert($value);
@@ -84,27 +84,27 @@ final class GuardedMap implements Map, Typed
         return $this->map->containsValue($value);
     }
 
-    public function values(): array
+    public function values() : array
     {
         return $this->map->values();
     }
 
-    public function keys(): array
+    public function keys() : array
     {
         return $this->map->keys();
     }
 
-    public function pairs(): array
+    public function pairs() : array
     {
         return $this->map->pairs();
     }
 
-    public function isEmpty(): bool
+    public function isEmpty() : bool
     {
         return $this->map->isEmpty();
     }
 
-    public function clear(): void
+    public function clear() : void
     {
         $this->map->clear();
     }

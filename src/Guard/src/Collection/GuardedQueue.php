@@ -14,17 +14,17 @@ use Vivarium\Collection\Queue\Queue;
 
 final class GuardedQueue extends GuardedCollection implements Queue
 {
-    public function enqueue($element): void
+    public function enqueue($element) : void
     {
         // TODO: Implement enqueue() method.
     }
 
-    public function dequeue()
+    public function dequeue() : void
     {
         // TODO: Implement dequeue() method.
     }
 
-    public function peek()
+    public function peek() : void
     {
         // TODO: Implement peek() method.
     }
