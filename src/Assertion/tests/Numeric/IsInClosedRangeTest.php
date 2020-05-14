@@ -41,7 +41,7 @@ final class IsInClosedRangeTest extends TestCase
     public function testAssertWithWrongRange() : void
     {
         static::expectException(InvalidArgumentException::class);
-        static::expectExceptionMessage('Lower bound must be lower than upper bound. Got [10, 0].');
+        static::expectExceptionMessage('Lower bound must be lower or equal than upper bound. Got [10, 0].');
 
         (new IsInClosedRange(10, 0))->assert(5);
     }

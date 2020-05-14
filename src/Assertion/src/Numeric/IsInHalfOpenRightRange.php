@@ -15,8 +15,9 @@ use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\Type\IsNumeric;
+use function sprintf;
 
-final class IsInOpenRightRange implements Assertion
+final class IsInHalfOpenRightRange implements Assertion
 {
     private float $min;
 
@@ -24,19 +25,22 @@ final class IsInOpenRightRange implements Assertion
 
     public function __construct(float $min, float $max)
     {
-        (new IsLessThan($max))
+        (new IsLessOrEqualThan($max))
             ->assert($min, 'Lower bound must be lower than upper bound. Got [%1$s, %2$s).');
 
         $this->min = $min;
         $this->max = $max;
     }
 
-    public function assert($value, string $message = ''): void
+    /**
+     * @param mixed $value
+     */
+    public function assert($value, string $message = '') : void
     {
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
-                    $message : 'Expected number to be in open right range [%2$s, %3$s). Got %s.',
+                    $message : 'Expected number to be in half open right range [%2$s, %3$s). Got %s.',
                 (new TypeToString())($value),
                 (new TypeToString())($this->min),
                 (new TypeToString())($this->max)
@@ -46,11 +50,13 @@ final class IsInOpenRightRange implements Assertion
         }
     }
 
-    public function __invoke($value): bool
+    /**
+     * @param mixed $value
+     */
+    public function __invoke($value) : bool
     {
         (new IsNumeric())->assert($value);
 
         return ($this->min <= $value) && ($value < $this->max);
     }
 }
-

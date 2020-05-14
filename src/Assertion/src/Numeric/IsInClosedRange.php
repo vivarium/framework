@@ -20,7 +20,7 @@ final class IsInClosedRange implements Assertion
     public function __construct(float $min, float $max)
     {
         (new IsLessOrEqualThan($max))
-            ->assert($min, 'Lower bound must be lower than upper bound. Got [%1$s, %2$s].');
+            ->assert($min, 'Lower bound must be lower or equal than upper bound. Got [%1$s, %2$s].');
 
         $this->min = $min;
         $this->max = $max;
