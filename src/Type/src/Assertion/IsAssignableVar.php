@@ -13,9 +13,9 @@ namespace Vivarium\Type\Assertion;
 use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\Hierarchy\IsAssignableTo;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Type\Type;
+use function sprintf;
 
 final class IsAssignableVar implements Assertion
 {
@@ -26,7 +26,10 @@ final class IsAssignableVar implements Assertion
         $this->type = $type;
     }
 
-    public function assert($value, string $message = ''): void
+    /**
+     * @param mixed $value
+     */
+    public function assert($value, string $message = '') : void
     {
         if (! ($this)($value)) {
             $message = sprintf(
@@ -39,9 +42,11 @@ final class IsAssignableVar implements Assertion
         }
     }
 
-    public function __invoke($value): bool
+    /**
+     * @param mixed $value
+     */
+    public function __invoke($value) : bool
     {
         return $this->type->acceptVar($value);
     }
 }
-

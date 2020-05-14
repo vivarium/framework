@@ -1,6 +1,5 @@
 <?php
 
-
 declare(strict_types=1);
 
 namespace Vivarium\Type\Assertion;
@@ -11,6 +10,7 @@ use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\Object\IsInstanceOf;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Type\Tuple;
+use function sprintf;
 
 final class IsAssignaleTuple implements Assertion
 {
@@ -21,7 +21,10 @@ final class IsAssignaleTuple implements Assertion
         $this->tuple = $tuple;
     }
 
-    public function assert($value, string $message = ''): void
+    /**
+     * @param mixed $value
+     */
+    public function assert($value, string $message = '') : void
     {
         if (! ($this)($value)) {
             $message = sprintf(
@@ -34,7 +37,10 @@ final class IsAssignaleTuple implements Assertion
         }
     }
 
-    public function __invoke($value): bool
+    /**
+     * @param mixed $value
+     */
+    public function __invoke($value) : bool
     {
         (new IsInstanceOf(Tuple::class))
             ->assert($value);
