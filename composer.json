@@ -11,19 +11,9 @@
             "email": "luca@cantoreggi.xyz"
         }
     ],
-    "replace": {
-        "vivarium/assertion": "self.version",
-        "vivarium/collection": "self.version",
-        "vivarium/comparator": "self.version",
-        "vivarium/equality": "self.version",
-        "vivarium/float": "self.version",
-        "vivarium/type": "self.version"
-    },
     "require": {
         "php": ">= 7.4",
-        "ext-mbstring": "*",
-        "psr/container": "^1.0",
-        "psr/event-dispatcher": "^1.0"
+        "ext-mbstring": "*"
     },
     "require-dev": {
         "doctrine/coding-standard": "^7.0",
@@ -40,6 +30,7 @@
             "Vivarium\\Comparator\\": "src/Comparator/src",
             "Vivarium\\Equality\\": "src/Equality/src",
             "Vivarium\\Float\\": "src/Float/src",
+            "Vivarium\\Guard\\": "src/Guard/src",
             "Vivarium\\Type\\": "src/Type/src"
         }
     },
