@@ -11,21 +11,52 @@ declare(strict_types=1);
 namespace Vivarium\Guard\Collection;
 
 use Vivarium\Collection\Queue\Queue;
+use Vivarium\Type\Type;
 
+/**
+ * @template T
+ * @template-extends GuardedCollection<T>
+ * @template-implements Queue<T>
+ */
 final class GuardedQueue extends GuardedCollection implements Queue
 {
+    /** @phpstan-var Queue<T>  */
+    private Queue $queue;
+
+    public function __construct(Type $type, Queue $queue)
+    {
+        parent::__construct($type, $queue);
+
+        $this->queue = $queue;
+    }
+
+    /**
+     * @param mixed $element
+     *
+     * @phpstan-param T $element
+     */
     public function enqueue($element) : void
     {
-        // TODO: Implement enqueue() method.
+        $this->queue->enqueue($element);
     }
 
-    public function dequeue() : void
+    /**
+     * @return mixed
+     *
+     * @phpstan-return T
+     */
+    public function dequeue()
     {
-        // TODO: Implement dequeue() method.
+        return $this->queue->dequeue();
     }
 
-    public function peek() : void
+    /**
+     * @return mixed
+     *
+     * @phpstan-param T
+     */
+    public function peek()
     {
-        // TODO: Implement peek() method.
+        return $this->queue->peek();
     }
 }

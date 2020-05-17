@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace Vivarium\Guard\Collection;
 
+use Exception;
+use Traversable;
 use Vivarium\Collection\Map\Map;
 use Vivarium\Type\Assertion\IsAssignableVar;
 use Vivarium\Type\Tuple;
@@ -41,6 +43,13 @@ final class GuardedMap implements Map, Typed
         $this->map = $map;
     }
 
+    /**
+     * @param mixed $key
+     * @param mixed $value
+     *
+     * @phpstan-param K $key
+     * @phpstan-param V $value
+     */
     public function put($key, $value) : void
     {
         (new IsAssignableVar($this->keyType))
@@ -52,6 +61,15 @@ final class GuardedMap implements Map, Typed
         $this->map->put($key, $value);
     }
 
+    /**
+     * @param mixed $key
+     *
+     * @return mixed
+     *
+     * @phpstan-param K $key
+     *
+     * @phpstan-return V
+     */
     public function get($key)
     {
         (new IsAssignableVar($this->keyType))
@@ -60,6 +78,11 @@ final class GuardedMap implements Map, Typed
         return $this->map->get($key);
     }
 
+    /**
+     * @param mixed $key
+     *
+     * @phpstan-param K $key
+     */
     public function remove($key) : void
     {
         (new IsAssignableVar($this->keyType))
@@ -68,6 +91,11 @@ final class GuardedMap implements Map, Typed
         $this->map->remove($key);
     }
 
+    /**
+     * @param mixed $key
+     *
+     * @phpstan-param K $key
+     */
     public function containsKey($key) : bool
     {
         (new IsAssignableVar($this->keyType))
@@ -76,6 +104,11 @@ final class GuardedMap implements Map, Typed
         return $this->map->containsKey($key);
     }
 
+    /**
+     * @param mixed $value
+     *
+     * @phpstan-param V $value
+     */
     public function containsValue($value) : bool
     {
         (new IsAssignableVar($this->valueType))
@@ -84,16 +117,31 @@ final class GuardedMap implements Map, Typed
         return $this->map->containsValue($value);
     }
 
+    /**
+     * @return array<mixed>
+     *
+     * @phpstan-return V[]
+     */
     public function values() : array
     {
         return $this->map->values();
     }
 
+    /**
+     * @return array<mixed>
+     *
+     * @phpstan-return K[]
+     */
     public function keys() : array
     {
         return $this->map->keys();
     }
 
+    /**
+     * @return array<mixed>
+     *
+     * @phpstan-return Pair<K, V>[]
+     */
     public function pairs() : array
     {
         return $this->map->pairs();
@@ -109,12 +157,19 @@ final class GuardedMap implements Map, Typed
         $this->map->clear();
     }
 
-    public function getIterator()
+    /**
+     * @return Traversable<mixed>
+     *
+     * @throws Exception
+     *
+     * @phpstan-return Traversable<K, V>
+     */
+    public function getIterator() : Traversable
     {
         return $this->map->getIterator();
     }
 
-    public function count()
+    public function count() : int
     {
         return $this->map->count();
     }

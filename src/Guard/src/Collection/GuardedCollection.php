@@ -98,15 +98,16 @@ abstract class GuardedCollection implements Collection, Typed
     /**
      * @return Traversable<mixed>
      *
-     * @phpstan-return Traversable<T>
      * @throws Exception
+     *
+     * @phpstan-return Traversable<T>
      */
     public function getIterator() : Traversable
     {
         return $this->collection->getIterator();
     }
 
-    public function count() : void
+    public function count() : int
     {
         $this->collection->count();
     }
