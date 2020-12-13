@@ -13,14 +13,14 @@
       <directory suffix=".php">src/*/src</directory>
     </include>
     <report>
-      <clover outputFile="test-results/phpunit/clover.xml"/>
-      <html outputDirectory="test-results/phpunit/coverage-html"/>
-      <xml outputDirectory="test-results/phpunit/coverage-xml"/>
+      <clover outputFile="tests-results/phpunit/clover.xml"/>
+      <html outputDirectory="tests-results/phpunit/coverage-html"/>
+      <xml outputDirectory="tests-results/phpunit/coverage-xml"/>
     </report>
   </coverage>
 
   <logging>
-    <junit outputFile="test-results/phpunit/junit.xml"/>
+    <junit outputFile="tests-results/phpunit/junit.xml"/>
   </logging>
 
   <testsuites>
