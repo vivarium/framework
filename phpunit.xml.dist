@@ -1,44 +1,46 @@
+<?xml version="1.0"?>
 <phpunit
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.1/phpunit.xsd"
-    bootstrap="vendor/autoload.php"
-    cacheResultFile="cache/phpunit/phpunit.result.cache"
-    forceCoversAnnotation="true"
-    colors="true"
-    verbose="true">
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+        bootstrap="vendor/autoload.php"
+        cacheResultFile="cache/phpunit/phpunit.result.cache"
+        forceCoversAnnotation="true"
+        colors="true"
+        verbose="true">
 
-    <logging>
-        <log type="coverage-html" target="test-results/phpunit/coverage-html"/>
-        <log type="coverage-xml" target="test-results/phpunit/coverage-xml"/>
-        <log type="coverage-clover" target="test-results/phpunit/clover.xml"/>
-        <log type="junit" target="test-results/phpunit/junit.xml"/>
-    </logging>
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">src/*/src</directory>
+    </include>
+    <report>
+      <clover outputFile="test-results/phpunit/clover.xml"/>
+      <html outputDirectory="test-results/phpunit/coverage-html"/>
+      <xml outputDirectory="test-results/phpunit/coverage-xml"/>
+    </report>
+  </coverage>
 
-    <testsuites>
-        <testsuite name="Assertion Tests">
-            <directory>src/Assertion/tests</directory>
-        </testsuite>
-        <testsuite name="Collection Tests">
-            <directory>src/Collection/tests</directory>
-        </testsuite>
-        <testsuite name="Comparator Tests">
-            <directory>src/Comparator/tests</directory>
-        </testsuite>
-        <testsuite name="Equality Tests">
-            <directory>src/Equality/tests</directory>
-        </testsuite>
-        <testsuite name="Float Tests">
-            <directory>src/Float/tests</directory>
-        </testsuite>
-        <testsuite name="Type Tests">
-            <directory>src/Type/tests</directory>
-        </testsuite>
-    </testsuites>
+  <logging>
+    <junit outputFile="test-results/phpunit/junit.xml"/>
+  </logging>
 
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src/*/src</directory>
-        </whitelist>
-    </filter>
-
+  <testsuites>
+    <testsuite name="Assertion Tests">
+      <directory>src/Assertion/tests</directory>
+    </testsuite>
+    <testsuite name="Collection Tests">
+      <directory>src/Collection/tests</directory>
+    </testsuite>
+    <testsuite name="Comparator Tests">
+      <directory>src/Comparator/tests</directory>
+    </testsuite>
+    <testsuite name="Equality Tests">
+      <directory>src/Equality/tests</directory>
+    </testsuite>
+    <testsuite name="Float Tests">
+      <directory>src/Float/tests</directory>
+    </testsuite>
+    <testsuite name="Type Tests">
+      <directory>src/Type/tests</directory>
+    </testsuite>
+  </testsuites>
 </phpunit>
