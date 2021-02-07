@@ -8,17 +8,17 @@
     "authors": [
         {
             "name": "Luca Cantoreggi",
-            "email": "luca@cantoreggi.xyz"
+            "email": "luca@cn7r66.com"
         }
     ],
     "require": {
         "php" : "^7.4",
         "ext-mbstring": "*",
-        "vivarium/equality" : "dev-master"
+        "vivarium/equality" : "dev-main"
     },
     "autoload": {
         "psr-4": {
-            "Vivarium\\Assertion\\": "src/"
+            "Vivarium\\Assertion\\": "./"
         }
     }
 }

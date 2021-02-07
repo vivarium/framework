@@ -30,28 +30,28 @@ jobs:
 
       - name: Create directories
         run: |
-          mkdir test-results
-          mkdir test-results/cache
-          mkdir test-results/infection
-          mkdir test-results/phpcs
-          mkdir test-results/phpmd
-          mkdir test-results/phpstan
-          mkdir test-results/phpunit
+          mkdir tests-results
+          mkdir tests-results/cache
+          mkdir tests-results/infection
+          mkdir tests-results/phpcs
+          mkdir tests-results/phpmd
+          mkdir tests-results/phpstan
+          mkdir tests-results/phpunit
 
       - name: Run Code Sniffer
-        run: vendor/bin/phpcs --report=junit --report-file=test-results/phpcs/phpcs.xml src
+        run: vendor/bin/phpcs --report=junit --report-file=tests-results/phpcs/phpcs.xml src
 
       - name: Run Mess Detector
-        run: vendor/bin/phpmd src xml phpmd.xml --ignore-violations-on-exit --report-file test-results/phpmd/phpmd.xml
+        run: vendor/bin/phpmd src xml phpmd.xml --ignore-violations-on-exit --report-file tests-results/phpmd/phpmd.xml
 
       - name: Run PHPStan
-        run: vendor/bin/phpstan analyse --no-ansi --error-format=checkstyle > test-results/phpstan/phpstan.xml
+        run: vendor/bin/phpstan analyse --no-ansi --error-format=checkstyle > tests-results/phpstan/phpstan.xml
 
       - name: Run PHPUnit
         run: vendor/bin/phpunit
 
       - name: Run Infection
-        run: vendor/bin/infection --coverage=test-results/phpunit --min-msi=85 --min-covered-msi=95 --threads=4
+        run: vendor/bin/infection --coverage=tests-results/phpunit --min-msi=85 --min-covered-msi=95 --threads=4
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
 
@@ -66,5 +66,5 @@ jobs:
       - uses: actions/upload-artifact@v1
         if: failure()
         with:
-          name: test-results
-          path: test-results/
+          name: tests-results
+          path: tests-results/

@@ -2,18 +2,15 @@
   "timeout": 10,
   "source": {
     "directories": [
-      "src/**/src"
-    ],
-    "excludes": [
-      "src/**/tests"
+      "src"
     ]
   },
-  "tmpDir": "test-results/cache",
+  "tmpDir": "cache",
   "logs": {
-    "text": "test-results/infection/infection.txt",
-    "summary": "test-results/infection/summary.log",
+    "text": "tests-results/infection/infection.txt",
+    "summary": "tests-results/infection/summary.log",
     "badge": {
-      "branch": "master"
+      "branch": "main"
     }
   }
 }

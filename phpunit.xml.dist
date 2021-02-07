@@ -10,7 +10,7 @@
 
   <coverage processUncoveredFiles="true">
     <include>
-      <directory suffix=".php">src/*/src</directory>
+      <directory suffix=".php">src</directory>
     </include>
     <report>
       <clover outputFile="tests-results/phpunit/clover.xml"/>
@@ -25,22 +25,13 @@
 
   <testsuites>
     <testsuite name="Assertion Tests">
-      <directory>src/Assertion/tests</directory>
-    </testsuite>
-    <testsuite name="Collection Tests">
-      <directory>src/Collection/tests</directory>
-    </testsuite>
-    <testsuite name="Comparator Tests">
-      <directory>src/Comparator/tests</directory>
+      <directory>tests/Assertion</directory>
     </testsuite>
     <testsuite name="Equality Tests">
-      <directory>src/Equality/tests</directory>
+      <directory>tests/Equality</directory>
     </testsuite>
     <testsuite name="Float Tests">
-      <directory>src/Float/tests</directory>
-    </testsuite>
-    <testsuite name="Type Tests">
-      <directory>src/Type/tests</directory>
+      <directory>tests/Float</directory>
     </testsuite>
   </testsuites>
 </phpunit>
