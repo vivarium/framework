@@ -3,7 +3,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
         bootstrap="vendor/autoload.php"
-        cacheResultFile="cache/phpunit/phpunit.result.cache"
+        cacheResultFile="cache/phpunit/result.cache"
         forceCoversAnnotation="true"
         colors="true"
         verbose="true">
@@ -27,11 +27,26 @@
     <testsuite name="Assertion Tests">
       <directory>tests/Assertion</directory>
     </testsuite>
+
+    <testsuite name="Collection Tests">
+      <directory>tests/Collection</directory>
+    </testsuite>
+
+    <testsuite name="Comparator Tests">
+      <directory>tests/Comparator</directory>
+    </testsuite>
+
+    <testsuite name="Dispatcher Tests">
+      <directory>tests/Dispatcher</directory>
+    </testsuite>
+
     <testsuite name="Equality Tests">
       <directory>tests/Equality</directory>
     </testsuite>
+
     <testsuite name="Float Tests">
       <directory>tests/Float</directory>
     </testsuite>
+
   </testsuites>
 </phpunit>

@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<ruleset>
+<ruleset name="Vivarium"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
 
     <arg value="p"/>
 
@@ -8,6 +10,13 @@
 
     <arg name="basepath" value="."/>
 
+    <config name="php_version" value="70400"/>
+
     <rule ref="Doctrine"/>
 
+    <!-- Assertion interface has un-hinted templated parameter, this will prevent complaining in all classes. -->
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint">
+        <exclude-pattern>src/*/*.php</exclude-pattern>
+    </rule>
+    
 </ruleset>

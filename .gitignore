@@ -1,6 +1,5 @@
-composer.lock
-composer.phar
-phpunit.xml
+vendor/
 cache/
 tests-results/
-vendor/
+
+composer.lock
