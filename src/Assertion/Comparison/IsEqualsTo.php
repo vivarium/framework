@@ -1,31 +1,34 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
 
 namespace Vivarium\Assertion\Comparison;
 
-use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Equality\EqualsBuilder;
 
 use function sprintf;
 
+/**
+ * @template T
+ * @template-implements Assertion<T>
+ * @psalm-immutable
+ */
 final class IsEqualsTo implements Assertion
 {
-    /** @var mixed  */
+    /** @var T */
     private $compare;
 
-    /**
-     * @param mixed $compare
-     */
+    /** @param T $compare */
     public function __construct($compare)
     {
         $this->compare = $compare;
@@ -34,7 +37,7 @@ final class IsEqualsTo implements Assertion
     /**
      * @param mixed $value
      *
-     * @throws InvalidArgumentException
+     * @psalm-assert =T $value
      */
     public function assert($value, string $message = ''): void
     {
@@ -43,15 +46,17 @@ final class IsEqualsTo implements Assertion
                 ! (new IsEmpty())($message) ?
                     $message : 'Expected value to be equals to %2$s. Got %s',
                 (new TypeToString())($value),
-                (new TypeToString())($this->compare)
+                (new TypeToString())($this->compare),
             );
 
-            throw new InvalidArgumentException($message);
+            throw new AssertionFailed($message);
         }
     }
 
     /**
      * @param mixed $value
+     *
+     * @psalm-assert-if-true =T $value
      */
     public function __invoke($value): bool
     {

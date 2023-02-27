@@ -1,29 +1,35 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
 
 namespace Vivarium\Assertion\String;
 
-use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\Type\IsString;
 
 use function class_exists;
 use function sprintf;
 
+/**
+ * @template-implements Assertion<string>
+ * @psalm-immutable
+ */
 final class IsClass implements Assertion
 {
     /**
-     * @param mixed $value
+     * @param string $value
      *
-     * @throws InvalidArgumentException
+     * @throws AssertionFailed
+     *
+     * @psalm-assert class-string $value
      */
     public function assert($value, string $message = ''): void
     {
@@ -31,20 +37,27 @@ final class IsClass implements Assertion
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
                      $message : 'Expected string to be a class name. Got %s.',
-                (new TypeToString())($value)
+                (new TypeToString())($value),
             );
 
-            throw new InvalidArgumentException($message);
+            throw new AssertionFailed($message);
         }
     }
 
     /**
-     * @param mixed $value
+     * @param string $value
+     *
+     * @psalm-assert-if-true class-string $value
      */
     public function __invoke($value): bool
     {
         (new IsString())->assert($value);
 
+        /**
+         * This function triggers the autoload but i think is an acceptable side effect
+         *
+         * @psalm-suppress ImpureFunctionCall
+         */
         return class_exists($value);
     }
 }

@@ -1,25 +1,28 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
 
 namespace Vivarium\Assertion\String;
 
-use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Encoding\IsSystemEncoding;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\Type\IsString;
 
-use function mb_internal_encoding;
 use function mb_strlen;
 use function sprintf;
 
+/**
+ * @template-implements Assertion<string>
+ * @psalm-immutable
+ */
 final class IsLongBetween implements Assertion
 {
     private int $min;
@@ -28,9 +31,8 @@ final class IsLongBetween implements Assertion
 
     private string $encoding;
 
-    public function __construct(int $min, int $max, ?string $encoding = null)
+    public function __construct(int $min, int $max, string $encoding = 'UTF-8')
     {
-        $encoding ??= mb_internal_encoding();
         (new IsSystemEncoding())->assert($encoding);
 
         $this->min      = $min;
@@ -39,9 +41,9 @@ final class IsLongBetween implements Assertion
     }
 
     /**
-     * @param mixed $value
+     * @param string $value
      *
-     * @throws InvalidArgumentException
+     * @throws AssertionFailed
      */
     public function assert($value, string $message = ''): void
     {
@@ -52,16 +54,14 @@ final class IsLongBetween implements Assertion
                 (new TypeToString())($value),
                 (new TypeToString())(mb_strlen($value)),
                 (new TypeToString())($this->min),
-                (new TypeToString())($this->max)
+                (new TypeToString())($this->max),
             );
 
-            throw new InvalidArgumentException($message);
+            throw new AssertionFailed($message);
         }
     }
 
-    /**
-     * @param mixed $value
-     */
+    /** @param string $value */
     public function __invoke($value): bool
     {
         (new IsString())->assert($value);

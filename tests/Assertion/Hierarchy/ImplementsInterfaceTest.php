@@ -1,19 +1,19 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
 
 namespace Vivarium\Test\Assertion\Hierarchy;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Traversable;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Hierarchy\ImplementsInterface;
 
 use function get_class;
@@ -30,7 +30,7 @@ final class ImplementsInterfaceTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected class "stdClass" to implements "Traversable".');
 
         $mock = $this->createMock(Traversable::class);
@@ -44,7 +44,7 @@ final class ImplementsInterfaceTest extends TestCase
      */
     public function testAssertWithoutInterface(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected string to be interface name. Got "stdClass".');
 
         (new ImplementsInterface(stdClass::class))->assert(stdClass::class);
@@ -56,7 +56,7 @@ final class ImplementsInterfaceTest extends TestCase
      */
     public function testAssertWithoutClass(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected string to be a class name. Got "Traversable".');
 
         (new ImplementsInterface(Traversable::class))->assert(Traversable::class);

@@ -11,12 +11,19 @@ declare(strict_types=1);
 namespace Vivarium\Assertion\Conditional;
 
 use InvalidArgumentException;
+use phpDocumentor\Reflection\Types\Scalar;
 use Vivarium\Assertion\Assertion;
 
+/**
+ * @template K
+ * @template-implements Assertion<mixed>
+ */
 final class NullOr implements Assertion
 {
+    /** @var Assertion<K> */
     private Assertion $assertion;
 
+    /** @param Assertion<K> $assertion */
     public function __construct(Assertion $assertion)
     {
         $this->assertion = $assertion;
@@ -24,6 +31,10 @@ final class NullOr implements Assertion
 
     /**
      * @param mixed $value
+     *
+     * @psalm-assert K|null $value
+     *
+     * @psalm-mutation-free
      *
      * @throws InvalidArgumentException
      */
@@ -38,6 +49,10 @@ final class NullOr implements Assertion
 
     /**
      * @param mixed $value
+     *
+     * @psalm-assert-if-true K|null $value
+     *
+     * @psalm-mutation-free
      */
     public function __invoke($value): bool
     {

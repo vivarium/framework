@@ -1,17 +1,17 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
 
 namespace Vivarium\Test\Assertion\String;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsLongAtMax;
 
 /**
@@ -26,7 +26,7 @@ final class IsLongAtMaxTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected string to be long at max 5. Got 11');
 
         (new IsLongAtMax(6))->assert('Hello');
@@ -41,7 +41,7 @@ final class IsLongAtMaxTest extends TestCase
      */
     public function testIsLongAtLeastWithWrongEncoding(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('"Foo" is not a valid system encoding.');
 
         (new IsLongAtMax(3, 'Foo'))->assert('Hello');
@@ -54,7 +54,7 @@ final class IsLongAtMaxTest extends TestCase
      */
     public function testiIsLongAtLeastWithZeroLenght(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected number to be greater than 0. Got 0.');
 
         (new IsLongAtMax(0))->assert('Hello');
@@ -65,9 +65,15 @@ final class IsLongAtMaxTest extends TestCase
      */
     public function testAssertWithoutString(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be string. Got integer.');
 
+        /**
+         * This is covered by static analysis but it is a valid runtime call
+         *
+         * @psalm-suppress InvalidScalarArgument
+         * @phpstan-ignore-next-line
+         */
         (new IsLongAtMax(5))->assert(42);
     }
 
@@ -76,7 +82,7 @@ final class IsLongAtMaxTest extends TestCase
      */
     public function testAssertWithMultibyte(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected string to be long at max 1. Got 2.');
 
         (new IsLongAtMax(1, 'UTF-8'))->assert('ππ');

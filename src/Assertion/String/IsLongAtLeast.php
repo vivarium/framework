@@ -1,35 +1,37 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
 
 namespace Vivarium\Assertion\String;
 
-use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Encoding\IsSystemEncoding;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\Numeric\IsGreaterThan;
 use Vivarium\Assertion\Type\IsString;
 
-use function mb_internal_encoding;
 use function mb_strlen;
 use function sprintf;
 
+/**
+ * @template-implements Assertion<string>
+ * @psalm-immutable
+ */
 final class IsLongAtLeast implements Assertion
 {
     private int $length;
 
     private string $encoding;
 
-    public function __construct(int $length, ?string $encoding = null)
+    public function __construct(int $length, string $encoding = 'UTF-8')
     {
-        $encoding ??= mb_internal_encoding();
         (new IsSystemEncoding())->assert($encoding);
         (new IsGreaterThan(0))->assert($length);
 
@@ -38,9 +40,9 @@ final class IsLongAtLeast implements Assertion
     }
 
     /**
-     * @param mixed $value
+     * @param string $value
      *
-     * @throws InvalidArgumentException
+     *  @throws AssertionFailed
      */
     public function assert($value, string $message = ''): void
     {
@@ -50,16 +52,14 @@ final class IsLongAtLeast implements Assertion
                      $message : 'Expected string to be long at least %3$s. Got %2$s.',
                 (new TypeToString())($value),
                 (new TypeToString())(mb_strlen($value, $this->encoding)),
-                (new TypeToString())($this->length)
+                (new TypeToString())($this->length),
             );
 
-            throw new InvalidArgumentException($message);
+            throw new AssertionFailed($message);
         }
     }
 
-    /**
-     * @param mixed $value
-     */
+    /** @param string $value */
     public function __invoke($value): bool
     {
         (new IsString())->assert($value);

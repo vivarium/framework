@@ -1,24 +1,39 @@
 <?php
+/*
+ * This file is part of Vivarium
+ * SPDX-License-Identifier: MIT
+ * Copyright (c) 2021 Luca Cantoreggi
+ */
 
 declare(strict_types=1);
 
 namespace Vivarium\Assertion\Numeric;
 
-use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\Type\IsNumeric;
 
 use function sprintf;
 
+/**
+ * @template-implements Assertion<int|float>
+ * @psalm-immutable
+ */
 final class IsInClosedRange implements Assertion
 {
-    private float $min;
+    /** @var int|float */
+    private $min;
 
-    private float $max;
+    /** @var int|float */
+    private $max;
 
-    public function __construct(float $min, float $max)
+    /**
+     * @param int|float $min
+     * @param int|float $max
+     */
+    public function __construct($min, $max)
     {
         (new IsLessOrEqualThan($max))
             ->assert($min, 'Lower bound must be lower or equal than upper bound. Got [%1$s, %2$s].');
@@ -27,11 +42,7 @@ final class IsInClosedRange implements Assertion
         $this->max = $max;
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @throws InvalidArgumentException
-     */
+    /** @param int|float $value */
     public function assert($value, string $message = ''): void
     {
         if (! $this($value)) {
@@ -40,16 +51,14 @@ final class IsInClosedRange implements Assertion
                      $message : 'Expected number to be in closed range [%2$s, %3$s]. Got %s.',
                 (new TypeToString())($value),
                 (new TypeToString())($this->min),
-                (new TypeToString())($this->max)
+                (new TypeToString())($this->max),
             );
 
-            throw new InvalidArgumentException($message);
+            throw new AssertionFailed($message);
         }
     }
 
-    /**
-     * @param mixed $value
-     */
+    /** @param int|float $value */
     public function __invoke($value): bool
     {
         (new IsNumeric())->assert($value);

@@ -8,9 +8,10 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Assertion\Stub;
+namespace Vivarium\Assertion\Exception;
 
-interface Stub
+use InvalidArgumentException;
+
+final class AssertionFailed extends InvalidArgumentException
 {
-    public function __toString(): string;
 }

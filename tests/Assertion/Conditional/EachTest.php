@@ -1,19 +1,19 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
 
 namespace Vivarium\Test\Assertion\Conditional;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Traversable;
 use Vivarium\Assertion\Conditional\Each;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Numeric\IsGreaterOrEqualThan;
 use Vivarium\Assertion\Numeric\IsInClosedRange;
 use Vivarium\Assertion\Numeric\IsLessThan;
@@ -31,7 +31,7 @@ final class EachTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Element at index 0 failed the assertion.');
 
         $stub = $this->createMock(Traversable::class);
@@ -55,7 +55,7 @@ final class EachTest extends TestCase
      */
     public function testAssertFailLater(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Element at index 3 failed the assertion.');
 
         (new Each(
@@ -70,12 +70,17 @@ final class EachTest extends TestCase
      */
     public function testAssertWithoutArray(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be array. Got integer.');
 
+        /**
+         * This is covered by static analysis but it is a valid runtime call
+         *
+         * @psalm-suppress InvalidArgument
+         */
         (new Each(
             new IsLongAtLeast(27)
-        ))->assert(42);
+        ))->assert(42); /* @phpstan-ignore-line */
     }
 
     /**
@@ -96,11 +101,16 @@ final class EachTest extends TestCase
      */
     public function testInvokeWithoutArray(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be array. Got integer.');
 
+        /**
+         * This is covered by static analysis but it is a valid runtime call
+         *
+         * @psalm-suppress InvalidArgument
+         */
         (new Each(
             new IsLongAtLeast(27)
-        ))(42);
+        ))(42); /* @phpstan-ignore-line */
     }
 }

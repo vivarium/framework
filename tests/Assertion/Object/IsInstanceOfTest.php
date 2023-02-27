@@ -1,19 +1,19 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
 
 namespace Vivarium\Test\Assertion\Object;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Traversable;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Object\IsInstanceOf;
 use Vivarium\Test\Assertion\Stub\Stub;
 
@@ -29,7 +29,7 @@ final class IsInstanceOfTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected object to be instance of "Traversable". Got "stdClass".');
 
         $stub = $this->createMock(Traversable::class);
@@ -43,10 +43,17 @@ final class IsInstanceOfTest extends TestCase
      */
     public function testConstructorWithoutClass(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Argument must be a class or interface name. Got "RandomString"');
 
-        (new IsInstanceOf('RandomString'))->assert(Stub::class);
+        /**
+         * This is covered by static analysis but it is a valid runtime call
+         *
+         * @psalm-suppress ArgumentTypeCoercion
+         * @psalm-suppress UndefinedClass
+         * @phpstan-ignore-next-line
+         */
+        (new IsInstanceOf('RandomString'))->assert(new stdClass());
     }
 
     /**
@@ -54,9 +61,15 @@ final class IsInstanceOfTest extends TestCase
      */
     public function testAssertWithoutObject(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be object. Got string.');
 
+        /**
+         * This is covered by static analysis but it is a valid runtime call
+         *
+         * @psalm-suppress InvalidArgument
+         * @phpstan-ignore-next-line
+         */
         (new IsInstanceOf(Stub::class))->assert('Random');
     }
 }

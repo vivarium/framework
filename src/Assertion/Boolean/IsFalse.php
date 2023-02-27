@@ -1,29 +1,33 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
 
 namespace Vivarium\Assertion\Boolean;
 
-use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\Type\IsBoolean;
 
 use function sprintf;
 
+/**
+ * @template-implements Assertion<bool>
+ * @psalm-immutable
+ */
 final class IsFalse implements Assertion
 {
     /**
-     * @param mixed $value
+     * @param bool $value
      *
-     * @throws InvalidArgumentException
+     * @psalm-assert false $value
      */
     public function assert($value, string $message = ''): void
     {
@@ -31,15 +35,17 @@ final class IsFalse implements Assertion
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
                     $message : 'Expected boolean to be false. Got %s.',
-                (new TypeToString())($value)
+                (new TypeToString())($value),
             );
 
-            throw new InvalidArgumentException($message);
+            throw new AssertionFailed($message);
         }
     }
 
     /**
-     * @param mixed $value
+     * @param bool $value
+     *
+     * @psalm-assert-if-true false $value
      */
     public function __invoke($value): bool
     {

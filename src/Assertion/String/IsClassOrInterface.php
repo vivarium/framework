@@ -1,29 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
  * Copyright (c) 2021 Luca Cantoreggi
  */
 
-declare(strict_types=1);
-
 namespace Vivarium\Assertion\String;
 
 use Vivarium\Assertion\Assertion;
+use Vivarium\Assertion\Conditional\Either;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\Type\IsString;
-
-use function interface_exists;
-use function sprintf;
 
 /**
  * @template-implements Assertion<string>
  * @psalm-immutable
  */
-final class IsInterface implements Assertion
+final class IsClassOrInterface implements Assertion
 {
+    /** @var Assertion<string> */
+    private Assertion $assertion;
+
+    public function __construct()
+    {
+        $this->assertion = new Either(
+            new IsClass(),
+            new IsInterface(),
+        );
+    }
+
     /**
      * @param string $value
      *
@@ -33,15 +40,10 @@ final class IsInterface implements Assertion
      */
     public function assert($value, string $message = ''): void
     {
-        if (! $this($value)) {
-            $message = sprintf(
-                ! (new IsEmpty())($message) ?
-                     $message : 'Expected string to be interface name. Got %s.',
-                (new TypeToString())($value),
-            );
+        $message = (new IsEmpty())($message) ?
+            'Argument must be a class or interface name. Got %s' : $message;
 
-            throw new AssertionFailed($message);
-        }
+        $this->assertion->assert($value, $message);
     }
 
     /**
@@ -51,8 +53,6 @@ final class IsInterface implements Assertion
      */
     public function __invoke($value): bool
     {
-        (new IsString())->assert($value);
-
-        return interface_exists($value);
+        return ($this->assertion)($value);
     }
 }

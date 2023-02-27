@@ -1,27 +1,33 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
 
 namespace Vivarium\Assertion\String;
 
-use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\Type\IsString;
 
 use function sprintf;
 use function strlen;
 
+/**
+ * @template-implements Assertion<string>
+ * @psalm-immutable
+ */
 final class IsEmpty implements Assertion
 {
     /**
-     * @param mixed $value
+     * @param string $value
+     *
+     * @throws AssertionFailed
      */
     public function assert($value, string $message = ''): void
     {
@@ -29,16 +35,14 @@ final class IsEmpty implements Assertion
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
                      $message : 'Expected string to be empty. Got %s.',
-                (new TypeToString())($value)
+                (new TypeToString())($value),
             );
 
-            throw new InvalidArgumentException($message);
+            throw new AssertionFailed($message);
         }
     }
 
-    /**
-     * @param mixed $value
-     */
+    /** @param string $value */
     public function __invoke($value): bool
     {
         (new IsString())->assert($value);
