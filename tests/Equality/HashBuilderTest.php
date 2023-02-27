@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Equality;
+namespace Vivarium\Equality\Test;
 
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -18,7 +18,7 @@ use Vivarium\Equality\HashBuilder;
 /**
  * @coversDefaultClass \Vivarium\Equality\HashBuilder
  */
-class HashBuilderTest extends TestCase
+final class HashBuilderTest extends TestCase
 {
     /**
      * @param mixed $value
@@ -80,7 +80,7 @@ class HashBuilderTest extends TestCase
     }
 
     /**
-     * @return mixed[]
+     * @return array<array-key, array{0: scalar|null, 1: string}>
      */
     public function getTestAppendPrimitiveData(): array
     {
@@ -105,7 +105,7 @@ class HashBuilderTest extends TestCase
     }
 
     /**
-     * @return mixed[]
+     * @return array<array-key, array{0: object, 1: string}>
      */
     public function getTestAppendObjectData(): array
     {
@@ -132,7 +132,7 @@ class HashBuilderTest extends TestCase
     }
 
     /**
-     * @return mixed[]
+     * @return array{0: array{0: array<int>, 1: string}, 1: array{0: array<object>, 1: string}}
      */
     public function getTestAppendEachData(): array
     {
@@ -140,21 +140,27 @@ class HashBuilderTest extends TestCase
         $stdClass->foo = 42;
 
         return [
-            'Array of Integers' =>
-                [
-                    [1, 2, 3],
-                    '7c2678ec2441f93934da8c3ca4b3963732389f81',
-                ],
-            'Array of object' =>
-                [
-                    [$stdClass, $stdClass, $stdClass],
-                    '1ca89941fad4952004a41e449f414e8213a4e80a',
-                ],
+            [
+                [1, 2, 3],
+                '5d412d63565a48053ec0b58fd97b98b6e7090ea4',
+            ],
+            [
+                [$stdClass, $stdClass, $stdClass],
+                '64a2be69d872b5787f9c3ed872da857cda804a51',
+            ],
+            [
+                ['a' => 1, 'b' => 2],
+                '381ba48afb9497d12392200c7ba6d2eafd82e77e',
+            ],
+            [
+                ['a' => 1, 'b' => 2, 'c' => ['a', 'b', 'c' => [3 => 'c']]],
+                '9356b8b9c963674063a6d422c8b21eeccd890148',
+            ],
         ];
     }
 
     /**
-     * @return mixed[]
+     * @return array{0: array<int>, 1: array<float>, 2: array<Equality>, 3: array{empty?: int}, 4: array<callable>}
      */
     public function getClonePointData(): array
     {
@@ -169,7 +175,7 @@ class HashBuilderTest extends TestCase
                 [],
             ],
             [
-                static function () {
+                static function (): int {
                     return 1 + 1;
                 },
             ],

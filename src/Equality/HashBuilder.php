@@ -12,13 +12,14 @@ namespace Vivarium\Equality;
 
 use Closure;
 
-use function count;
+use function array_keys;
 use function is_array;
 use function is_object;
 use function serialize;
 use function sha1;
 use function spl_object_id;
 
+/** @psalm-immutable */
 final class HashBuilder
 {
     private string $total;
@@ -28,9 +29,7 @@ final class HashBuilder
         $this->total = '';
     }
 
-    /**
-     * @param mixed $value
-     */
+    /** @param mixed $value */
     public function append($value): HashBuilder
     {
         if (is_array($value)) {
@@ -56,14 +55,13 @@ final class HashBuilder
         return sha1($this->total);
     }
 
-    /**
-     * @param mixed[] $array
-     */
+    /** @param mixed[] $array */
     private function appendEach(array $array): HashBuilder
     {
         $builder = clone $this;
-        for ($i = 0; $i < count($array); $i++) {
-            $builder = $builder->append($array[$i]);
+        foreach (array_keys($array) as $key) {
+            $builder = $builder->append($key);
+            $builder = $builder->append($array[$key]);
         }
 
         return $builder;

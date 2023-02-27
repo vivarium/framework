@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Equality;
+namespace Vivarium\Equality\Test;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Equality\Equal;
