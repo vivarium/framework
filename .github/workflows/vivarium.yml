@@ -35,9 +35,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: vendor
-          key: ${{ runner.OS }}-composer-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.OS }}-${{ matrix.version }}-composer-${{ hashFiles('**/composer.json') }}
           restore-keys: |
-            ${{ runner.os }}-composer-
+            ${{ runner.os }}-${{ matrix.version }}-composer-
 
       - name: Composer install
         run: composer install -o -n --prefer-dist
@@ -80,7 +80,7 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: tests-results
