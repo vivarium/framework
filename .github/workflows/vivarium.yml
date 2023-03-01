@@ -85,7 +85,7 @@ jobs:
           && steps.checkout.conclusion == 'success'
           && steps.setup.conclusion == 'success'
           && steps.composer.conclusion == 'success'
-      - run: composer psalm
+        run: composer psalm
 
       - name: Run PHPUnit
         id: phpunit
