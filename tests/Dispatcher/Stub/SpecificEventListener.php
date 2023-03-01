@@ -18,12 +18,13 @@ use Vivarium\Equality\HashBuilder;
 use function get_class;
 
 /**
- * @template-implements EventListener<SpecificEvent>
+ * @template T as SpecificEvent
+ * @template-implements EventListener<T>
  */
 final class SpecificEventListener implements EventListener, Equality
 {
     /**
-     * @param SpecificEvent $event
+     * @param T $event
      */
     public function handle($event): SpecificEvent
     {
