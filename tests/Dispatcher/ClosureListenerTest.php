@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Dispatcher\ClosureListener;
 use Vivarium\Dispatcher\Event;
 
-/**
- * @coversDefaultClass \Vivarium\Dispatcher\ClosureListener
- */
+/** @coversDefaultClass \Vivarium\Dispatcher\ClosureListener */
 final class ClosureListenerTest extends TestCase
 {
     /**

@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Collection\Util\BinarySearch;
 use Vivarium\Comparator\IntegerComparator;
 
-/**
- * @coversDefaultClass \Vivarium\Collection\Util\BinarySearch
- */
+/** @coversDefaultClass \Vivarium\Collection\Util\BinarySearch */
 final class BinarySearchTest extends TestCase
 {
     /**

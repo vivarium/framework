@@ -14,14 +14,10 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use Vivarium\Assertion\Helpers\TypeToString;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Helpers\TypeToString
- */
+/** @coversDefaultClass \Vivarium\Assertion\Helpers\TypeToString */
 final class ToStringTest extends TestCase
 {
-    /**
-     * @covers ::__invoke()
-     */
+    /** @covers ::__invoke() */
     public function testToString(): void
     {
         static::assertSame('true', (new TypeToString())(true));

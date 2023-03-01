@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsClass;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\String\IsClass
- */
+/** @coversDefaultClass \Vivarium\Assertion\String\IsClass */
 final class IsClassTest extends TestCase
 {
     /**
@@ -32,9 +30,7 @@ final class IsClassTest extends TestCase
         (new IsClass())->assert('Foo');
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertWithoutString(): void
     {
         static::expectException(AssertionFailed::class);

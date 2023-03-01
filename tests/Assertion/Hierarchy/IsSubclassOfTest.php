@@ -19,9 +19,7 @@ use Vivarium\Test\Assertion\Stub\StubClassExtension;
 
 use function sprintf;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsSubclassOf
- */
+/** @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsSubclassOf */
 final class IsSubclassOfTest extends TestCase
 {
     /**
@@ -36,8 +34,8 @@ final class IsSubclassOfTest extends TestCase
             sprintf(
                 'Expected class "%s" to be subclass of "%2$s".',
                 StubClass::class,
-                StubClassExtension::class
-            )
+                StubClassExtension::class,
+            ),
         );
 
         (new IsSubclassOf(Stub::class))->assert(StubClass::class);
@@ -45,9 +43,7 @@ final class IsSubclassOfTest extends TestCase
         (new IsSubclassOf(StubClassExtension::class))->assert(StubClass::class);
     }
 
-    /**
-     * @covers ::__construct()
-     */
+    /** @covers ::__construct() */
     public function testConstructorWithoutClass(): void
     {
         static::expectException(AssertionFailed::class);

@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Encoding\IsEncoding;
 use Vivarium\Assertion\Exception\AssertionFailed;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Encoding\IsEncoding
- */
+/** @coversDefaultClass \Vivarium\Assertion\Encoding\IsEncoding */
 final class IsEncodingTest extends TestCase
 {
     /**

@@ -17,9 +17,7 @@ use Vivarium\Dispatcher\Priority;
 use Vivarium\Test\Dispatcher\Stub\GenericEventListener;
 use Vivarium\Test\Dispatcher\Stub\SpecificEventListener;
 
-/**
- * @coversDefaultClass \Vivarium\Dispatcher\ListenerAndPriority
- */
+/** @coversDefaultClass \Vivarium\Dispatcher\ListenerAndPriority */
 final class ListenerAndPriorityTest extends TestCase
 {
     /**

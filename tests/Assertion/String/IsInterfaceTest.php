@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsInterface;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\String\IsInterface
- */
+/** @coversDefaultClass \Vivarium\Assertion\String\IsInterface */
 final class IsInterfaceTest extends TestCase
 {
     /**
@@ -32,9 +30,7 @@ final class IsInterfaceTest extends TestCase
         (new IsInterface())->assert('Foo');
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertWithoutString(): void
     {
         static::expectException(AssertionFailed::class);

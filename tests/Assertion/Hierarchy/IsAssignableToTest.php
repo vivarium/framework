@@ -19,9 +19,7 @@ use Vivarium\Test\Assertion\Stub\StubClassExtension;
 
 use function sprintf;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsAssignableTo
- */
+/** @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsAssignableTo */
 final class IsAssignableToTest extends TestCase
 {
     /**
@@ -36,8 +34,8 @@ final class IsAssignableToTest extends TestCase
             sprintf(
                 'Expected class "%s" to be assignable to "%2$s".',
                 Stub::class,
-                StubClassExtension::class
-            )
+                StubClassExtension::class,
+            ),
         );
 
         (new IsAssignableTo(Stub::class))->assert(Stub::class);
@@ -46,9 +44,7 @@ final class IsAssignableToTest extends TestCase
         (new IsAssignableTo(StubClassExtension::class))->assert(Stub::class);
     }
 
-    /**
-     * @covers ::__construct()
-     */
+    /** @covers ::__construct() */
     public function testConstructorWithoutClass(): void
     {
         static::expectException(AssertionFailed::class);

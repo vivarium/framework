@@ -15,9 +15,7 @@ use stdClass;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsObject;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Type\IsObject
- */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsObject */
 final class IsObjectTest extends TestCase
 {
     /**

@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsLongAtMax;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\String\IsLongAtMax
- */
+/** @coversDefaultClass \Vivarium\Assertion\String\IsLongAtMax */
 final class IsLongAtMaxTest extends TestCase
 {
     /**
@@ -60,9 +58,7 @@ final class IsLongAtMaxTest extends TestCase
         (new IsLongAtMax(0))->assert('Hello');
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertWithoutString(): void
     {
         static::expectException(AssertionFailed::class);
@@ -77,9 +73,7 @@ final class IsLongAtMaxTest extends TestCase
         (new IsLongAtMax(5))->assert(42);
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertWithMultibyte(): void
     {
         static::expectException(AssertionFailed::class);
@@ -88,13 +82,11 @@ final class IsLongAtMaxTest extends TestCase
         (new IsLongAtMax(1, 'UTF-8'))->assert('ππ');
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testInvokeWithMultibyte(): void
     {
         static::assertTrue(
-            (new IsLongAtMax(2, 'UTF-8'))('ππ')
+            (new IsLongAtMax(2, 'UTF-8'))('ππ'),
         );
     }
 }

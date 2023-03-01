@@ -15,9 +15,7 @@ use stdClass;
 use Vivarium\Equality\Equality;
 use Vivarium\Equality\EqualsBuilder;
 
-/**
- * @coversDefaultClass \Vivarium\Equality\EqualsBuilder
- */
+/** @coversDefaultClass \Vivarium\Equality\EqualsBuilder */
 final class EqualsBuilderTest extends TestCase
 {
     /**
@@ -130,9 +128,7 @@ final class EqualsBuilderTest extends TestCase
         static::assertNotSame($builder, $builder1);
     }
 
-    /**
-     * @return array<array-key, array{0: scalar, 1: scalar, 2: bool}>
-     */
+    /** @return array<array-key, array{0: scalar, 1: scalar, 2: bool}> */
     public function getTestAppendScalarData(): array
     {
         return [
@@ -175,9 +171,7 @@ final class EqualsBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @return array<array-key, array{0: array<mixed>, 1: array<mixed>, 2: bool}>
-     */
+    /** @return array<array-key, array{0: array<mixed>, 1: array<mixed>, 2: bool}> */
     public function getTestAppendEachData(): array
     {
         return [
@@ -226,9 +220,7 @@ final class EqualsBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @return array<array-key, array{0: object, 1: object, 2: bool}>
-     */
+    /** @return array<array-key, array{0: object, 1: object, 2: bool}> */
     public function getTestAppendObjectData(): array
     {
         $stdClass = new stdClass();
@@ -262,9 +254,7 @@ final class EqualsBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @return array<array-key, array{0: float, 1: float, 2: bool}>
-     */
+    /** @return array<array-key, array{0: float, 1: float, 2: bool}> */
     public function getTestAppendFloatData(): array
     {
         return [
@@ -283,9 +273,7 @@ final class EqualsBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @return array{0: array{0: array<int>, 1: int}, 1: array{0: float, 1:string}}
-     */
+    /** @return array{0: array{0: array<int>, 1: int}, 1: array{0: float, 1:string}} */
     public function getTestAppendMixedData(): array
     {
         return [
@@ -300,9 +288,7 @@ final class EqualsBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @return array{0: array<int>, 1: array<float>, 2: array<Equality>, 3: array<array<int>>}
-     */
+    /** @return array{0: array<int>, 1: array<float>, 2: array<Equality>, 3: array<array<int>>} */
     public function getClonePointData(): array // phpcs:disable
     {
         $equality = $this->createMock(Equality::class);

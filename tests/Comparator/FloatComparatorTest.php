@@ -13,9 +13,7 @@ namespace Vivarium\Test\Comparator;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Comparator\FloatComparator;
 
-/**
- * @coversDefaultClass \Vivarium\Comparator\FloatComparator
- */
+/** @coversDefaultClass \Vivarium\Comparator\FloatComparator */
 class FloatComparatorTest extends TestCase
 {
     /**

@@ -19,9 +19,7 @@ use Vivarium\Equality\Equal;
 
 use function usort;
 
-/**
- * @coversDefaultClass \Vivarium\Collection\Queue\PriorityQueue
- */
+/** @coversDefaultClass \Vivarium\Collection\Queue\PriorityQueue */
 class PriorityQueueTest extends TestCase
 {
     /**
@@ -44,9 +42,7 @@ class PriorityQueueTest extends TestCase
         static::assertNotSame($queue, $queue->enqueue(7));
     }
 
-    /**
-     * @covers ::add()
-     */
+    /** @covers ::add() */
     public function testAdd(): void
     {
         /** @var int[] $values */
@@ -89,9 +85,7 @@ class PriorityQueueTest extends TestCase
         static::assertNotSame($queue, $queue->dequeue());
     }
 
-    /**
-     * @covers ::contains()
-     */
+    /** @covers ::contains() */
     public function testContains(): void
     {
         /** @var int[] $values */
@@ -135,9 +129,7 @@ class PriorityQueueTest extends TestCase
         static::assertCount(0, $queue);
     }
 
-    /**
-     * @covers ::getIterator()
-     */
+    /** @covers ::getIterator() */
     public function testGetIterator(): void
     {
         /** @var int[] $values */
@@ -155,9 +147,7 @@ class PriorityQueueTest extends TestCase
         }
     }
 
-    /**
-     * @covers ::toArray()
-     */
+    /** @covers ::toArray() */
     public function testToArray(): void
     {
         /** @var int[] $values */
@@ -170,9 +160,7 @@ class PriorityQueueTest extends TestCase
         static::assertEquals($expected, $queue->toArray());
     }
 
-    /**
-     * @covers ::fromArray()
-     */
+    /** @covers ::fromArray() */
     public function testFromArray(): void
     {
         /** @var int[] $values */
@@ -184,9 +172,7 @@ class PriorityQueueTest extends TestCase
         static::assertTrue(Equal::areEquals($queue1, $queue2));
     }
 
-    /**
-     * @covers ::equals()
-     */
+    /** @covers ::equals() */
     public function testEquals(): void
     {
         /** @var int[] $values1 */
@@ -206,9 +192,7 @@ class PriorityQueueTest extends TestCase
         static::assertFalse($queue1->equals(new stdClass()));
     }
 
-    /**
-     * @covers ::hash()
-     */
+    /** @covers ::hash() */
     public function testHash(): void
     {
         /** @var int[] $values1 */

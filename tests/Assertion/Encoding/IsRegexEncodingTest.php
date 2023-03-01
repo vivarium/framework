@@ -16,9 +16,7 @@ use Vivarium\Assertion\Exception\AssertionFailed;
 
 use function mb_regex_encoding;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Encoding\IsRegexEncoding
- */
+/** @coversDefaultClass \Vivarium\Assertion\Encoding\IsRegexEncoding */
 final class IsRegexEncodingTest extends TestCase
 {
     /**
@@ -35,9 +33,7 @@ final class IsRegexEncodingTest extends TestCase
         (new IsRegexEncoding())->assert('Windows-1251');
     }
 
-    /**
-     * @covers ::__invoke()
-     */
+    /** @covers ::__invoke() */
     public function testDefaultEncodingUntouched(): void
     {
         $valid = mb_regex_encoding('UTF-8');

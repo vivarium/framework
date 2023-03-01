@@ -15,9 +15,7 @@ use Vivarium\Assertion\Comparison\IsOneOf;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Equality\Equality;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Comparison\IsOneOf
- */
+/** @coversDefaultClass \Vivarium\Assertion\Comparison\IsOneOf */
 final class IsOneOfTest extends TestCase
 {
     /**

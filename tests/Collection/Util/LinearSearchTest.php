@@ -13,9 +13,7 @@ namespace Vivarium\Test\Collection\Util;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Collection\Util\LinearSearch;
 
-/**
- * @coversDefaultClass \Vivarium\Collection\Util\LinearSearch
- */
+/** @coversDefaultClass \Vivarium\Collection\Util\LinearSearch */
 final class LinearSearchTest extends TestCase
 {
     /**

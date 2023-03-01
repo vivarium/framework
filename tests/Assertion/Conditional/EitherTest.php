@@ -18,9 +18,7 @@ use Vivarium\Assertion\Numeric\IsInClosedRange;
 use Vivarium\Assertion\Type\IsInteger;
 use Vivarium\Assertion\Type\IsString;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Conditional\Either
- */
+/** @coversDefaultClass \Vivarium\Assertion\Conditional\Either */
 final class EitherTest extends TestCase
 {
     /**
@@ -34,7 +32,7 @@ final class EitherTest extends TestCase
 
         (new Either(
             new IsGreaterThan(100),
-            new IsInClosedRange(0, 9)
+            new IsInClosedRange(0, 9),
         ))->assert(42);
     }
 
@@ -49,22 +47,22 @@ final class EitherTest extends TestCase
         static::assertTrue(
             (new Either(
                 new IsString(),
-                new IsInteger()
-            ))($value)
+                new IsInteger(),
+            ))($value),
         );
 
         static::assertTrue(
             (new Either(
                 new IsGreaterThan(5),
-                new IsInClosedRange(40, 50)
-            ))($value)
+                new IsInClosedRange(40, 50),
+            ))($value),
         );
 
         static::assertFalse(
             (new Either(
                 new IsGreaterThan(100),
-                new IsInClosedRange(0, 9)
-            ))($value)
+                new IsInClosedRange(0, 9),
+            ))($value),
         );
     }
 }

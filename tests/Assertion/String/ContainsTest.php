@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\Contains;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\String\Contains
- */
+/** @coversDefaultClass \Vivarium\Assertion\String\Contains */
 class ContainsTest extends TestCase
 {
     /**
@@ -33,9 +31,7 @@ class ContainsTest extends TestCase
         (new Contains('Hello'))->assert('Foo Bar');
     }
 
-    /**
-     * @covers ::__invoke()
-     */
+    /** @covers ::__invoke() */
     public function testInvoke(): void
     {
         static::assertTrue((new Contains('H'))('Hello World'));
@@ -43,9 +39,7 @@ class ContainsTest extends TestCase
         static::assertFalse((new Contains('Foo'))('Hello World'));
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertWithoutString(): void
     {
         static::expectException(AssertionFailed::class);

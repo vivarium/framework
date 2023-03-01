@@ -18,14 +18,10 @@ use Vivarium\Equality\Equality;
 
 use function count;
 
-/**
- * @coversDefaultClass \Vivarium\Collection\Set\HashSet
- */
+/** @coversDefaultClass \Vivarium\Collection\Set\HashSet */
 class HashSetTest extends TestCase
 {
-    /**
-     * @covers ::__construct()
-     */
+    /** @covers ::__construct() */
     public function testEmptyConstructor(): void
     {
         $set = new HashSet();
@@ -74,9 +70,7 @@ class HashSetTest extends TestCase
         static::assertNotSame($set, $set->remove(2));
     }
 
-    /**
-     * @covers ::contains()
-     */
+    /** @covers ::contains() */
     public function testContains(): void
     {
         /** @var string[] $elements */
@@ -88,9 +82,7 @@ class HashSetTest extends TestCase
         static::assertFalse($set->contains('z'));
     }
 
-    /**
-     * @covers ::contains()
-     */
+    /** @covers ::contains() */
     public function testContainsWithObjects(): void
     {
         $stub1 = $this->createMock(Equality::class);
@@ -103,7 +95,7 @@ class HashSetTest extends TestCase
                       [$stub1, false],
                       [$stub2, true],
                       [$stub3, false],
-                  ]
+                  ],
               ));
 
         $set = new HashSet($stub1, $stub1, $stub2, $stub3);
@@ -132,9 +124,7 @@ class HashSetTest extends TestCase
         static::assertEquals($expected, $set->toArray());
     }
 
-    /**
-     * @covers ::union()
-     */
+    /** @covers ::union() */
     public function testUnionImmutability(): void
     {
         /** @var HashSet<int> $set1 */
@@ -190,9 +180,7 @@ class HashSetTest extends TestCase
         static::assertEquals($expected, $set->toArray());
     }
 
-    /**
-     * @covers ::isSubsetOf()
-     */
+    /** @covers ::isSubsetOf() */
     public function testIsSubsetOf(): void
     {
         /** @var HashSet<int> $set */
@@ -218,9 +206,7 @@ class HashSetTest extends TestCase
         static::assertTrue($set->isEmpty());
     }
 
-    /**
-     * @covers ::getIterator()
-     */
+    /** @covers ::getIterator() */
     public function testGetIterator(): void
     {
         $expected = [1, 2, 3];
@@ -233,9 +219,7 @@ class HashSetTest extends TestCase
         }
     }
 
-    /**
-     * @covers ::fromArray()
-     */
+    /** @covers ::fromArray() */
     public function testFromArray(): void
     {
         /** @var int[] $values */
@@ -247,9 +231,7 @@ class HashSetTest extends TestCase
         static::assertTrue(Equal::areEquals($set1, $set2));
     }
 
-    /**
-     * @covers ::equals()
-     */
+    /** @covers ::equals() */
     public function testEquals(): void
     {
         $set1 = new HashSet(1, 2, 3, 3, 1);
@@ -262,9 +244,7 @@ class HashSetTest extends TestCase
         static::assertFalse($set1->equals(new stdClass()));
     }
 
-    /**
-     * @covers ::hash()
-     */
+    /** @covers ::hash() */
     public function testHash(): void
     {
         $set1 = new HashSet(1, 2, 3, 3, 1);

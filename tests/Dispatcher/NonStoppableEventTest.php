@@ -13,14 +13,10 @@ namespace Vivarium\Test\Dispatcher;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Test\Dispatcher\Stub\StubNonStoppableEvent;
 
-/**
- * @coversDefaultClass \Vivarium\Dispatcher\NonStoppableEvent
- */
+/** @coversDefaultClass \Vivarium\Dispatcher\NonStoppableEvent */
 final class NonStoppableEventTest extends TestCase
 {
-    /**
-     * @covers ::isPropagationStopped()
-     */
+    /** @covers ::isPropagationStopped() */
     public function testPropagation(): void
     {
         $event = new StubNonStoppableEvent();

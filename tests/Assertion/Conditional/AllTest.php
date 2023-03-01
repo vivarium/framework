@@ -18,9 +18,7 @@ use Vivarium\Assertion\Numeric\IsLessOrEqualThan;
 use Vivarium\Assertion\String\Contains;
 use Vivarium\Assertion\String\IsLongAtLeast;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Conditional\All
- */
+/** @coversDefaultClass \Vivarium\Assertion\Conditional\All */
 final class AllTest extends TestCase
 {
     /**
@@ -34,12 +32,12 @@ final class AllTest extends TestCase
 
         (new All(
             new IsGreaterThan(0),
-            new IsLessOrEqualThan(7)
+            new IsLessOrEqualThan(7),
         ))->assert(5);
 
         (new All(
             new IsLongAtLeast(10),
-            new Contains('Random')
+            new Contains('Random'),
         ))->assert('Random');
     }
 
@@ -54,18 +52,16 @@ final class AllTest extends TestCase
 
         (new All(
             new IsGreaterThan(0),
-            new IsLessOrEqualThan(1)
+            new IsLessOrEqualThan(1),
         ))->assert(5);
     }
 
-    /**
-     * @covers ::__invoke()
-     */
+    /** @covers ::__invoke() */
     public function testInvoke(): void
     {
         $assertion1 = (new All(
             new IsGreaterThan(0),
-            new IsLessOrEqualThan(7)
+            new IsLessOrEqualThan(7),
         ));
 
         static::assertTrue($assertion1(5));
@@ -79,7 +75,7 @@ final class AllTest extends TestCase
     {
         $assertion = (new All(
             new IsGreaterThan(0),
-            new IsLessOrEqualThan(1)
+            new IsLessOrEqualThan(1),
         ));
 
         static::assertFalse($assertion(7));

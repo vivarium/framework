@@ -14,23 +14,17 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Equality\Equal;
 use Vivarium\Equality\Equality;
 
-/**
- * @coversDefaultClass \Vivarium\Equality\Equal
- */
+/** @coversDefaultClass \Vivarium\Equality\Equal */
 final class EqualTest extends TestCase
 {
-    /**
-     * @covers ::areEquals()
-     */
+    /** @covers ::areEquals() */
     public function testAreEquals(): void
     {
         static::assertTrue(Equal::areEquals(42, 42));
         static::assertTrue(Equal::areEquals('z', 'z'));
     }
 
-    /**
-     * @covers ::hash()
-     */
+    /** @covers ::hash() */
     public function testHash(): void
     {
         $equality = $this->createMock(Equality::class);

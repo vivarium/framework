@@ -20,9 +20,7 @@ use Vivarium\Assertion\Numeric\IsLessThan;
 use Vivarium\Assertion\Object\IsInstanceOf;
 use Vivarium\Assertion\String\IsLongAtLeast;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Conditional\Each
- */
+/** @coversDefaultClass \Vivarium\Assertion\Conditional\Each */
 final class EachTest extends TestCase
 {
     /**
@@ -37,15 +35,15 @@ final class EachTest extends TestCase
         $stub = $this->createMock(Traversable::class);
 
         (new Each(
-            new IsInstanceOf(Traversable::class)
+            new IsInstanceOf(Traversable::class),
         ))->assert([$stub, $stub, $stub]);
 
         (new Each(
-            new IsInClosedRange(0, 9)
+            new IsInClosedRange(0, 9),
         ))->assert([0, 9, 3, 5]);
 
         (new Each(
-            new IsInClosedRange(0, 9)
+            new IsInClosedRange(0, 9),
         ))->assert([42, 9, 3, 5]);
     }
 
@@ -60,7 +58,7 @@ final class EachTest extends TestCase
 
         (new Each(
             new IsGreaterOrEqualThan(0),
-            new IsLessThan(10)
+            new IsLessThan(10),
         ))->assert([0, 9, 3, 42]);
     }
 
@@ -79,26 +77,22 @@ final class EachTest extends TestCase
          * @psalm-suppress InvalidArgument
          */
         (new Each(
-            new IsLongAtLeast(27)
+            new IsLongAtLeast(27),
         ))->assert(42); /* @phpstan-ignore-line */
     }
 
-    /**
-     * @covers ::__invoke()
-     */
+    /** @covers ::__invoke() */
     public function testInvoke(): void
     {
         $eachInClosedRange = new Each(
-            new IsInClosedRange(0, 9)
+            new IsInClosedRange(0, 9),
         );
 
         static::assertTrue($eachInClosedRange([0, 9, 3, 5]));
         static::assertFalse($eachInClosedRange([0, 9, 3, 42]));
     }
 
-    /**
-     * @covers ::__invoke()
-     */
+    /** @covers ::__invoke() */
     public function testInvokeWithoutArray(): void
     {
         static::expectException(AssertionFailed::class);
@@ -110,7 +104,7 @@ final class EachTest extends TestCase
          * @psalm-suppress InvalidArgument
          */
         (new Each(
-            new IsLongAtLeast(27)
+            new IsLongAtLeast(27),
         ))(42); /* @phpstan-ignore-line */
     }
 }

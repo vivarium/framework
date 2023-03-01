@@ -18,9 +18,7 @@ use Vivarium\Assertion\Hierarchy\ImplementsInterface;
 
 use function get_class;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Hierarchy\ImplementsInterface
- */
+/** @coversDefaultClass \Vivarium\Assertion\Hierarchy\ImplementsInterface */
 final class ImplementsInterfaceTest extends TestCase
 {
     /**
@@ -39,9 +37,7 @@ final class ImplementsInterfaceTest extends TestCase
         (new ImplementsInterface(Traversable::class))->assert(stdClass::class);
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertWithoutInterface(): void
     {
         static::expectException(AssertionFailed::class);

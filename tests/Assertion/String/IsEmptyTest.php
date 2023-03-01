@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsEmpty;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\String\IsEmpty
- */
+/** @coversDefaultClass \Vivarium\Assertion\String\IsEmpty */
 final class IsEmptyTest extends TestCase
 {
     /**
@@ -32,9 +30,7 @@ final class IsEmptyTest extends TestCase
         (new IsEmpty())->assert('Hello World');
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertWithoutString(): void
     {
         static::expectException(AssertionFailed::class);

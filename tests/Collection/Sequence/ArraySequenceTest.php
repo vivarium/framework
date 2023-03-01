@@ -19,9 +19,7 @@ use Vivarium\Comparator\IntegerComparator;
 use Vivarium\Equality\Equal;
 use Vivarium\Equality\Equality;
 
-/**
- * @coversDefaultClass \Vivarium\Collection\Sequence\ArraySequence
- */
+/** @coversDefaultClass \Vivarium\Collection\Sequence\ArraySequence */
 class ArraySequenceTest extends TestCase
 {
     /**
@@ -67,9 +65,7 @@ class ArraySequenceTest extends TestCase
         static::assertNotSame($list, $list->remove(0));
     }
 
-    /**
-     * @covers ::contains()
-     */
+    /** @covers ::contains() */
     public function testContains(): void
     {
         /** @var ArraySequence<int> $list */
@@ -95,9 +91,7 @@ class ArraySequenceTest extends TestCase
         static::assertTrue($list->isEmpty());
     }
 
-    /**
-     * @covers ::getIterator()
-     */
+    /** @covers ::getIterator() */
     public function testGetIterator(): void
     {
         $expected = [1, 2, 3, 4, 5];
@@ -150,9 +144,7 @@ class ArraySequenceTest extends TestCase
         static::assertNotSame($list, $list->removeAtIndex(0));
     }
 
-    /**
-     * @covers ::search()
-     */
+    /** @covers ::search() */
     public function testSearch(): void
     {
         /** @var ArraySequence<int> $list */
@@ -166,9 +158,7 @@ class ArraySequenceTest extends TestCase
         static::assertEquals(-1, $empty->search(2));
     }
 
-    /**
-     * @covers ::search()
-     */
+    /** @covers ::search() */
     public function testSearchWithEquality(): void
     {
         $stub1 = $this->createMock(Equality::class);
@@ -239,9 +229,7 @@ class ArraySequenceTest extends TestCase
         static::assertEquals($expected->toArray(), $list->toArray());
     }
 
-    /**
-     * @covers ::fromArray()
-     */
+    /** @covers ::fromArray() */
     public function testFromArray(): void
     {
         /** @var array<int, int> $values */
@@ -253,9 +241,7 @@ class ArraySequenceTest extends TestCase
         static::assertTrue(Equal::areEquals($list1, $list2));
     }
 
-    /**
-     * @covers ::equals()
-     */
+    /** @covers ::equals() */
     public function testEquals(): void
     {
         $list1 = new ArraySequence(1, 2, 3);
@@ -268,9 +254,7 @@ class ArraySequenceTest extends TestCase
         static::assertFalse($list1->equals(new stdClass()));
     }
 
-    /**
-     * @covers ::hash()
-     */
+    /** @covers ::hash() */
     public function testHash(): void
     {
         $list1 = new ArraySequence(1, 2, 3);

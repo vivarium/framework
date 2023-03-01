@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\StartsWith;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\String\StartsWith
- */
+/** @coversDefaultClass \Vivarium\Assertion\String\StartsWith */
 final class StartsWithTest extends TestCase
 {
     /**
@@ -33,9 +31,7 @@ final class StartsWithTest extends TestCase
         (new StartsWith('World'))->assert('Hello World');
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertWithoutString(): void
     {
         static::expectException(AssertionFailed::class);

@@ -14,9 +14,7 @@ use Vivarium\Collection\Pair\Pair;
 use Vivarium\Collection\Set\SetIterator;
 use Vivarium\Test\Collection\Iterator\CommonIteratorTest;
 
-/**
- * @coversDefaultClass \Vivarium\Collection\Set\SetIterator
- */
+/** @coversDefaultClass \Vivarium\Collection\Set\SetIterator */
 class SetIteratorTest extends CommonIteratorTest
 {
     /**

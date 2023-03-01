@@ -16,9 +16,7 @@ use Vivarium\Assertion\Exception\AssertionFailed;
 
 use function mb_internal_encoding;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Encoding\IsSystemEncoding
- */
+/** @coversDefaultClass \Vivarium\Assertion\Encoding\IsSystemEncoding */
 final class IsSystemEncodingTest extends TestCase
 {
     /**
@@ -35,9 +33,7 @@ final class IsSystemEncodingTest extends TestCase
         (new IsSystemEncoding())->assert('Foo');
     }
 
-    /**
-     * @covers ::__invoke()
-     */
+    /** @covers ::__invoke() */
     public function testDefaultEncodingUntouched(): void
     {
         mb_internal_encoding('UTF-8');

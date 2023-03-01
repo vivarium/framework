@@ -16,9 +16,7 @@ use stdClass;
 use Vivarium\Collection\Stack\ArrayStack;
 use Vivarium\Equality\Equal;
 
-/**
- * @coversDefaultClass \Vivarium\Collection\Stack\ArrayStack
- */
+/** @coversDefaultClass \Vivarium\Collection\Stack\ArrayStack */
 class ArrayStackTest extends TestCase
 {
     /**
@@ -40,9 +38,7 @@ class ArrayStackTest extends TestCase
         static::assertNotSame($stack, $stack->push(42));
     }
 
-    /**
-     * @covers ::add()
-     */
+    /** @covers ::add() */
     public function testAdd(): void
     {
         /** @var ArrayStack<int> $stack */
@@ -101,9 +97,7 @@ class ArrayStackTest extends TestCase
         static::assertNotSame($stack, $stack->remove(1));
     }
 
-    /**
-     * @covers ::pop()
-     */
+    /** @covers ::pop() */
     public function testPopOnEmpty(): void
     {
         static::expectException(DomainException::class);
@@ -115,9 +109,7 @@ class ArrayStackTest extends TestCase
         $stack->pop();
     }
 
-    /**
-     * @covers ::peek()
-     */
+    /** @covers ::peek() */
     public function testPeekOnEmpty(): void
     {
         static::expectException(DomainException::class);
@@ -128,9 +120,7 @@ class ArrayStackTest extends TestCase
         $stack->peek();
     }
 
-    /**
-     * @covers ::contains()
-     */
+    /** @covers ::contains() */
     public function testContains(): void
     {
         /** @var ArrayStack<int> $stack */
@@ -140,9 +130,7 @@ class ArrayStackTest extends TestCase
         static::assertFalse($stack->contains(42));
     }
 
-    /**
-     * @covers ::clear()
-     */
+    /** @covers ::clear() */
     public function testClear(): void
     {
         $stack = new ArrayStack(1, 2, 3);
@@ -151,9 +139,7 @@ class ArrayStackTest extends TestCase
         static::assertCount(0, $stack);
     }
 
-    /**
-     * @covers ::getIterator()
-     */
+    /** @covers ::getIterator() */
     public function testGetIterator(): void
     {
         $stack = new ArrayStack(1, 2, 3);
@@ -168,9 +154,7 @@ class ArrayStackTest extends TestCase
         }
     }
 
-    /**
-     * @covers ::fromArray()
-     */
+    /** @covers ::fromArray() */
     public function testFromArray(): void
     {
         $stack1 = ArrayStack::fromArray([1, 2, 3, 4, 5]);
@@ -179,9 +163,7 @@ class ArrayStackTest extends TestCase
         static::assertTrue(Equal::areEquals($stack1, $stack2));
     }
 
-    /**
-     * @covers ::equals()
-     */
+    /** @covers ::equals() */
     public function testEquals(): void
     {
         $stack1 = new ArrayStack(1, 2, 3);
@@ -194,9 +176,7 @@ class ArrayStackTest extends TestCase
         static::assertFalse($stack1->equals(new stdClass()));
     }
 
-    /**
-     * @covers ::hash()
-     */
+    /** @covers ::hash() */
     public function testHash(): void
     {
         $stack1 = new ArrayStack(1, 2, 3);

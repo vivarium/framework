@@ -15,9 +15,7 @@ use stdClass;
 use Vivarium\Assertion\Comparison\IsSameOf;
 use Vivarium\Assertion\Exception\AssertionFailed;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Comparison\IsSameOf
- */
+/** @coversDefaultClass \Vivarium\Assertion\Comparison\IsSameOf */
 final class IsSameOfTest extends TestCase
 {
     /**

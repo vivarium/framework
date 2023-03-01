@@ -15,9 +15,7 @@ use Vivarium\Assertion\Comparison\IsEqualsTo;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Equality\Equality;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Comparison\IsEqualsTo
- */
+/** @coversDefaultClass \Vivarium\Assertion\Comparison\IsEqualsTo */
 final class IsEqualsToTest extends TestCase
 {
     /**

@@ -23,17 +23,13 @@ use function get_class;
  */
 final class SpecificEventListener implements EventListener, Equality
 {
-    /**
-     * @param T $event
-     */
+    /** @param T $event */
     public function handle($event): SpecificEvent
     {
         return $event;
     }
 
-    /**
-     * @psalm-mutation-free
-     */
+    /** @psalm-mutation-free */
     public function equals(object $object): bool
     {
         return (new EqualsBuilder())
@@ -41,9 +37,7 @@ final class SpecificEventListener implements EventListener, Equality
             ->isEquals();
     }
 
-    /**
-     * @psalm-mutation-free
-     */
+    /** @psalm-mutation-free */
     public function hash(): string
     {
         return (new HashBuilder())
