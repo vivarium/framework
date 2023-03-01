@@ -9,8 +9,5 @@
   "logs": {
     "text": "tests-results/infection/infection.txt",
     "summary": "tests-results/infection/summary.log",
-    "badge": {
-      "branch": "main"
-    }
   }
 }
