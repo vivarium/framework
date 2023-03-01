@@ -23,9 +23,11 @@ jobs:
 
     steps:
       - name: Source checkout
+        id: checkout
         uses: actions/checkout@v3
 
       - name: Setup PHP
+        id: setup
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.version }}
@@ -40,6 +42,7 @@ jobs:
             ${{ runner.os }}-${{ matrix.version }}-composer-
 
       - name: Composer install
+        id: composer
         run: composer install -o -n --prefer-dist
 
       - name: Create directories
@@ -53,25 +56,54 @@ jobs:
           mkdir tests-results/phpunit
 
       - name: Run Code Sniffer
+        if: > 
+          (success() || failure())
+          && steps.checkout.conclusion == 'success'
+          && steps.setup.conclusion == 'success'
+          && steps.composer.conclusion == 'success'
         run: composer phpcs
 
       - name: Run Mess Detector
+        if: >
+          (success() || failure())
+          && steps.checkout.conclusion == 'success'
+          && steps.setup.conclusion == 'success'
+          && steps.composer.conclusion == 'success'
         run: composer phpmd
 
       - name: Run PHPStan
+        if: >
+          (success() || failure())
+          && steps.checkout.conclusion == 'success'
+          && steps.setup.conclusion == 'success'
+          && steps.composer.conclusion == 'success'
         run: composer phpstan
 
       - name: Run Psalm
+        if: >
+          (success() || failure())
+          && steps.checkout.conclusion == 'success'
+          && steps.setup.conclusion == 'success'
+          && steps.composer.conclusion == 'success'
       - run: composer psalm
 
       - name: Run PHPUnit
+        id: phpunit
+        if: >
+          (success() || failure())
+          && steps.checkout.conclusion == 'success'
+          && steps.setup.conclusion == 'success'
+          && steps.composer.conclusion == 'success'
         run: composer phpunit
 
       - name: Run Infection
+        if: >
+          (success() || failure())
+          && steps.phpunit.conclusion == 'success'
         run: composer infection
 
       - uses: actions/upload-artifact@v3
-        if: failure()
+        if: success() || failure()
         with:
           name: tests-results
           path: tests-results/
