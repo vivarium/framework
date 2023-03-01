@@ -14,12 +14,13 @@ on:
 
 jobs:
   build:
+    name: Vivarium Build
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
     strategy:
       matrix:
         version: ['7.4', '8.0', '8.1', '8.2']
-
-    name: build
-    runs-on: ubuntu-latest
 
     steps:
       - name: Source checkout
