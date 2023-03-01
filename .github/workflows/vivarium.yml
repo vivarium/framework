@@ -105,5 +105,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: success() || failure()
         with:
-          name: tests-results
+          name: tests-results-${{ matrix.version }}
           path: tests-results/
+          if-no-files-found: ignore
+          retention-days: 1
