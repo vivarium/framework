@@ -13,9 +13,7 @@ namespace Vivarium\Test\Comparator;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Comparator\IntegerComparator;
 
-/**
- * @coversDefaultClass \Vivarium\Comparator\IntegerComparator
- */
+/** @coversDefaultClass \Vivarium\Comparator\IntegerComparator */
 class IntegerComparatorTest extends TestCase
 {
     /**

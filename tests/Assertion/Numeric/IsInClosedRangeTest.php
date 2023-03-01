@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Numeric\IsInClosedRange;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Numeric\IsInClosedRange
- */
+/** @coversDefaultClass \Vivarium\Assertion\Numeric\IsInClosedRange */
 final class IsInClosedRangeTest extends TestCase
 {
     /**
@@ -35,9 +33,7 @@ final class IsInClosedRangeTest extends TestCase
         (new IsInClosedRange(0, 9))->assert(10);
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertWithWrongRange(): void
     {
         static::expectException(AssertionFailed::class);

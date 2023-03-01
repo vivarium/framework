@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsLong;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\String\IsLong
- */
+/** @coversDefaultClass \Vivarium\Assertion\String\IsLong */
 final class IsLongTest extends TestCase
 {
     /**
@@ -46,9 +44,7 @@ final class IsLongTest extends TestCase
         (new IsLong(11, 'Foo'))->assert('foo');
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertWithoutString(): void
     {
         static::expectException(AssertionFailed::class);
@@ -63,9 +59,7 @@ final class IsLongTest extends TestCase
         (new IsLong(3))->assert(42);
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertWithMultibyte(): void
     {
         static::expectException(AssertionFailed::class);

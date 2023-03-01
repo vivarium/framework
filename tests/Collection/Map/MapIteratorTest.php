@@ -12,17 +12,15 @@ namespace Vivarium\Test\Collection\Map;
 
 use Vivarium\Collection\Map\MapIterator;
 use Vivarium\Collection\Pair\Pair;
+use Vivarium\Equality\HashBuilder;
 use Vivarium\Test\Collection\Iterator\CommonIteratorTest;
 use Vivarium\Test\Collection\Stub\Key;
 use Vivarium\Test\Collection\Stub\KeyWithHashCollision;
-use Vivarium\Equality\HashBuilder;
 
 use function array_keys;
 use function array_values;
 
-/**
- * @coversDefaultClass \Vivarium\Collection\Map\MapIterator
- */
+/** @coversDefaultClass \Vivarium\Collection\Map\MapIterator */
 class MapIteratorTest extends CommonIteratorTest
 {
     /**
@@ -93,7 +91,7 @@ class MapIteratorTest extends CommonIteratorTest
 
             $pair = new Pair(
                 $map($key),
-                $value
+                $value,
             );
 
             if (! isset($pairs[$hash])) {

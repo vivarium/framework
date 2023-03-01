@@ -15,9 +15,7 @@ use stdClass;
 use Vivarium\Equality\Equality;
 use Vivarium\Equality\HashBuilder;
 
-/**
- * @coversDefaultClass \Vivarium\Equality\HashBuilder
- */
+/** @coversDefaultClass \Vivarium\Equality\HashBuilder */
 final class HashBuilderTest extends TestCase
 {
     /**
@@ -79,9 +77,7 @@ final class HashBuilderTest extends TestCase
         static::assertNotSame($builder, $builder1);
     }
 
-    /**
-     * @return array<array-key, array{0: scalar|null, 1: string}>
-     */
+    /** @return array<array-key, array{0: scalar|null, 1: string}> */
     public function getTestAppendPrimitiveData(): array
     {
         return [
@@ -104,9 +100,7 @@ final class HashBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @return array<array-key, array{0: object, 1: string}>
-     */
+    /** @return array<array-key, array{0: object, 1: string}> */
     public function getTestAppendObjectData(): array
     {
         $stdClass      = new stdClass();
@@ -131,9 +125,7 @@ final class HashBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @return array{0: array{0: array<int>, 1: string}, 1: array{0: array<object>, 1: string}}
-     */
+    /** @return array{0: array{0: array<int>, 1: string}, 1: array{0: array<object>, 1: string}} */
     public function getTestAppendEachData(): array
     {
         $stdClass      = new stdClass();
@@ -159,9 +151,7 @@ final class HashBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @return array{0: array<int>, 1: array<float>, 2: array<Equality>, 3: array{empty?: int}, 4: array<callable>}
-     */
+    /** @return array{0: array<int>, 1: array<float>, 2: array<Equality>, 3: array{empty?: int}, 4: array<callable>} */
     public function getClonePointData(): array
     {
         $equality = $this->createMock(Equality::class);

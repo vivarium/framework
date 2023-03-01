@@ -14,13 +14,11 @@ use Vivarium\Collection\Map\MapIterator;
 use Vivarium\Collection\MultiMap\MultiMapIterator;
 use Vivarium\Collection\Pair\Pair;
 use Vivarium\Collection\Sequence\ArraySequence;
+use Vivarium\Equality\HashBuilder;
 use Vivarium\Test\Collection\Iterator\CommonIteratorTest;
 use Vivarium\Test\Collection\Stub\Key;
-use Vivarium\Equality\HashBuilder;
 
-/**
- * @coversDefaultClass \Vivarium\Collection\MultiMap\MultiMapIterator
- */
+/** @coversDefaultClass \Vivarium\Collection\MultiMap\MultiMapIterator */
 final class MultiMapIteratorTest extends CommonIteratorTest
 {
     /**
@@ -52,7 +50,7 @@ final class MultiMapIteratorTest extends CommonIteratorTest
         }
 
         $iterator = new MultiMapIterator(
-            new MapIterator($pairs)
+            new MapIterator($pairs),
         );
 
         $this->doTest($iterator, [1, 1, 3, 3], [1, 2, 4, 5], $map);

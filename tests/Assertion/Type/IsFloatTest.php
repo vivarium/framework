@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsFloat;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Type\IsFloat
- */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsFloat */
 final class IsFloatTest extends TestCase
 {
     /**

@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Comparator\Comparable;
 use Vivarium\Comparator\ComparableComparator;
 
-/**
- * @coversDefaultClass \Vivarium\Comparator\ComparableComparator
- */
+/** @coversDefaultClass \Vivarium\Comparator\ComparableComparator */
 class ComparableComparatorTest extends TestCase
 {
     /**

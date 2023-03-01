@@ -17,9 +17,7 @@ use Vivarium\Assertion\Type\IsArray;
 use Vivarium\Assertion\Type\IsInteger;
 use Vivarium\Assertion\Type\IsString;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Conditional\NullOr
- */
+/** @coversDefaultClass \Vivarium\Assertion\Conditional\NullOr */
 final class NullOrTest extends TestCase
 {
     /**
@@ -36,9 +34,7 @@ final class NullOrTest extends TestCase
         (new NullOr(new IsString()))->assert([]);
     }
 
-    /**
-     * @covers ::__invoke()
-     */
+    /** @covers ::__invoke() */
     public function testInvoke(): void
     {
         static::assertTrue((new NullOr(new IsInteger()))(null));

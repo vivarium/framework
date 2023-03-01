@@ -17,9 +17,7 @@ use Vivarium\Collection\Sequence\ArraySequence;
 use function count;
 use function sprintf;
 
-/**
- * @coversDefaultClass \Vivarium\Collection\Sequence\ArraySequence
- */
+/** @coversDefaultClass \Vivarium\Collection\Sequence\ArraySequence */
 class ArraySequenceExceptionTest extends TestCase
 {
     /**
@@ -76,9 +74,7 @@ class ArraySequenceExceptionTest extends TestCase
         $list->removeAtIndex($index);
     }
 
-    /**
-     * @return array<string, array{0: array<int, int>, 1: int}>
-     */
+    /** @return array<string, array{0: array<int, int>, 1: int}> */
     public function getTestIndexOutOfBoundData(): array
     {
         return [

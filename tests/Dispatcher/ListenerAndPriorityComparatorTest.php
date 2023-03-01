@@ -19,9 +19,7 @@ use Vivarium\Test\Dispatcher\Stub\GenericEventListener;
 
 use function usort;
 
-/**
- * @coversDefaultClass \Vivarium\Dispatcher\ListenerAndPriorityComparator
- */
+/** @coversDefaultClass \Vivarium\Dispatcher\ListenerAndPriorityComparator */
 final class ListenerAndPriorityComparatorTest extends TestCase
 {
     /**

@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Numeric\IsInOpenRange;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Numeric\IsInOpenRange
- */
+/** @coversDefaultClass \Vivarium\Assertion\Numeric\IsInOpenRange */
 final class IsInOpenRangeTest extends TestCase
 {
     /**
@@ -35,9 +33,7 @@ final class IsInOpenRangeTest extends TestCase
         (new IsInOpenRange(0, 9))->assert(9);
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertWithWrongRange(): void
     {
         static::expectException(AssertionFailed::class);

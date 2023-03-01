@@ -18,21 +18,18 @@ use Vivarium\Equality\HashBuilder;
 use function get_class;
 
 /**
- * @template-implements EventListener<GenericEvent>
+ * @template T as GenericEvent
+ * @template-implements EventListener<T>
  */
 final class GenericEventListener implements EventListener, Equality
 {
-    /**
-     * @param GenericEvent $event
-     */
+    /** @param T $event */
     public function handle($event): GenericEvent
     {
         return $event;
     }
 
-    /**
-     * @psalm-mutation-free
-     */
+    /** @psalm-mutation-free */
     public function equals(object $object): bool
     {
         return (new EqualsBuilder())
@@ -40,9 +37,7 @@ final class GenericEventListener implements EventListener, Equality
             ->isEquals();
     }
 
-    /**
-     * @psalm-mutation-free
-     */
+    /** @psalm-mutation-free */
     public function hash(): string
     {
         return (new HashBuilder())

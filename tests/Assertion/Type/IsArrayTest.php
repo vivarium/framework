@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsArray;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Type\IsArray
- */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsArray */
 final class IsArrayTest extends TestCase
 {
     /**

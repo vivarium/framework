@@ -15,9 +15,7 @@ use stdClass;
 use Vivarium\Comparator\ComparableAdapter;
 use Vivarium\Comparator\Comparator;
 
-/**
- * @coversDefaultClass \Vivarium\Comparator\ComparableAdapter
- */
+/** @coversDefaultClass \Vivarium\Comparator\ComparableAdapter */
 class ComparableAdapterTest extends TestCase
 {
     /**

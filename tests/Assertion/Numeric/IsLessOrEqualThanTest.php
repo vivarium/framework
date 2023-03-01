@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Numeric\IsLessOrEqualThan;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Numeric\IsLessOrEqualThan
- */
+/** @coversDefaultClass \Vivarium\Assertion\Numeric\IsLessOrEqualThan */
 final class IsLessOrEqualThanTest extends TestCase
 {
     /**

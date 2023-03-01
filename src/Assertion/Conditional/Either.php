@@ -37,9 +37,7 @@ final class Either implements Assertion
         $this->assertions = array_merge([$assertion], $assertions);
     }
 
-    /**
-     * @param T $value
-     */
+    /** @param T $value */
     public function assert($value, string $message = ''): void
     {
         if (! $this($value)) {
@@ -53,9 +51,7 @@ final class Either implements Assertion
         }
     }
 
-    /**
-     * @param T $value
-     */
+    /** @param T $value */
     public function __invoke($value): bool
     {
         foreach ($this->assertions as $assertion) {

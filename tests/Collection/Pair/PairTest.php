@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use Vivarium\Collection\Pair\Pair;
 
-/**
- * @coversDefaultClass \Vivarium\Collection\Pair\Pair
- */
+/** @coversDefaultClass \Vivarium\Collection\Pair\Pair */
 class PairTest extends TestCase
 {
     /**
@@ -32,9 +30,7 @@ class PairTest extends TestCase
         static::assertEquals(1, $pair->getValue());
     }
 
-    /**
-     * @covers ::equals()
-     */
+    /** @covers ::equals() */
     public function testEquals(): void
     {
         $pair1 = new Pair('a', 1);
@@ -47,9 +43,7 @@ class PairTest extends TestCase
         static::assertFalse($pair1->equals(new stdClass()));
     }
 
-    /**
-     * @covers ::hash()
-     */
+    /** @covers ::hash() */
     public function testHash(): void
     {
         $pair = new Pair('a', 1);

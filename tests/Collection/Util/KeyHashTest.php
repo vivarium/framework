@@ -11,18 +11,14 @@ declare(strict_types=1);
 namespace Vivarium\Test\Collection\Util;
 
 use PHPUnit\Framework\TestCase;
-use Vivarium\Test\Collection\Stub\Key;
 use Vivarium\Collection\Util\KeyHash;
 use Vivarium\Equality\HashBuilder;
+use Vivarium\Test\Collection\Stub\Key;
 
-/**
- * @coversDefaultClass \Vivarium\Collection\Util\KeyHash
- */
+/** @coversDefaultClass \Vivarium\Collection\Util\KeyHash */
 final class KeyHashTest extends TestCase
 {
-    /**
-     * @covers ::hash()
-     */
+    /** @covers ::hash() */
     public function testHash(): void
     {
         $hash = (new HashBuilder())

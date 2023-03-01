@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsString;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Type\IsString
- */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsString */
 final class IsStringTest extends TestCase
 {
     /**

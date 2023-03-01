@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsBoolean;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Type\IsBoolean
- */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsBoolean */
 final class IsBooleanTest extends TestCase
 {
     /**

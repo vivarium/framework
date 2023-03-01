@@ -15,9 +15,7 @@ use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsCallable;
 use Vivarium\Assertion\Type\IsInteger;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Type\IsCallable
- */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsCallable */
 final class IsCallableTest extends TestCase
 {
     /**

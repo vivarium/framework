@@ -13,9 +13,7 @@ namespace Vivarium\Test\Comparator;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Comparator\StringComparator;
 
-/**
- * @coversDefaultClass \Vivarium\Comparator\StringComparator
- */
+/** @coversDefaultClass \Vivarium\Comparator\StringComparator */
 class StringComparatorTest extends TestCase
 {
     /**

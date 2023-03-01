@@ -17,9 +17,7 @@ use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Object\IsInstanceOf;
 use Vivarium\Test\Assertion\Stub\Stub;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Object\IsInstanceOf
- */
+/** @coversDefaultClass \Vivarium\Assertion\Object\IsInstanceOf */
 final class IsInstanceOfTest extends TestCase
 {
     /**
@@ -38,9 +36,7 @@ final class IsInstanceOfTest extends TestCase
         (new IsInstanceOf(Traversable::class))->assert(new stdClass());
     }
 
-    /**
-     * @covers ::__construct()
-     */
+    /** @covers ::__construct() */
     public function testConstructorWithoutClass(): void
     {
         static::expectException(AssertionFailed::class);
@@ -56,9 +52,7 @@ final class IsInstanceOfTest extends TestCase
         (new IsInstanceOf('RandomString'))->assert(new stdClass());
     }
 
-    /**
-     * @covers ::__construct()
-     */
+    /** @covers ::__construct() */
     public function testAssertWithoutObject(): void
     {
         static::expectException(AssertionFailed::class);

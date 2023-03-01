@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace Vivarium\Assertion\Conditional;
 
 use InvalidArgumentException;
-use phpDocumentor\Reflection\Types\Scalar;
 use Vivarium\Assertion\Assertion;
 
 /**
@@ -32,11 +31,10 @@ final class NullOr implements Assertion
     /**
      * @param mixed $value
      *
-     * @psalm-assert K|null $value
-     *
-     * @psalm-mutation-free
-     *
      * @throws InvalidArgumentException
+     *
+     * @psalm-assert K|null $value
+     * @psalm-mutation-free
      */
     public function assert($value, string $message = ''): void
     {

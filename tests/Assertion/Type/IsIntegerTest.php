@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsInteger;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Type\IsInteger
- */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsInteger */
 final class IsIntegerTest extends TestCase
 {
     /**

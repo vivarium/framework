@@ -13,9 +13,7 @@ namespace Vivarium\Test\Dispatcher;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Test\Dispatcher\Stub\StubStoppableEvent;
 
-/**
- * @coversDefaultClass \Vivarium\Dispatcher\StoppableEvent
- */
+/** @coversDefaultClass \Vivarium\Dispatcher\StoppableEvent */
 final class StoppableEventTest extends TestCase
 {
     /**

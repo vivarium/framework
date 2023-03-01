@@ -20,9 +20,7 @@ use Vivarium\Dispatcher\EventListenerProvider;
 use Vivarium\Dispatcher\Priority;
 use Vivarium\Dispatcher\StoppableEvent;
 
-/**
- * @coversDefaultClass \Vivarium\Dispatcher\AggregateDispatcher
- */
+/** @coversDefaultClass \Vivarium\Dispatcher\AggregateDispatcher */
 final class AggregateDispatcherTest extends TestCase
 {
     /**
@@ -92,7 +90,7 @@ final class AggregateDispatcherTest extends TestCase
     public function testDispatchWithNoListener(): void
     {
         $dispatcher = new AggregateDispatcher(
-            $this->createMock(EventListenerProvider::class)
+            $this->createMock(EventListenerProvider::class),
         );
 
         $event       = $this->createMock(Event::class);

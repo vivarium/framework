@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\EndsWith;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\String\EndsWith
- */
+/** @coversDefaultClass \Vivarium\Assertion\String\EndsWith */
 class EndsWithTest extends TestCase
 {
     /**
@@ -33,9 +31,7 @@ class EndsWithTest extends TestCase
         (new EndsWith('d'))->assert('Foo Bar');
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertWithoutString(): void
     {
         static::expectException(AssertionFailed::class);

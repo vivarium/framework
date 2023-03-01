@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsNumeric;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Type\IsNumeric
- */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsNumeric */
 final class IsNumericTest extends TestCase
 {
     /**
