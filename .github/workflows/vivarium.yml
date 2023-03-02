@@ -8,9 +8,9 @@ on:
       - 'release/**'
   pull_request:
     branches:
-      - 'feature/**'
-      - 'fix/**'
-      - 'hotfix/**'
+      - 'main'
+      - 'develop'
+      - 'release/**'
 
 jobs:
   build:
