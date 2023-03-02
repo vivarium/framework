@@ -68,32 +68,24 @@ jobs:
       - name: Run Code Sniffer
         if: > 
           (success() || failure())
-          && steps.checkout.conclusion == 'success'
-          && steps.setup.conclusion == 'success'
           && steps.composer.conclusion == 'success'
         run: composer phpcs
 
       - name: Run Mess Detector
         if: >
           (success() || failure())
-          && steps.checkout.conclusion == 'success'
-          && steps.setup.conclusion == 'success'
           && steps.composer.conclusion == 'success'
         run: composer phpmd
 
       - name: Run PHPStan
         if: >
           (success() || failure())
-          && steps.checkout.conclusion == 'success'
-          && steps.setup.conclusion == 'success'
           && steps.composer.conclusion == 'success'
         run: composer phpstan
 
       - name: Run Psalm
         if: >
           (success() || failure())
-          && steps.checkout.conclusion == 'success'
-          && steps.setup.conclusion == 'success'
           && steps.composer.conclusion == 'success'
         run: composer psalm
 
@@ -101,8 +93,6 @@ jobs:
         id: phpunit
         if: >
           (success() || failure())
-          && steps.checkout.conclusion == 'success'
-          && steps.setup.conclusion == 'success'
           && steps.composer.conclusion == 'success'
         run: composer phpunit
 
@@ -126,7 +116,7 @@ jobs:
         if: >
           (success() || failure())
         with:
-          path: vendor
+          path: cache
           key: ${{ steps.restore-tools-cache.outputs.cache-primary-key }}
 
       - uses: actions/upload-artifact@v3
