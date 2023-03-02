@@ -8,6 +8,6 @@
   "tmpDir": "cache",
   "logs": {
     "text": "tests-results/infection/infection.txt",
-    "summary": "tests-results/infection/summary.log",
+    "summary": "tests-results/infection/summary.log"
   }
 }
