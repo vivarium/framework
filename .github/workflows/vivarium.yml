@@ -126,7 +126,3 @@ jobs:
           path: tests-results/
           if-no-files-found: ignore
           retention-days: 1
-
-      - name: Exit
-        if: failure()
-        run: exit 1
