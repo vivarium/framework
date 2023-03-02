@@ -34,13 +34,12 @@ jobs:
           php-version: ${{ matrix.version }}
           coverage: xdebug
 
-      - name: Cache PHP dependencies
-        uses: actions/cache@v3
+      - name: Restore Composer cache
+        id: restore-composer-cache
+        uses: actions/cache/restore@v3
         with:
           path: vendor
           key: ${{ runner.OS }}-${{ matrix.version }}-composer-${{ hashFiles('**/composer.json') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.version }}-composer-
 
       - name: Composer install
         id: composer
@@ -48,13 +47,23 @@ jobs:
 
       - name: Create directories
         run: |
+          mkdir cache
+          mkdir cache/phpcs
+          mkdir cache/infection
+          mkdir cache/phpunit
           mkdir tests-results
-          mkdir tests-results/cache
           mkdir tests-results/infection
           mkdir tests-results/phpcs
           mkdir tests-results/phpmd
           mkdir tests-results/phpstan
           mkdir tests-results/phpunit
+
+      - name: Restore Tools cache
+        id: restore-tools-cache
+        uses: actions/cache/restore@v3
+        with:
+          path: cache
+          key: ${{ runner.OS }}-${{ matrix.version }}-cache-${{ hashFiles('**/composer.json') }}
 
       - name: Run Code Sniffer
         if: > 
@@ -102,6 +111,23 @@ jobs:
           (success() || failure())
           && steps.phpunit.conclusion == 'success'
         run: composer infection
+
+      - name: Save Composer cache
+        uses: actions/cache/save@v3
+        if: >
+          (success() || failure())
+          && steps.composer.conclusion == 'success'
+        with:
+          path: vendor
+          key: ${{ steps.restore-composer-cache.outputs.cache-primary-key }}
+
+      - name: Save Tools cache
+        uses: actions/cache/save@v3
+        if: >
+          (success() || failure())
+        with:
+          path: vendor
+          key: ${{ steps.restore-tools-cache.outputs.cache-primary-key }}
 
       - uses: actions/upload-artifact@v3
         if: success() || failure()
