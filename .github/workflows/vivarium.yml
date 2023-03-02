@@ -1,4 +1,4 @@
-name: build
+name: Build
 
 on:
   push:
@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-    name: Vivarium Build
+    name: Vivarium
     runs-on: ubuntu-latest
     continue-on-error: true
 
