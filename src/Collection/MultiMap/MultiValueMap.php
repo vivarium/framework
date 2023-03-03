@@ -27,15 +27,15 @@ use function array_merge;
  */
 final class MultiValueMap implements MultiMap
 {
-    /** @var callable(): Collection<V> */
-    private $factory;
+    /** @var pure-callable(): Collection<V> */
+    private callable $factory;
 
     /** @var Map<K, Collection<V>> */
     private Map $map;
 
     /**
-     * @param callable(): Collection<V> $factory
-     * @param Pair<K, Collection<V>>    ...$collections
+     * @param pure-callable(): Collection<V> $factory
+     * @param Pair<K, Collection<V>>         ...$collections
      */
     public function __construct(callable $factory, Pair ...$collections)
     {
