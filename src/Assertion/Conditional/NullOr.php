@@ -14,26 +14,26 @@ use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
 
 /**
- * @template K
- * @template-implements Assertion<mixed>
+ * @template T as mixed
+ * @template-implements Assertion<T>
  */
 final class NullOr implements Assertion
 {
-    /** @var Assertion<K> */
+    /** @var Assertion<T> */
     private Assertion $assertion;
 
-    /** @param Assertion<K> $assertion */
+    /** @param Assertion<T> $assertion */
     public function __construct(Assertion $assertion)
     {
         $this->assertion = $assertion;
     }
 
     /**
-     * @param mixed $value
+     * @param T $value
      *
      * @throws InvalidArgumentException
      *
-     * @psalm-assert K|null $value
+     * @psalm-assert T|null $value
      * @psalm-mutation-free
      */
     public function assert($value, string $message = ''): void
@@ -46,9 +46,9 @@ final class NullOr implements Assertion
     }
 
     /**
-     * @param mixed $value
+     * @param T $value
      *
-     * @psalm-assert-if-true K|null $value
+     * @psalm-assert-if-true T|null $value
      *
      * @psalm-mutation-free
      */
