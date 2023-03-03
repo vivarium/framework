@@ -7,7 +7,24 @@
 
     <description>The ruleset for Vivarium Assertion.</description>
 
-    <rule ref="rulesets/cleancode.xml"/>
+    <rule ref="rulesets/cleancode.xml">
+        <exclude name="StaticAccess"/>
+    </rule>
+
+    <rule ref="rulesets/cleancode.xml/StaticAccess">
+        <properties>
+            <property name="ignorepattern">
+                <value>(^(create|from))i</value>
+            </property>
+            <property name="exceptions">
+                <value>
+                    \Vivarium\Collection\Util\KeyHash,
+                    \Vivarium\Collection\Util\Vector,
+                    \Vivarium\Equality\Equal
+                </value>
+            </property>
+        </properties>
+    </rule>
 
     <rule ref="rulesets/codesize.xml">
         <exclude name="TooManyPublicMethods"/>
