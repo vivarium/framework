@@ -237,13 +237,15 @@ class SortedMap implements Map
     /** @return SearchAlgorithm<Pair<K, V>, Pair<K, V>> */
     private function searchByPair(): SearchAlgorithm
     {
+        $comparator = $this->comparator;
+
         return new BinarySearch(
             /**
              * @param Pair<K, V> $pair1
              * @param Pair<K, V> $pair2
              */
-            function (Pair $pair1, Pair $pair2): int {
-                return $this->comparator->compare(
+            function (Pair $pair1, Pair $pair2) use ($comparator): int {
+                return $comparator->compare(
                     $pair1->getKey(),
                     $pair2->getKey(),
                 );
@@ -254,13 +256,15 @@ class SortedMap implements Map
     /** @return SearchAlgorithm<Pair<K, V>, K> */
     private function searchByKey(): SearchAlgorithm
     {
+        $comparator = $this->comparator;
+
         return new BinarySearch(
             /**
              * @param Pair<K, V> $pair
              * @param K          $key
              */
-            function (Pair $pair, $key): int {
-                return $this->comparator->compare(
+            function (Pair $pair, $key) use ($comparator): int {
+                return $comparator->compare(
                     $pair->getKey(),
                     $key,
                 );
