@@ -27,8 +27,11 @@ use function array_merge;
  */
 final class MultiValueMap implements MultiMap
 {
-    /** @var pure-callable(): Collection<V> */
-    private callable $factory;
+    /**
+     * @var callable(): Collection<V>
+     * @psalm-var pure-callable(): Collection<V>
+     */
+    private $factory;
 
     /** @var Map<K, Collection<V>> */
     private Map $map;

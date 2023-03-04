@@ -25,10 +25,13 @@ final class BinarySearch implements SearchAlgorithm
 
     private const RIGHT_HALF = 1;
 
-    /** @var callable(T, V): int */
+    /**
+     * @var callable(T, V): int
+     * @psalm-var pure-callable(T, V): int
+     */
     private $comparator;
 
-    /** @param callable(T, V): int $comparator */
+    /** @param pure-callable(T, V): int $comparator */
     public function __construct(callable $comparator)
     {
         $this->comparator = $comparator;

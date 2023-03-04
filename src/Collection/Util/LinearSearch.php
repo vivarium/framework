@@ -22,10 +22,16 @@ use function count;
  */
 final class LinearSearch implements SearchAlgorithm
 {
-    /** @var callable(T, V):bool */
+    /**
+     * @var callable(T, V):bool
+     * @psalm-var pure-callable(T, V):bool
+     */
     private $equals;
 
-    /** @param callable(T, V):bool|null $equals */
+    /**
+     * @param callable(T, V):bool|null $equals
+     * @psalm-param pure-callable(T, V):bool $equals
+     */
     public function __construct(?callable $equals = null)
     {
         if ($equals === null) {
