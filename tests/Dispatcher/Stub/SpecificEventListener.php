@@ -29,7 +29,6 @@ final class SpecificEventListener implements EventListener, Equality
         return $event;
     }
 
-    /** @psalm-mutation-free */
     public function equals(object $object): bool
     {
         return (new EqualsBuilder())
@@ -37,7 +36,6 @@ final class SpecificEventListener implements EventListener, Equality
             ->isEquals();
     }
 
-    /** @psalm-mutation-free */
     public function hash(): string
     {
         return (new HashBuilder())

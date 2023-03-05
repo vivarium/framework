@@ -27,7 +27,6 @@ use function count;
  * @template K
  * @template V
  * @template-implements Map<K, V>
- * @psalm-immutable
  */
 final class HashMap implements Map
 {

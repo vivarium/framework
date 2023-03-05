@@ -28,8 +28,6 @@ final class IsString implements Assertion
      * @throws AssertionFailed
      *
      * @psalm-assert string $value
-     *
-     * @psalm-mutation-free
      */
     public function assert($value, string $message = ''): void
     {
@@ -49,8 +47,6 @@ final class IsString implements Assertion
      * @param mixed $value
      *
      * @psalm-assert-if-true string $value
-     *
-     * @psalm-mutation-free
      */
     public function __invoke($value): bool
     {

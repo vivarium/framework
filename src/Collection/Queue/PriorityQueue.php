@@ -20,7 +20,6 @@ use function usort;
 /**
  * @template T
  * @template-implements Queue<T>
- * @psalm-immutable
  */
 final class PriorityQueue implements Queue
 {

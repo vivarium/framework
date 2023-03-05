@@ -19,15 +19,9 @@ interface Assertion
      * @param T $value
      *
      * @throws AssertionFailed
-     *
-     * @psalm-mutation-free
      */
     public function assert($value, string $message = ''): void;
 
-    /**
-     * @param T $value
-     *
-     * @psalm-mutation-free
-     */
+    /** @param T $value */
     public function __invoke($value): bool;
 }

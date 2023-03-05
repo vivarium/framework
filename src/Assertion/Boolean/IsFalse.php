@@ -18,10 +18,7 @@ use Vivarium\Assertion\Type\IsBoolean;
 
 use function sprintf;
 
-/**
- * @template-implements Assertion<bool>
- * @psalm-immutable
- */
+/** @template-implements Assertion<bool> */
 final class IsFalse implements Assertion
 {
     /**

@@ -15,7 +15,6 @@ use Vivarium\Collection\Collection;
 /**
  * @template T
  * @template-extends Collection<T>
- * @psalm-immutable
  */
 interface Queue extends Collection
 {

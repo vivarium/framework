@@ -13,10 +13,6 @@ namespace Vivarium\Comparator;
 /** @template T */
 interface Comparable
 {
-    /**
-     * @param T $element
-     *
-     * @psalm-mutation-free
-     */
+    /** @param T $element */
     public function compareTo($element): int;
 }

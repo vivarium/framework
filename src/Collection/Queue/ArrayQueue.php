@@ -19,7 +19,6 @@ use Vivarium\Equality\HashBuilder;
 /**
  * @template T
  * @template-implements Queue<T>
- * @psalm-immutable
  */
 final class ArrayQueue implements Queue
 {

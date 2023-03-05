@@ -13,7 +13,6 @@ namespace Vivarium\Collection\Util;
 /**
  * @template T
  * @template V
- * @psalm-immutable
  */
 interface SearchAlgorithm
 {

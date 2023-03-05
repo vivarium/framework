@@ -21,8 +21,6 @@ final class KeyHash
      * @param mixed $key
      *
      * @return array-key
-     *
-     * @psalm-mutation-free
      */
     public static function hash($key)
     {
