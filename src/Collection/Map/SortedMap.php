@@ -236,38 +236,42 @@ class SortedMap implements Map
     /** @return SearchAlgorithm<Pair<K, V>, Pair<K, V>> */
     private function searchByPair(): SearchAlgorithm
     {
-        $comparator = $this->comparator;
+        //FIXME Same as HashMap.php
 
-        return new BinarySearch(
+        /** @var callable(Pair<K,V>, Pair<K,V>):int $comparator */
+        $comparator =
             /**
              * @param Pair<K, V> $pair1
              * @param Pair<K, V> $pair2
              */
-            function (Pair $pair1, Pair $pair2) use ($comparator): int {
-                return $comparator->compare(
+            function (Pair $pair1, Pair $pair2) : int {
+                return $this->comparator->compare(
                     $pair1->getKey(),
                     $pair2->getKey(),
                 );
-            },
-        );
+            };
+
+        return new BinarySearch($comparator);
     }
 
     /** @return SearchAlgorithm<Pair<K, V>, K> */
     private function searchByKey(): SearchAlgorithm
     {
-        $comparator = $this->comparator;
+        //FIXME Same as HashMap.php
 
-        return new BinarySearch(
+        /** @var callable(Pair<K, V>, K):int $comparator */
+        $comparator =
             /**
              * @param Pair<K, V> $pair
              * @param K          $key
              */
-            function (Pair $pair, $key) use ($comparator): int {
-                return $comparator->compare(
+            function (Pair $pair, $key) : int {
+                return $this->comparator->compare(
                     $pair->getKey(),
                     $key,
                 );
-            },
-        );
+            };
+
+        return new BinarySearch($comparator);
     }
 }
