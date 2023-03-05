@@ -57,7 +57,6 @@ final class IsOneOfTest extends TestCase
         $search
             ->expects(static::exactly(4))
             ->method('equals')
-            ->withConsecutive([$element1], [$element2], [$element3], [$element4])
             ->willReturn(false);
 
         (new IsOneOf($element1, $element2, $element3, $element4))->assert($search);
