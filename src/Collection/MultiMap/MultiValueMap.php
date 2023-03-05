@@ -28,7 +28,6 @@ final class MultiValueMap implements MultiMap
 {
     /**
      * @var callable(): Collection<V>
-     * @psalm-var pure-callable(): Collection<V>
      */
     private $factory;
 
@@ -36,7 +35,7 @@ final class MultiValueMap implements MultiMap
     private Map $map;
 
     /**
-     * @param pure-callable(): Collection<V> $factory
+     * @param callable(): Collection<V> $factory
      * @param Pair<K, Collection<V>>         ...$collections
      */
     public function __construct(callable $factory, Pair ...$collections)

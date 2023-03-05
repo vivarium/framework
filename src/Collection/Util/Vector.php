@@ -85,8 +85,6 @@ final class Vector
      * @param T                        $element
      * @param callable(T, T):bool|null $equals
      *
-     * @psalm-param pure-callable(T, T):bool|null $equals
-     *
      * @template T
      */
     public static function linearSearch(array $array, $element, ?callable $equals = null): int
@@ -100,7 +98,7 @@ final class Vector
      * @param T                        $element
      * @param callable(T, T):bool|null $equals
      *
-     * @psalm-param pure-callable(T, T):bool|null $equals
+     * @psalm-param callable(T, T):bool|null $equals
      *
      * @template T
      */
@@ -113,8 +111,6 @@ final class Vector
      * @param array<int, T>      $array
      * @param V                  $element
      * @param callable(T, V):int $equals
-     *
-     * @psalm-param pure-callable(T, V):int $equals
      *
      * @template T
      * @template V
@@ -130,7 +126,7 @@ final class Vector
      * @param V                  $element
      * @param callable(T, V):int $equals
      *
-     * @psalm-param pure-callable(T, V):int $equals
+     * @psalm-param callable(T, V):int $equals
      *
      * @template T
      * @template V
