@@ -19,8 +19,6 @@ final class ComparableComparator implements Comparator
     /**
      * @param T $first
      * @param T $second
-     *
-     * @psalm-mutation-free
      */
     public function compare($first, $second): int
     {
@@ -30,8 +28,6 @@ final class ComparableComparator implements Comparator
     /**
      * @param T $first
      * @param T $second
-     *
-     * @psalm-mutation-free
      */
     public function __invoke($first, $second): int
     {

@@ -19,10 +19,7 @@ use function gettype;
 use function is_int;
 use function sprintf;
 
-/**
- * @template-implements Assertion<mixed>
- * @psalm-immutable
- */
+/** @template-implements Assertion<mixed> */
 final class IsInteger implements Assertion
 {
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
@@ -17,10 +18,7 @@ use Vivarium\Assertion\Type\IsNumeric;
 
 use function sprintf;
 
-/**
- * @template-implements Assertion<int|float>
- * @psalm-immutable
- */
+/** @template-implements Assertion<int|float> */
 final class IsInClosedRange implements Assertion
 {
     /** @var int|float */

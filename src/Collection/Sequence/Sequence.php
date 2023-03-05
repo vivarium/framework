@@ -16,7 +16,6 @@ use Vivarium\Comparator\Comparator;
 /**
  * @template T
  * @template-extends Collection<T>
- * @psalm-immutable
  */
 interface Sequence extends Collection
 {

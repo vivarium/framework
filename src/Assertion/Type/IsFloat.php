@@ -19,10 +19,7 @@ use function gettype;
 use function is_float;
 use function sprintf;
 
-/**
- * @template-implements Assertion<mixed>
- * @psalm-immutable
- */
+/** @template-implements Assertion<mixed> */
 final class IsFloat implements Assertion
 {
     /**

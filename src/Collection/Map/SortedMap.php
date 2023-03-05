@@ -27,7 +27,6 @@ use function count;
  * @template K
  * @template V
  * @template-implements Map<K, V>
- * @psalm-immutable
  */
 class SortedMap implements Map
 {

@@ -15,11 +15,7 @@ use function is_array;
 use function is_object;
 use function is_string;
 
-/**
- * @internal
- *
- * @psalm-immutable
- */
+/** @internal */
 final class TypeToString
 {
     /** @param mixed $value */

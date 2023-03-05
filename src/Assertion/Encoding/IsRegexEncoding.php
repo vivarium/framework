@@ -20,10 +20,7 @@ use Vivarium\Assertion\Type\IsString;
 use function mb_regex_encoding;
 use function sprintf;
 
-/**
- * @template-implements Assertion<string>
- * @psalm-immutable
- */
+/** @template-implements Assertion<string> */
 final class IsRegexEncoding implements Assertion
 {
     /** @param string $value */

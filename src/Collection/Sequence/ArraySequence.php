@@ -27,7 +27,6 @@ use function usort;
 /**
  * @template T
  * @template-implements Sequence<T>
- * @psalm-immutable
  */
 final class ArraySequence implements Sequence
 {

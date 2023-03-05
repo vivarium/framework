@@ -18,7 +18,6 @@ use Vivarium\Equality\Equality;
 /**
  * @template T
  * @template-extends IteratorAggregate<int, T>
- * @psalm-immutable
  */
 interface Collection extends Countable, IteratorAggregate, Equality
 {

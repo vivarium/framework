@@ -27,8 +27,6 @@ final class Vector
      * @return array<int, T>
      *
      * @template T
-     *
-     * @psalm-mutation-free
      */
     public static function putInPlace(array $array, $element, SearchAlgorithm $algo): array
     {
@@ -53,8 +51,6 @@ final class Vector
      * @return array<int, T>
      *
      * @template T
-     *
-     * @psalm-mutation-free
      */
     public static function putAtPlace(array $array, $element, SearchAlgorithm $algo): array
     {
@@ -72,8 +68,6 @@ final class Vector
      * @return array<int, T>
      *
      * @template T
-     *
-     * @psalm-mutation-free
      */
     public static function putAtIndex(array $array, $element, int $index): array
     {
@@ -92,7 +86,6 @@ final class Vector
      * @param callable(T, T):bool|null $equals
      *
      * @template T
-     * @psalm-mutation-free
      */
     public static function linearSearch(array $array, $element, ?callable $equals = null): int
     {
@@ -106,7 +99,6 @@ final class Vector
      * @param callable(T, T):bool|null $equals
      *
      * @template T
-     * @psalm-mutation-free
      */
     public static function linearContains(array $array, $element, ?callable $equals = null): bool
     {
@@ -120,8 +112,6 @@ final class Vector
      *
      * @template T
      * @template V
-     *
-     * @psalm-mutation-free
      */
     public static function binarySearch(array $array, $element, callable $equals): int
     {
@@ -136,8 +126,6 @@ final class Vector
      *
      * @template T
      * @template V
-     *
-     * @psalm-mutation-free
      */
     public static function binaryContains(array $array, $element, callable $equals): bool
     {

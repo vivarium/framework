@@ -21,7 +21,6 @@ use Vivarium\Equality\Equality;
  * @template K
  * @template V
  * @template-extends IteratorAggregate<K, V>
- * @psalm-immutable
  */
 interface MultiMap extends Countable, IteratorAggregate, Equality
 {

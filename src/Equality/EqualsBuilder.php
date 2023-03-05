@@ -18,7 +18,6 @@ use function is_array;
 use function is_float;
 use function is_object;
 
-/** @psalm-immutable */
 final class EqualsBuilder
 {
     private bool $isEquals;

@@ -15,10 +15,7 @@ use Vivarium\Assertion\Conditional\Either;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsEmpty;
 
-/**
- * @template-implements Assertion<mixed>
- * @psalm-immutable
- */
+/** @template-implements Assertion<mixed> */
 final class IsNumeric implements Assertion
 {
     /** @var Assertion<mixed> */

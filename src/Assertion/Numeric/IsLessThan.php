@@ -18,10 +18,7 @@ use Vivarium\Assertion\Type\IsNumeric;
 
 use function sprintf;
 
-/**
- * @template-implements Assertion<int|float>
- * @psalm-immutable
- */
+/** @template-implements Assertion<int|float> */
 final class IsLessThan implements Assertion
 {
     /** @var int|float */
