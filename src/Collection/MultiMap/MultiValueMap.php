@@ -36,14 +36,14 @@ final class MultiValueMap implements MultiMap
 
     /**
      * @param callable(): Collection<V> $factory
-     * @param Pair<K, Collection<V>>         ...$collections
+     * @param Pair<K, Collection<V>>    ...$collections
      */
     public function __construct(callable $factory, Pair ...$collections)
     {
         $this->factory = $factory;
 
-        /** @var Map<K, Collection<V>> $map */
         $map = new HashMap();
+
         foreach ($collections as $collection) {
             $map = $map->put(
                 $collection->getKey(),
@@ -51,6 +51,7 @@ final class MultiValueMap implements MultiMap
             );
         }
 
+        /** @var Map<K, Collection<V>> $map */
         $this->map = $map;
     }
 
