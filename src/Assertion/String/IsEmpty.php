@@ -18,10 +18,7 @@ use Vivarium\Assertion\Type\IsString;
 use function sprintf;
 use function strlen;
 
-/**
- * @template-implements Assertion<string>
- * @psalm-immutable
- */
+/** @template-implements Assertion<string> */
 final class IsEmpty implements Assertion
 {
     /**

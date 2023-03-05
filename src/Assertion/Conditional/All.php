@@ -18,7 +18,6 @@ use function array_merge;
 /**
  * @template T
  * @template-implements Assertion<T>
- * @psalm-immutable
  */
 final class All implements Assertion
 {

@@ -17,7 +17,6 @@ use function intval;
  * @template T
  * @template V
  * @implements SearchAlgorithm<T, V>
- * @psalm-immutable
  */
 final class BinarySearch implements SearchAlgorithm
 {

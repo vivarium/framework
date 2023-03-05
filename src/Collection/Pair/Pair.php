@@ -17,7 +17,6 @@ use Vivarium\Equality\HashBuilder;
 /**
  * @template-covariant K
  * @template-covariant V
- * @psalm-immutable
  */
 final class Pair implements Equality
 {

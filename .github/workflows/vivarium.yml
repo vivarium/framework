@@ -1,4 +1,4 @@
-name: build
+name: Vivarium
 
 on:
   push:
@@ -8,13 +8,13 @@ on:
       - 'release/**'
   pull_request:
     branches:
-      - 'feature/**'
-      - 'fix/**'
-      - 'hotfix/**'
+      - 'main'
+      - 'develop'
+      - 'release/**'
 
 jobs:
   build:
-    name: Vivarium Build
+    name: Build
     runs-on: ubuntu-latest
     continue-on-error: true
 

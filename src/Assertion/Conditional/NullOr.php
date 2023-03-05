@@ -34,7 +34,6 @@ final class NullOr implements Assertion
      * @throws InvalidArgumentException
      *
      * @psalm-assert T|null $value
-     * @psalm-mutation-free
      */
     public function assert($value, string $message = ''): void
     {
@@ -49,8 +48,6 @@ final class NullOr implements Assertion
      * @param T $value
      *
      * @psalm-assert-if-true T|null $value
-     *
-     * @psalm-mutation-free
      */
     public function __invoke($value): bool
     {

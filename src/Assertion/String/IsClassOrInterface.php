@@ -14,10 +14,7 @@ use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Conditional\Either;
 use Vivarium\Assertion\Exception\AssertionFailed;
 
-/**
- * @template-implements Assertion<string>
- * @psalm-immutable
- */
+/** @template-implements Assertion<string> */
 final class IsClassOrInterface implements Assertion
 {
     /** @var Assertion<string> */

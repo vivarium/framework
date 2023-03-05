@@ -14,7 +14,6 @@ use Vivarium\Equality\Equality;
 use Vivarium\Equality\EqualsBuilder;
 use Vivarium\Equality\HashBuilder;
 
-/** @psalm-immutable */
 final class Key implements Equality
 {
     private int $n;

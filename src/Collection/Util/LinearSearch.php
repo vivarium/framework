@@ -18,7 +18,6 @@ use function count;
  * @template T
  * @template V
  * @template-implements SearchAlgorithm<T, V>
- * @psalm-immutable
  */
 final class LinearSearch implements SearchAlgorithm
 {

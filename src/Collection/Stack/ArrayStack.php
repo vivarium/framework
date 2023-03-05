@@ -24,7 +24,6 @@ use function count;
 /**
  * @template T
  * @template-implements Stack<T>
- * @psalm-immutable
  */
 final class ArrayStack implements Stack
 {

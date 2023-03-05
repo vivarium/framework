@@ -20,10 +20,7 @@ use function strcmp;
 use function strlen;
 use function substr;
 
-/**
- * @template-implements Assertion<string>
- * @psalm-immutable
- */
+/** @template-implements Assertion<string> */
 final class EndsWith implements Assertion
 {
     private string $end;

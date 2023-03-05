@@ -16,8 +16,6 @@ final class IntegerComparator implements Comparator
     /**
      * @param int $first
      * @param int $second
-     *
-     * @psalm-mutation-free
      */
     public function compare($first, $second): int
     {
@@ -35,8 +33,6 @@ final class IntegerComparator implements Comparator
     /**
      * @param int $first
      * @param int $second
-     *
-     * @psalm-mutation-free
      */
     public function __invoke($first, $second): int
     {

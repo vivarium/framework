@@ -20,10 +20,7 @@ use Vivarium\Assertion\Type\IsString;
 use function mb_strlen;
 use function sprintf;
 
-/**
- * @template-implements Assertion<string>
- * @psalm-immutable
- */
+/** @template-implements Assertion<string> */
 final class IsLongAtLeast implements Assertion
 {
     private int $length;

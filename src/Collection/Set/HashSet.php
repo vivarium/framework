@@ -22,7 +22,6 @@ use function count;
 /**
  * @template T
  * @template-implements Set<T>
- * @psalm-immutable
  */
 final class HashSet implements Set
 {
@@ -47,8 +46,6 @@ final class HashSet implements Set
      * @return HashSet<K>
      *
      * @template K
-     *
-     * @psalm-pure
      */
     public static function fromArray(array $elements): HashSet
     {

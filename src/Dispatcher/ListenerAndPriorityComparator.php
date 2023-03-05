@@ -18,8 +18,6 @@ final class ListenerAndPriorityComparator implements Comparator
     /**
      * @param ListenerAndPriority<Event> $first
      * @param ListenerAndPriority<Event> $second
-     *
-     * @psalm-mutation-free
      */
     public function compare($first, $second): int
     {
@@ -29,8 +27,6 @@ final class ListenerAndPriorityComparator implements Comparator
     /**
      * @param ListenerAndPriority<Event> $first
      * @param ListenerAndPriority<Event> $second
-     *
-     * @psalm-mutation-free
      */
     public function __invoke($first, $second): int
     {

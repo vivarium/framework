@@ -19,7 +19,6 @@ use function serialize;
 use function sha1;
 use function spl_object_id;
 
-/** @psalm-immutable */
 final class HashBuilder
 {
     private string $total;

@@ -23,7 +23,6 @@ use function count;
 /**
  * @template T
  * @template-implements Set<T>
- * @psalm-immutable
  */
 final class SortedSet implements Set
 {
@@ -57,8 +56,6 @@ final class SortedSet implements Set
      * @return SortedSet<K>
      *
      * @template K
-     *
-     * @psalm-pure
      */
     public static function fromArray(Comparator $comparator, array $elements): SortedSet
     {

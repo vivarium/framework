@@ -40,7 +40,6 @@ final class ListenerAndPriority implements Equality
         return $this->priority;
     }
 
-    /** @psalm-mutation-free */
     public function equals(object $object): bool
     {
         if (! $object instanceof ListenerAndPriority) {
@@ -57,7 +56,6 @@ final class ListenerAndPriority implements Equality
             ->isEquals();
     }
 
-    /** @psalm-mutation-free */
     public function hash(): string
     {
         return (new HashBuilder())

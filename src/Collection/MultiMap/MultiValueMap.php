@@ -23,7 +23,6 @@ use function array_merge;
  * @template K
  * @template V
  * @template-implements MultiMap<K, V>
- * @psalm-immutable
  */
 final class MultiValueMap implements MultiMap
 {
