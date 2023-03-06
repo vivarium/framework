@@ -20,20 +20,12 @@ use Vivarium\Equality\HashBuilder;
  */
 final class Pair implements Equality
 {
-    /** @var K */
-    private $key;
-
-    /** @var V */
-    private $value;
-
     /**
      * @param K $key
      * @param V $value
      */
-    public function __construct($key, $value)
+    public function __construct(private $key, private $value)
     {
-        $this->key   = $key;
-        $this->value = $value;
     }
 
     /** @return K */

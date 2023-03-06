@@ -33,17 +33,12 @@ final class SortedSet implements Set
     /** @var Map<T, int>*/
     private Map $map;
 
-    /** @var Comparator<T> */
-    private Comparator $comparator;
-
     /**
      * @param Comparator<T> $comparator
      * @param T             ...$elements
      */
-    public function __construct(Comparator $comparator, ...$elements)
+    public function __construct(private Comparator $comparator, ...$elements)
     {
-        $this->comparator = $comparator;
-
         $placeholders = array_fill(self::START, count($elements), self::PLACEHOLDER);
 
         $this->map = SortedMap::fromKeyValue($comparator, $elements, $placeholders);

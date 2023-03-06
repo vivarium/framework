@@ -27,15 +27,10 @@ use function sprintf;
  */
 final class ImplementsInterface implements Assertion
 {
-    /** @var class-string<T> */
-    private string $interface;
-
     /** @param class-string<T> $interface */
-    public function __construct(string $interface)
+    public function __construct(private string $interface)
     {
         (new IsInterface())->assert($interface);
-
-        $this->interface = $interface;
     }
 
     /**

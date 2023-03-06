@@ -14,7 +14,6 @@ use Vivarium\Collection\Sequence\ArraySequence;
 use Vivarium\Collection\Sequence\Sequence;
 
 use function array_merge;
-use function get_class;
 
 final class AggregateDispatcher implements EventDispatcher
 {
@@ -39,7 +38,7 @@ final class AggregateDispatcher implements EventDispatcher
         /** @var Sequence<ListenerAndPriority<Event>> $listeners */
         $listeners = new ArraySequence();
         foreach ($this->providers as $provider) {
-            foreach ($provider->provide(get_class($event)) as $listener) {
+            foreach ($provider->provide($event::class) as $listener) {
                 $listeners = $listeners->add($listener);
             }
         }

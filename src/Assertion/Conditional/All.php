@@ -46,7 +46,7 @@ final class All implements Assertion
     {
         try {
             $this->assert($value);
-        } catch (AssertionFailed $ex) {
+        } catch (AssertionFailed) {
             return false;
         }
 

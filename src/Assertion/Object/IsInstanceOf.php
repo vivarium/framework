@@ -27,22 +27,17 @@ use function sprintf;
  */
 final class IsInstanceOf implements Assertion
 {
-    /** @var class-string<T> */
-    private string $class;
-
     /**
      * @param class-string<T> $class
      *
      * @throws AssertionFailed
      */
-    public function __construct(string $class)
+    public function __construct(private string $class)
     {
         (new Either(
             new IsClass(),
             new IsInterface(),
         ))->assert($class, 'Argument must be a class or interface name. Got %s');
-
-        $this->class = $class;
     }
 
     /**

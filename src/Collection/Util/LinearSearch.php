@@ -21,15 +21,11 @@ use function count;
  */
 final class LinearSearch implements SearchAlgorithm
 {
-    /**
-     * @var callable(T, V):bool
-     */
+    /** @var callable(T, V):bool */
     private $equals;
 
-    /**
-     * @param callable(T, V):bool|null $equals
-     */
-    public function __construct(?callable $equals = null)
+    /** @param callable(T, V):bool|null $equals */
+    public function __construct(callable|null $equals = null)
     {
         if ($equals === null) {
             $equals =

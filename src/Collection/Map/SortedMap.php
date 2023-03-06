@@ -33,17 +33,13 @@ class SortedMap implements Map
     /** @var array<int, Pair<K, V>> */
     private array $pairs;
 
-    /** @var Comparator<K> */
-    private Comparator $comparator;
-
     /**
      * @param Comparator<K> $comparator
      * @param Pair<K, V>    ...$pairs
      */
-    public function __construct(Comparator $comparator, Pair ...$pairs)
+    public function __construct(private Comparator $comparator, Pair ...$pairs)
     {
-        $this->comparator = $comparator;
-        $this->pairs      = [];
+        $this->pairs = [];
 
         foreach ($pairs as $pair) {
             $this->pairs = Vector::putInPlace(

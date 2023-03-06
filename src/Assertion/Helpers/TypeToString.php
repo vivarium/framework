@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Helpers;
 
-use function get_class;
 use function is_array;
 use function is_object;
 use function is_string;
@@ -38,7 +37,7 @@ final class TypeToString
         }
 
         if (is_object($value)) {
-            $value = get_class($value);
+            $value = $value::class;
         }
 
         if (is_string($value)) {

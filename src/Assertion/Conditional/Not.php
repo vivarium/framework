@@ -24,13 +24,9 @@ use function sprintf;
  */
 final class Not implements Assertion
 {
-    /** @var Assertion<T> */
-    private Assertion $assertion;
-
     /** @param Assertion<T> $assertion */
-    public function __construct(Assertion $assertion)
+    public function __construct(private Assertion $assertion)
     {
-        $this->assertion = $assertion;
     }
 
     /** @param T $value */

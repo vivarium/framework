@@ -26,17 +26,12 @@ final class PriorityQueue implements Queue
     /** @var ArrayQueue<T> */
     private ArrayQueue $queue;
 
-    /** @var Comparator<T> */
-    private Comparator $comparator;
-
     /**
      * @param Comparator<T> $comparator
      * @param T             ...$elements
      */
-    public function __construct(Comparator $comparator, ...$elements)
+    public function __construct(private Comparator $comparator, ...$elements)
     {
-        $this->comparator = $comparator;
-
         usort($elements, $comparator);
 
         $this->queue = new ArrayQueue(...$elements);

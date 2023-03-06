@@ -52,7 +52,7 @@ final class IsRegexEncoding implements Assertion
         try {
             $valid = @mb_regex_encoding($value);
             (new IsBoolean())->assert($valid);
-        } catch (ValueError $error) {
+        } catch (ValueError) {
             $valid = false;
         } finally {
             /** @psalm-suppress UnusedFunctionCall We can ignore the result since we are restoring the previous value */

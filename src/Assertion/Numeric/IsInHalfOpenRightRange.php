@@ -21,11 +21,9 @@ use function sprintf;
 /** @template-implements Assertion<int|float> */
 final class IsInHalfOpenRightRange implements Assertion
 {
-    /** @var int|float */
-    private $min;
+    private int|float $min;
 
-    /** @var int|float */
-    private $max;
+    private int|float $max;
 
     /**
      * @param int|float $min

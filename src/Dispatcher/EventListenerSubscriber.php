@@ -18,7 +18,7 @@ interface EventListenerSubscriber
      *
      * @template T of Event
      */
-    public function subscribe(string $event, EventListener $listener, ?int $priority = null): self;
+    public function subscribe(string $event, EventListener $listener, int|null $priority = null): self;
 
     /**
      * @param class-string<T>  $event
@@ -26,5 +26,5 @@ interface EventListenerSubscriber
      *
      * @template T of Event
      */
-    public function unsubscribe(string $event, EventListener $listener, ?int $priority = null): self;
+    public function unsubscribe(string $event, EventListener $listener, int|null $priority = null): self;
 }

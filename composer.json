@@ -11,19 +11,18 @@
         }
     ],
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.0",
         "ext-mbstring": "*"
     },
     "require-dev": {
-        "doctrine/coding-standard": "^10.0",
+        "doctrine/coding-standard": "^11.0",
         "infection/infection": "^0.26",
         "phpmd/phpmd": "^2.0",
         "phpstan/phpstan": "^1.0",
         "phpstan/phpstan-strict-rules": "^1.0",
-        "phpunit/phpunit": "^9.3",
+        "phpunit/phpunit": "^10.0",
         "psalm/plugin-phpunit": "^0.18",
-        "sebastian/phpcpd": "^6.0",
-        "vimeo/psalm": "^4.0"
+        "vimeo/psalm": "^5.0"
     },
     "autoload": {
         "psr-4": {

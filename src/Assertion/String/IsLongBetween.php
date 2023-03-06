@@ -22,19 +22,9 @@ use function sprintf;
 /** @template-implements Assertion<string> */
 final class IsLongBetween implements Assertion
 {
-    private int $min;
-
-    private int $max;
-
-    private string $encoding;
-
-    public function __construct(int $min, int $max, string $encoding = 'UTF-8')
+    public function __construct(private int $min, private int $max, private string $encoding = 'UTF-8')
     {
         (new IsSystemEncoding())->assert($encoding);
-
-        $this->min      = $min;
-        $this->max      = $max;
-        $this->encoding = $encoding;
     }
 
     /**
