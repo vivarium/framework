@@ -16,8 +16,6 @@ use Traversable;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Hierarchy\ImplementsInterface;
 
-use function get_class;
-
 /** @coversDefaultClass \Vivarium\Assertion\Hierarchy\ImplementsInterface */
 final class ImplementsInterfaceTest extends TestCase
 {
@@ -33,7 +31,7 @@ final class ImplementsInterfaceTest extends TestCase
 
         $mock = $this->createMock(Traversable::class);
 
-        (new ImplementsInterface(Traversable::class))->assert(get_class($mock));
+        (new ImplementsInterface(Traversable::class))->assert($mock::class);
         (new ImplementsInterface(Traversable::class))->assert(stdClass::class);
     }
 

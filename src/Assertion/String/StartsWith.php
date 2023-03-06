@@ -23,11 +23,8 @@ use function substr;
 /** @template-implements Assertion<string> */
 final class StartsWith implements Assertion
 {
-    private string $start;
-
-    public function __construct(string $start)
+    public function __construct(private string $start)
     {
-        $this->start = $start;
     }
 
     /**

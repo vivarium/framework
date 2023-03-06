@@ -16,11 +16,8 @@ use Vivarium\Equality\HashBuilder;
 
 final class KeyWithHashCollision implements Equality
 {
-    private int $n;
-
-    public function __construct(int $n)
+    public function __construct(private int $n)
     {
-        $this->n = $n;
     }
 
     public function equals(object $object): bool

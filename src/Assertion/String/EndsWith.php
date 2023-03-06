@@ -23,11 +23,8 @@ use function substr;
 /** @template-implements Assertion<string> */
 final class EndsWith implements Assertion
 {
-    private string $end;
-
-    public function __construct(string $end)
+    public function __construct(private string $end)
     {
-        $this->end = $end;
     }
 
     /**

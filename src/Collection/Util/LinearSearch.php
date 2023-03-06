@@ -25,7 +25,7 @@ final class LinearSearch implements SearchAlgorithm
     private $equals;
 
     /** @param callable(T, V):bool|null $equals */
-    public function __construct(?callable $equals = null)
+    public function __construct(callable|null $equals = null)
     {
         if ($equals === null) {
             $equals =

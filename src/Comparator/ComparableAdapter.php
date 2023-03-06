@@ -16,20 +16,12 @@ namespace Vivarium\Comparator;
  */
 final class ComparableAdapter implements Comparable
 {
-    /** @var T */
-    private $element;
-
-    /** @var Comparator<T>  */
-    private Comparator $comparator;
-
     /**
      * @param T             $element
      * @param Comparator<T> $comparator
      */
-    public function __construct($element, Comparator $comparator)
+    public function __construct(private $element, private Comparator $comparator)
     {
-        $this->element    = $element;
-        $this->comparator = $comparator;
     }
 
     /** @param T $element */

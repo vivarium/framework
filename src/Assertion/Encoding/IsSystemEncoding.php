@@ -52,7 +52,7 @@ final class IsSystemEncoding implements Assertion
         try {
             $valid = @mb_internal_encoding($value);
             (new IsBoolean())->assert($valid);
-        } catch (ValueError $error) {
+        } catch (ValueError) {
             $valid = false;
         } finally {
             // Restore the previous encoding

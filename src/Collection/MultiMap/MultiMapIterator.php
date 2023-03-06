@@ -22,17 +22,13 @@ use function assert;
  */
 final class MultiMapIterator implements Iterator
 {
-    /** @var Iterator<K, Collection<V>> */
-    private Iterator $mapIterator;
-
     /** @var Iterator<int, V> */
-    private ?Iterator $iterator;
+    private Iterator|null $iterator;
 
     /** @param Iterator<K, Collection<V>> $mapIterator */
-    public function __construct(Iterator $mapIterator)
+    public function __construct(private Iterator $mapIterator)
     {
-        $this->mapIterator = $mapIterator;
-        $this->iterator    = null;
+        $this->iterator = null;
     }
 
     /** @return V */

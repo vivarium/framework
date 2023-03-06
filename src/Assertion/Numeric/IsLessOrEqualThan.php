@@ -21,8 +21,7 @@ use function sprintf;
 /** @template-implements Assertion<int|float> */
 final class IsLessOrEqualThan implements Assertion
 {
-    /** @var int|float */
-    private $compare;
+    private int|float $compare;
 
     public function __construct(float $compare)
     {

@@ -23,17 +23,10 @@ use function sprintf;
 /** @template-implements Assertion<string> */
 final class IsLongAtLeast implements Assertion
 {
-    private int $length;
-
-    private string $encoding;
-
-    public function __construct(int $length, string $encoding = 'UTF-8')
+    public function __construct(private int $length, private string $encoding = 'UTF-8')
     {
         (new IsSystemEncoding())->assert($encoding);
         (new IsGreaterThan(0))->assert($length);
-
-        $this->length   = $length;
-        $this->encoding = $encoding;
     }
 
     /**
