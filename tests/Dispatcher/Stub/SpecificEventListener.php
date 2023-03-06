@@ -15,8 +15,6 @@ use Vivarium\Equality\Equality;
 use Vivarium\Equality\EqualsBuilder;
 use Vivarium\Equality\HashBuilder;
 
-use function get_class;
-
 /**
  * @template T as SpecificEvent
  * @template-implements EventListener<T>
@@ -32,7 +30,7 @@ final class SpecificEventListener implements EventListener, Equality
     public function equals(object $object): bool
     {
         return (new EqualsBuilder())
-            ->append(self::class, get_class($object))
+            ->append(self::class, $object::class)
             ->isEquals();
     }
 

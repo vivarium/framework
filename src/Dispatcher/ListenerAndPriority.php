@@ -17,16 +17,9 @@ use Vivarium\Equality\HashBuilder;
 /** @template T as Event */
 final class ListenerAndPriority implements Equality
 {
-    /** @var EventListener<T> */
-    private EventListener $listener;
-
-    private int $priority;
-
     /** @param EventListener<T> $listener */
-    public function __construct(EventListener $listener, int $priority)
+    public function __construct(private EventListener $listener, private int $priority)
     {
-        $this->listener = $listener;
-        $this->priority = $priority;
     }
 
     /** @return EventListener<T> */

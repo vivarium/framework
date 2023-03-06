@@ -19,15 +19,12 @@ use Vivarium\Equality\EqualsBuilder;
 final class EqualsBuilderTest extends TestCase
 {
     /**
-     * @param mixed $first
-     * @param mixed $second
-     *
      * @covers ::__construct()
      * @covers ::append
      * @covers ::isEquals
      * @dataProvider getTestAppendScalarData
      */
-    public function testAppendScalar($first, $second, bool $expected): void
+    public function testAppendScalar(mixed $first, mixed $second, bool $expected): void
     {
         $builder = new EqualsBuilder();
         $builder = $builder->append($first, $second);
@@ -67,15 +64,12 @@ final class EqualsBuilderTest extends TestCase
     }
 
     /**
-     * @param mixed $object1
-     * @param mixed $object2
-     *
      * @covers ::append
      * @covers ::appendObject
      * @covers ::isEquals
      * @dataProvider getTestAppendObjectData
      */
-    public function testAppendObject($object1, $object2, bool $expected): void
+    public function testAppendObject(mixed $object1, mixed $object2, bool $expected): void
     {
         $builder = new EqualsBuilder();
         $builder = $builder->append($object1, $object2);
@@ -98,14 +92,11 @@ final class EqualsBuilderTest extends TestCase
     }
 
     /**
-     * @param mixed $first
-     * @param mixed $second
-     *
      * @covers ::append()
      * @covers ::isEquals()
      * @dataProvider getTestAppendMixedData
      */
-    public function testAppendDifferentTypes($first, $second): void
+    public function testAppendDifferentTypes(mixed $first, mixed $second): void
     {
         $builder = new EqualsBuilder();
         $builder = $builder->append($first, $second);
@@ -114,13 +105,10 @@ final class EqualsBuilderTest extends TestCase
     }
 
     /**
-     * @param mixed $first
-     * @param mixed $second
-     *
      * @covers ::append()
      * @dataProvider getClonePointData
      */
-    public function testImmutability($first, $second): void
+    public function testImmutability(mixed $first, mixed $second): void
     {
         $builder  = new EqualsBuilder();
         $builder1 = $builder->append($first, $second);

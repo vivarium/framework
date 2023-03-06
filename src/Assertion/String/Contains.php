@@ -21,11 +21,8 @@ use function strpos;
 /** @template-implements Assertion<string> */
 final class Contains implements Assertion
 {
-    private string $substring;
-
-    public function __construct(string $substring)
+    public function __construct(private string $substring)
     {
-        $this->substring = $substring;
     }
 
     /**

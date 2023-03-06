@@ -19,14 +19,12 @@ use Vivarium\Equality\HashBuilder;
 final class HashBuilderTest extends TestCase
 {
     /**
-     * @param mixed $value
-     *
      * @covers ::__construct
      * @covers ::append
      * @covers ::getHashCode
      * @dataProvider getTestAppendPrimitiveData
      */
-    public function testAppendPrimitive($value, string $expected): void
+    public function testAppendPrimitive(mixed $value, string $expected): void
     {
         $builder = new HashBuilder();
         $builder = $builder->append($value);
@@ -63,13 +61,11 @@ final class HashBuilderTest extends TestCase
     }
 
     /**
-     * @param mixed $element
-     *
      * @covers ::append
      * @covers ::appendCallable
      * @dataProvider getClonePointData
      */
-    public function testImmutability($element): void
+    public function testImmutability(mixed $element): void
     {
         $builder  = new HashBuilder();
         $builder1 = $builder->append($element);

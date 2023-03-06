@@ -25,15 +25,10 @@ use function sprintf;
  */
 final class IsAssignableTo implements Assertion
 {
-    /** @var class-string<T> */
-    private string $class;
-
     /** @param class-string<T> $class */
-    public function __construct(string $class)
+    public function __construct(private string $class)
     {
         (new IsClassOrInterface())->assert($class);
-
-        $this->class = $class;
     }
 
     /**

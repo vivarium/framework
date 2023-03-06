@@ -24,13 +24,9 @@ use function sprintf;
  */
 final class IsEqualsTo implements Assertion
 {
-    /** @var T */
-    private $compare;
-
     /** @param T $compare */
-    public function __construct($compare)
+    public function __construct(private $compare)
     {
-        $this->compare = $compare;
     }
 
     /**

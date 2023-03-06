@@ -19,13 +19,9 @@ use Vivarium\Assertion\Assertion;
  */
 final class NullOr implements Assertion
 {
-    /** @var Assertion<K> */
-    private Assertion $assertion;
-
     /** @param Assertion<K> $assertion */
-    public function __construct(Assertion $assertion)
+    public function __construct(private Assertion $assertion)
     {
-        $this->assertion = $assertion;
     }
 
     /**

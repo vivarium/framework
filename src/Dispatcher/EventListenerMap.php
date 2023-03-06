@@ -51,7 +51,7 @@ final class EventListenerMap implements EventListenerProvider, EventListenerSubs
      *
      * @template T of Event
      */
-    public function subscribe(string $event, EventListener $listener, ?int $priority = null): self
+    public function subscribe(string $event, EventListener $listener, int|null $priority = null): self
     {
         if ($priority === null) {
             $priority = Priority::NORMAL;
@@ -72,7 +72,7 @@ final class EventListenerMap implements EventListenerProvider, EventListenerSubs
      *
      * @template T of Event
      */
-    public function unsubscribe(string $event, EventListener $listener, ?int $priority = null): self
+    public function unsubscribe(string $event, EventListener $listener, int|null $priority = null): self
     {
         if ($priority === null) {
             $priority = Priority::NORMAL;

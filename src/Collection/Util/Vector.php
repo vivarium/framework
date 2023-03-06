@@ -87,7 +87,7 @@ final class Vector
      *
      * @template T
      */
-    public static function linearSearch(array $array, $element, ?callable $equals = null): int
+    public static function linearSearch(array $array, $element, callable|null $equals = null): int
     {
         return (new LinearSearch($equals))
             ->search($array, $element);
@@ -100,7 +100,7 @@ final class Vector
      *
      * @template T
      */
-    public static function linearContains(array $array, $element, ?callable $equals = null): bool
+    public static function linearContains(array $array, $element, callable|null $equals = null): bool
     {
         return static::linearSearch($array, $element, $equals) >= 0;
     }
