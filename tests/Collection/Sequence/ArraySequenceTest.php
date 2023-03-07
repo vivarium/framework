@@ -94,6 +94,7 @@ class ArraySequenceTest extends TestCase
     /** @covers ::getIterator() */
     public function testGetIterator(): void
     {
+        /** @var array<int, int> $expected */
         $expected = [1, 2, 3, 4, 5];
 
         $list = ArraySequence::fromArray($expected);

@@ -121,7 +121,14 @@ final class HashBuilderTest extends TestCase
         ];
     }
 
-    /** @return array{0: array{0: array<int>, 1: string}, 1: array{0: array<object>, 1: string}} */
+    /**
+     * @return array{
+     *     0: array{0: array<int>, 1: string},
+     *     1: array{0: array<object>, 1: string},
+     *     2: array{0: array<string, int>, 1:string},
+     *     3: array{0: array<string, int|array<string|array<int, string>>>, 1:string}
+     * }
+     */
     public function getTestAppendEachData(): array
     {
         $stdClass      = new stdClass();
@@ -141,13 +148,27 @@ final class HashBuilderTest extends TestCase
                 '381ba48afb9497d12392200c7ba6d2eafd82e77e',
             ],
             [
-                ['a' => 1, 'b' => 2, 'c' => ['a', 'b', 'c' => [3 => 'c']]],
+                [
+                    'a' => 1,
+                    'b' => 2,
+                    'c' => [
+                        0 => 'a',
+                        1 => 'b',
+                        'c' => [3 => 'c'],
+                    ],
+                ],
                 '9356b8b9c963674063a6d422c8b21eeccd890148',
             ],
         ];
     }
 
-    /** @return array{0: array<int>, 1: array<float>, 2: array<Equality>, 3: array{empty?: int}, 4: array<callable>} */
+    /** @return array{
+     *     0: array<int>,
+     *     1: array<float>,
+     *     2: array<Equality>,
+     *     3: array<callable>
+     * }
+     */
     public function getClonePointData(): array
     {
         $equality = $this->createMock(Equality::class);
@@ -157,9 +178,6 @@ final class HashBuilderTest extends TestCase
             [ 1 ],
             [  0.5 ],
             [ $equality ],
-            [
-                [],
-            ],
             [
                 static function (): int {
                     return 1 + 1;

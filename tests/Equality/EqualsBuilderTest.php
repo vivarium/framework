@@ -276,7 +276,7 @@ final class EqualsBuilderTest extends TestCase
         ];
     }
 
-    /** @return array{0: array<int>, 1: array<float>, 2: array<Equality>, 3: array<array<int>>} */
+    /** @return array{0: array<int>, 1: array<float>, 2: array<Equality>, 3: array<array<int>>, 4: array<array<int>>} */
     public function getClonePointData(): array // phpcs:disable
     {
         $equality = $this->createMock(Equality::class);

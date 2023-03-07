@@ -85,8 +85,9 @@ class SortedSetTest extends TestCase
     /** @covers ::getIterator() */
     public function testGetIterator(): void
     {
-        /** @var int[] $values */
-        $values   = [3, 2, 1, 3, 1, 3];
+        /** @var array<int> $values */
+        $values = [3, 2, 1, 3, 1, 3];
+        /** @var array<int> $expected */
         $expected = [1, 2, 3];
 
         $set   = SortedSet::fromArray(new IntegerComparator(), $values);

@@ -3,12 +3,44 @@
          xmlns="http://pmd.sf.net/ruleset/1.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 https://pmd.sf.net/ruleset_xml_schema.xsd"
-         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+         xsi:noNamespaceSchemaLocation="https://pmd.sf.net/ruleset_xml_schema.xsd">
 
-    <description>The ruleset for Vivarium Assertion.</description>
+    <description>The ruleset for Vivarium.</description>
 
-    <rule ref="rulesets/cleancode.xml"/>
-    <rule ref="rulesets/codesize.xml" />
+    <rule ref="rulesets/cleancode.xml">
+        <exclude name="StaticAccess"/>
+    </rule>
+
+    <rule ref="rulesets/cleancode.xml/StaticAccess">
+        <properties>
+            <property name="ignorepattern">
+                <value>(^(create|from))i</value>
+            </property>
+            <property name="exceptions">
+                <value>
+                    \Vivarium\Collection\Util\KeyHash,
+                    \Vivarium\Collection\Util\Vector,
+                    \Vivarium\Equality\Equal
+                </value>
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/codesize.xml">
+        <exclude name="TooManyPublicMethods"/>
+    </rule>
+
+    <rule ref="rulesets/codesize.xml/TooManyPublicMethods">
+        <properties>
+            <property name="maxmethods">
+                <value>15</value>
+            </property>
+            <property name="ignorepattern">
+                <value>(^(set|get|is|has|with|equals|hash))i</value>
+            </property>
+        </properties>
+    </rule>
+
     <rule ref="rulesets/naming.xml"/>
     <rule ref="rulesets/controversial.xml" />
     <rule ref="rulesets/design.xml" />

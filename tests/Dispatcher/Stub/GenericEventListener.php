@@ -21,8 +21,12 @@ use Vivarium\Equality\HashBuilder;
  */
 final class GenericEventListener implements EventListener, Equality
 {
-    /** @param T $event */
-    public function handle($event): GenericEvent
+    /**
+     * @param T $event
+     *
+     * @return T
+     */
+    public function handle($event)
     {
         return $event;
     }

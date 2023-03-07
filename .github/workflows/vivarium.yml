@@ -55,6 +55,7 @@ jobs:
           mkdir tests-results/infection
           mkdir tests-results/phpcs
           mkdir tests-results/phpmd
+          mkdir tests-results/psalm
           mkdir tests-results/phpstan
           mkdir tests-results/phpunit
 

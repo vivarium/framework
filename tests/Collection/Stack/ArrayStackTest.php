@@ -143,6 +143,7 @@ class ArrayStackTest extends TestCase
     public function testGetIterator(): void
     {
         $stack = new ArrayStack(1, 2, 3);
+        /** @var array<int> $order */
         $order = [3, 2, 1];
 
         $index    = 0;

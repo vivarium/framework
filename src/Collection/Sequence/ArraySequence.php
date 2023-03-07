@@ -209,7 +209,6 @@ final class ArraySequence implements Sequence
             ->getHashCode();
     }
 
-    /** @psalm-assert int $index */
     private function checkBounds(int $index): void
     {
         if ($index < 0 || $index >= $this->count()) {

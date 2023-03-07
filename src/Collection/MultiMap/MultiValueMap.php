@@ -40,8 +40,8 @@ final class MultiValueMap implements MultiMap
     {
         $this->factory = $factory;
 
-        /** @var Map<K, Collection<V>> $map */
         $map = new HashMap();
+
         foreach ($collections as $collection) {
             $map = $map->put(
                 $collection->getKey(),
@@ -49,6 +49,7 @@ final class MultiValueMap implements MultiMap
             );
         }
 
+        /** @psalm-var Map<K, Collection<V>> $map */
         $this->map = $map;
     }
 

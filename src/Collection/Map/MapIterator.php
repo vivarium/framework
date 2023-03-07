@@ -44,7 +44,7 @@ final class MapIterator implements Iterator
     }
 
     /** @return V */
-    public function current()
+    public function current(): mixed
     {
         $bucket = $this->pairs[$this->current];
         if (is_array($bucket)) {
@@ -68,7 +68,7 @@ final class MapIterator implements Iterator
     }
 
     /** @return K */
-    public function key()
+    public function key(): mixed
     {
         $bucket = $this->pairs[$this->current];
         if (is_array($bucket)) {

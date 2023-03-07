@@ -32,7 +32,7 @@ final class MultiMapIterator implements Iterator
     }
 
     /** @return V */
-    public function current()
+    public function current(): mixed
     {
         if ($this->iterator === null) {
             $this->iterator = $this->mapIterator->current()
@@ -61,7 +61,7 @@ final class MultiMapIterator implements Iterator
     }
 
     /** @return K */
-    public function key()
+    public function key(): mixed
     {
         return $this->mapIterator->key();
     }
