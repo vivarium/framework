@@ -29,12 +29,8 @@ final class IsSameOf implements Assertion
     {
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @psalm-assert =T $value
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert T $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -48,12 +44,8 @@ final class IsSameOf implements Assertion
         }
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @psalm-assert-if-true =T $value
-     */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true T $value */
+    public function __invoke(mixed $value): bool
     {
         return $value === $this->compare;
     }

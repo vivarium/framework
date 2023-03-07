@@ -12,12 +12,11 @@ namespace Vivarium\Assertion\String;
 
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Conditional\Either;
-use Vivarium\Assertion\Exception\AssertionFailed;
 
-/** @template-implements Assertion<string> */
+/** @template-implements Assertion<class-string> */
 final class IsClassOrInterface implements Assertion
 {
-    /** @var Assertion<string> */
+    /** @var Assertion<class-string> */
     private Assertion $assertion;
 
     public function __construct()
@@ -28,14 +27,8 @@ final class IsClassOrInterface implements Assertion
         );
     }
 
-    /**
-     * @param string $value
-     *
-     * @throws AssertionFailed
-     *
-     * @psalm-assert class-string $value
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert class-string $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         $message = (new IsEmpty())($message) ?
             'Argument must be a class or interface name. Got %s' : $message;
@@ -43,12 +36,8 @@ final class IsClassOrInterface implements Assertion
         $this->assertion->assert($value, $message);
     }
 
-    /**
-     * @param string $value
-     *
-     * @psalm-assert-if-true class-string $value
-     */
-    public function __invoke($value): bool
+    /** @psalm-assert class-string $value */
+    public function __invoke(mixed $value): bool
     {
         return ($this->assertion)($value);
     }

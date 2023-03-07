@@ -23,10 +23,22 @@ final class IsFloatTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsFloat())
+            ->assert(4.5);
+    }
+
+    /**
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be float. Got string.');
 
-        (new IsFloat())->assert(4.5);
-        (new IsFloat())->assert('Hello World');
+        (new IsFloat())
+            ->assert('Hello World');
     }
 }

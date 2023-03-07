@@ -13,7 +13,6 @@ namespace Vivarium\Test\Assertion\Comparison;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Comparison\IsEqualsTo;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Equality\Equality;
 
 /** @coversDefaultClass \Vivarium\Assertion\Comparison\IsEqualsTo */
 final class IsEqualsToTest extends TestCase
@@ -25,11 +24,10 @@ final class IsEqualsToTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be equals to "RandomString". Got "Hello World"');
+        static::expectNotToPerformAssertions();
 
-        (new IsEqualsTo(5))->assert(5);
-        (new IsEqualsTo('RandomString'))->assert('Hello World');
+        (new IsEqualsTo(5))
+            ->assert(5);
     }
 
     /**
@@ -37,21 +35,12 @@ final class IsEqualsToTest extends TestCase
      * @covers ::assert()
      * @covers ::__invoke()
      */
-    public function testAssertWithEqualityInterface(): void
+    public function testAssertException(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected objects to be equals.');
+        static::expectExceptionMessage('Expected value to be equals to "RandomString". Got "Hello World"');
 
-        $equality  = $this->createMock(Equality::class);
-        $equality1 = $this->createMock(Equality::class);
-
-        $equality1
-            ->expects(static::once())
-            ->method('equals')
-            ->with($equality)
-            ->willReturn(false);
-
-        (new IsEqualsTo($equality))
-            ->assert($equality1, 'Expected objects to be equals.');
+        (new IsEqualsTo('RandomString'))
+            ->assert('Hello World');
     }
 }

@@ -23,10 +23,22 @@ final class IsStringTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsString())
+            ->assert('Hello World');
+    }
+
+    /**
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be string. Got integer.');
 
-        (new IsString())->assert('Hello World');
-        (new IsString())->assert(42);
+        (new IsString())
+            ->assert(42);
     }
 }

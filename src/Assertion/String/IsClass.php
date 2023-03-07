@@ -18,17 +18,11 @@ use Vivarium\Assertion\Type\IsString;
 use function class_exists;
 use function sprintf;
 
-/** @template-implements Assertion<string> */
+/** @template-implements Assertion<class-string> */
 final class IsClass implements Assertion
 {
-    /**
-     * @param string $value
-     *
-     * @throws AssertionFailed
-     *
-     * @psalm-assert class-string $value
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert class-string $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -41,20 +35,11 @@ final class IsClass implements Assertion
         }
     }
 
-    /**
-     * @param string $value
-     *
-     * @psalm-assert-if-true class-string $value
-     */
-    public function __invoke($value): bool
+    /** @psalm-assert class-string $value */
+    public function __invoke(mixed $value): bool
     {
         (new IsString())->assert($value);
 
-        /**
-         * This function triggers the autoload but i think is an acceptable side effect
-         *
-         * @psalm-suppress ImpureFunctionCall
-         */
         return class_exists($value);
     }
 }

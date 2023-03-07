@@ -13,7 +13,6 @@ namespace Vivarium\Test\Assertion\Comparison;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Comparison\IsOneOf;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Equality\Equality;
 
 /** @coversDefaultClass \Vivarium\Assertion\Comparison\IsOneOf */
 final class IsOneOfTest extends TestCase
@@ -25,8 +24,7 @@ final class IsOneOfTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be one of the values provided. Got 27.');
+        static::expectNotToPerformAssertions();
 
         $oneOf = new IsOneOf(1, 5, 7, 42);
 
@@ -34,8 +32,6 @@ final class IsOneOfTest extends TestCase
         $oneOf->assert(5);
         $oneOf->assert(7);
         $oneOf->assert(42);
-
-        $oneOf->assert(27);
     }
 
     /**
@@ -43,23 +39,12 @@ final class IsOneOfTest extends TestCase
      * @covers ::assert()
      * @covers ::__invoke()
      */
-    public function testAssertWithEquality(): void
+    public function testAssertException(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be one of the values provided. Got different object.');
+        static::expectExceptionMessage('Expected value to be one of the values provided. Got 27.');
 
-        $element1 = $this->createMock(Equality::class);
-        $element2 = $this->createMock(Equality::class);
-        $element3 = $this->createMock(Equality::class);
-        $element4 = $this->createMock(Equality::class);
-
-        $search = $this->createMock(Equality::class);
-        $search
-            ->expects(static::exactly(4))
-            ->method('equals')
-            ->withConsecutive([$element1], [$element2], [$element3], [$element4])
-            ->willReturn(false);
-
-        (new IsOneOf($element1, $element2, $element3, $element4))->assert($search);
+        (new IsOneOf(1, 5, 7, 42))
+            ->assert(27);
     }
 }

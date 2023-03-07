@@ -10,28 +10,21 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Conditional;
 
-use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
 
 /**
- * @template K
- * @template-implements Assertion<mixed>
+ * @template T
+ * @template-implements Assertion<T|null>
  */
 final class NullOr implements Assertion
 {
-    /** @param Assertion<K> $assertion */
+    /** @param Assertion<T> $assertion */
     public function __construct(private Assertion $assertion)
     {
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @throws InvalidArgumentException
-     *
-     * @psalm-assert K|null $value
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert T|null $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if ($value === null) {
             return;
@@ -40,12 +33,8 @@ final class NullOr implements Assertion
         $this->assertion->assert($value, $message);
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @psalm-assert-if-true K|null $value
-     */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true T|null $value */
+    public function __invoke(mixed $value): bool
     {
         return $value === null || ($this->assertion)($value);
     }

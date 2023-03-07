@@ -16,12 +16,12 @@ use Vivarium\Assertion\Exception\AssertionFailed;
 interface Assertion
 {
     /**
-     * @param T $value
-     *
      * @throws AssertionFailed
+     *
+     * @psalm-assert T $value
      */
-    public function assert($value, string $message = ''): void;
+    public function assert(mixed $value, string $message = ''): void;
 
-    /** @param T $value */
-    public function __invoke($value): bool;
+    /** @psalm-assert-if-true T $value */
+    public function __invoke(mixed $value): bool;
 }

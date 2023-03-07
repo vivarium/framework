@@ -23,10 +23,22 @@ final class IsIntegerTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsInteger())
+            ->assert(42);
+    }
+
+    /**
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be an integer. Got string.');
 
-        (new IsInteger())->assert(42);
-        (new IsInteger())->assert('Hello World');
+        (new IsInteger())
+            ->assert('Hello World');
     }
 }

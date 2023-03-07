@@ -29,6 +29,25 @@ final class IsAssignableToTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsAssignableTo(Stub::class))
+            ->assert(Stub::class);
+
+        (new IsAssignableTo(Stub::class))
+            ->assert(StubClass::class);
+
+        (new IsAssignableTo(StubClass::class))
+            ->assert(StubClassExtension::class);
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage(
             sprintf(
@@ -38,10 +57,8 @@ final class IsAssignableToTest extends TestCase
             ),
         );
 
-        (new IsAssignableTo(Stub::class))->assert(Stub::class);
-        (new IsAssignableTo(Stub::class))->assert(StubClass::class);
-        (new IsAssignableTo(StubClass::class))->assert(StubClassExtension::class);
-        (new IsAssignableTo(StubClassExtension::class))->assert(Stub::class);
+        (new IsAssignableTo(StubClassExtension::class))
+            ->assert(Stub::class);
     }
 
     /** @covers ::__construct() */
@@ -51,13 +68,14 @@ final class IsAssignableToTest extends TestCase
         static::expectExceptionMessage('Argument must be a class or interface name. Got "RandomString"');
 
         /**
-         * This is covered by static analysis but it is a valid runtime call
+         * This is covered by static analysis, but it is a valid runtime call
          *
          * @psalm-suppress ArgumentTypeCoercion
          * @psalm-suppress UndefinedClass
          * @phpstan-ignore-next-line
          */
-        (new IsAssignableTo('RandomString'))->assert(Stub::class);
+        (new IsAssignableTo('RandomString'))
+            ->assert(Stub::class);
     }
 
     /**
@@ -70,13 +88,7 @@ final class IsAssignableToTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Argument must be a class or interface name. Got "RandomString"');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress ArgumentTypeCoercion
-         * @psalm-suppress UndefinedClass
-         * @phpstan-ignore-next-line
-         */
-        (new IsAssignableTo(Stub::class))->assert('RandomString');
+        (new IsAssignableTo(Stub::class))
+            ->assert('RandomString');
     }
 }

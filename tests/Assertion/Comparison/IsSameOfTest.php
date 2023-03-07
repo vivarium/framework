@@ -25,12 +25,27 @@ final class IsSameOfTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsSameOf(42))
+            ->assert(42);
+
+        $stdClass = new stdClass();
+        (new IsSameOf($stdClass))
+            ->assert($stdClass);
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be the same of "stdClass". Got different object.');
 
-        $stdClass = new stdClass();
-        (new IsSameOf(42))->assert(42);
-        (new IsSameOf($stdClass))->assert($stdClass);
-        (new IsSameOf($stdClass))->assert(new stdClass());
+        (new IsSameOf(new stdClass()))
+            ->assert(new stdClass());
     }
 }

@@ -24,11 +24,24 @@ final class IsLongTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsLong(11))
+            ->assert('Hello World');
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected string to be long 6. Got 5.');
 
-        (new IsLong(11))->assert('Hello World');
-        (new IsLong(6))->assert('Hello');
+        (new IsLong(6))
+            ->assert('Hello');
     }
 
     /**
@@ -41,7 +54,8 @@ final class IsLongTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('"Foo" is not a valid system encoding.');
 
-        (new IsLong(11, 'Foo'))->assert('foo');
+        (new IsLong(11, 'Foo'))
+            ->assert('foo');
     }
 
     /** @covers ::assert() */
@@ -50,13 +64,8 @@ final class IsLongTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be string. Got integer.');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress InvalidScalarArgument
-         * @phpstan-ignore-next-line
-         */
-        (new IsLong(3))->assert(42);
+        (new IsLong(3))
+            ->assert(42);
     }
 
     /** @covers ::assert() */
@@ -65,6 +74,7 @@ final class IsLongTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected string to be long 2. Got 1.');
 
-        (new IsLong(2, 'UTF-8'))->assert('π');
+        (new IsLong(2, 'UTF-8'))
+            ->assert('π');
     }
 }
