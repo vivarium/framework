@@ -157,6 +157,7 @@ class ArrayQueueTest extends TestCase
     public function testGetIterator(): void
     {
         $queue = new ArrayQueue(1, 2, 3);
+        /** @var array<int> $order */
         $order = [1, 2, 3];
 
         $index    = 0;

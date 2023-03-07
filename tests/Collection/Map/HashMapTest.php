@@ -217,7 +217,9 @@ class HashMapTest extends TestCase
     /** @covers ::pairs() */
     public function testPairs(): void
     {
+        /** @var array<int> $keys */
         $keys   = [1, 2, 3, 4];
+        /** @var array<string> $values */
         $values = ['a', 'b', 'c', 'd'];
 
         $map = HashMap::fromKeyValue($keys, $values);

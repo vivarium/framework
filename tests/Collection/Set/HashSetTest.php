@@ -209,6 +209,7 @@ class HashSetTest extends TestCase
     /** @covers ::getIterator() */
     public function testGetIterator(): void
     {
+        /** @var array<int> $expected */
         $expected = [1, 2, 3];
 
         $set   = HashSet::fromArray([1, 1, 2, 2, 3, 3]);

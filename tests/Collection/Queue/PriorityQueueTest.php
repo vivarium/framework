@@ -136,6 +136,7 @@ class PriorityQueueTest extends TestCase
         $values = [3, 2, 1];
 
         $queue = new PriorityQueue(new IntegerComparator(), ...$values);
+        /** @var array<int> $order */
         $order = [1, 2, 3];
 
         $index    = 0;
