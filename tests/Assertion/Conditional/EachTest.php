@@ -14,11 +14,8 @@ use PHPUnit\Framework\TestCase;
 use Traversable;
 use Vivarium\Assertion\Conditional\Each;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Numeric\IsGreaterOrEqualThan;
 use Vivarium\Assertion\Numeric\IsInClosedRange;
-use Vivarium\Assertion\Numeric\IsLessThan;
 use Vivarium\Assertion\Object\IsInstanceOf;
-use Vivarium\Assertion\String\IsInterface;
 use Vivarium\Assertion\String\IsLongAtLeast;
 use Vivarium\Assertion\Type\IsInteger;
 
@@ -59,7 +56,7 @@ final class EachTest extends TestCase
         static::expectExceptionMessage('Element at index 2 failed the assertion.');
 
         (new Each(
-            new IsInteger()
+            new IsInteger(),
         ))->assert([0, 9, '3', 42]);
     }
 

@@ -38,7 +38,6 @@ final class IsTrueTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected boolean to be true. Got false.');
 
-
         (new IsTrue())
             ->assert(false);
     }

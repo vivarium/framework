@@ -21,7 +21,7 @@ final class IsFalseTest extends TestCase
      * @covers ::assert()
      * @covers ::__invoke()
      */
-    function testAssert() : void
+    public function testAssert(): void
     {
         static::expectNotToPerformAssertions();
 

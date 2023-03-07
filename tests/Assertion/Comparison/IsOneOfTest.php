@@ -13,7 +13,6 @@ namespace Vivarium\Test\Assertion\Comparison;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Comparison\IsOneOf;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Equality\Equality;
 
 /** @coversDefaultClass \Vivarium\Assertion\Comparison\IsOneOf */
 final class IsOneOfTest extends TestCase

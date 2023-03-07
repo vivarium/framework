@@ -13,8 +13,6 @@ namespace Vivarium\Test\Assertion\Conditional;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Conditional\All;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Numeric\IsGreaterThan;
-use Vivarium\Assertion\Numeric\IsLessOrEqualThan;
 use Vivarium\Assertion\String\Contains;
 use Vivarium\Assertion\String\IsLongAtLeast;
 use Vivarium\Assertion\Type\IsString;
@@ -32,7 +30,7 @@ final class AllTest extends TestCase
 
         (new All(
             new IsString(),
-            new IsLongAtLeast(5)
+            new IsLongAtLeast(5),
         ))->assert('Hello');
     }
 
@@ -62,7 +60,7 @@ final class AllTest extends TestCase
 
         (new All(
             new IsString(),
-            new IsLongAtLeast(5)
+            new IsLongAtLeast(5),
         ))->assert('Hi');
     }
 
@@ -71,7 +69,7 @@ final class AllTest extends TestCase
     {
         $assertion = (new All(
             new IsString(),
-            new IsLongAtLeast(5)
+            new IsLongAtLeast(5),
         ));
 
         static::assertTrue($assertion('Hello'));
@@ -85,7 +83,7 @@ final class AllTest extends TestCase
     {
         $assertion = (new All(
             new IsString(),
-            new IsLongAtLeast(5)
+            new IsLongAtLeast(5),
         ));
 
         static::assertFalse($assertion(7));

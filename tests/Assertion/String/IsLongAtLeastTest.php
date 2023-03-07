@@ -78,7 +78,6 @@ final class IsLongAtLeastTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be string. Got integer.');
 
-
         (new IsLongAtLeast(5))
             ->assert(42);
     }

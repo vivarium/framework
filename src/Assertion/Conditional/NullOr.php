@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Conditional;
 
-use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
 
 /**

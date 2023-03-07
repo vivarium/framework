@@ -31,6 +31,7 @@ final class IsAssignableTo implements Assertion
         (new IsClassOrInterface())->assert($class);
     }
 
+    /** @psalm-assert class-string<T> $value */
     public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
@@ -45,6 +46,7 @@ final class IsAssignableTo implements Assertion
         }
     }
 
+    /** @psalm-assert class-string<T> $value */
     public function __invoke(mixed $value): bool
     {
         (new IsClassOrInterface())->assert($value);

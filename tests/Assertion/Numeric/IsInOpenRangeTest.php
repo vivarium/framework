@@ -26,8 +26,6 @@ final class IsInOpenRangeTest extends TestCase
     {
         static::expectNotToPerformAssertions();
 
-
-
         (new IsInOpenRange(0, 9))
             ->assert(5);
     }

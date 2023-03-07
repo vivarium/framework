@@ -11,12 +11,9 @@ declare(strict_types=1);
 namespace Vivarium\Assertion\Numeric;
 
 use Vivarium\Assertion\Assertion;
-use Vivarium\Assertion\Conditional\Either;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
-use Vivarium\Assertion\Type\IsFloat;
-use Vivarium\Assertion\Type\IsInteger;
 use Vivarium\Assertion\Type\IsNumeric;
 
 use function sprintf;
@@ -27,15 +24,10 @@ use function sprintf;
  */
 final class IsGreaterOrEqualThan implements Assertion
 {
-    /** @var T */
-    private $compare;
-
     /** @param T $compare */
-    public function __construct($compare)
+    public function __construct(private $compare)
     {
         (new IsNumeric())->assert($compare);
-
-        $this->compare = $compare;
     }
 
     /** @psalm-assert T $value */
@@ -53,7 +45,7 @@ final class IsGreaterOrEqualThan implements Assertion
         }
     }
 
-    /** @psalm-assert-if-true T $value */
+    /** @psalm-assert T $value */
     public function __invoke(mixed $value): bool
     {
         (new IsNumeric())->assert($value);

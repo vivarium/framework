@@ -33,6 +33,7 @@ final class ImplementsInterface implements Assertion
         (new IsInterface())->assert($interface);
     }
 
+    /** @psalm-assert class-string<T> $value */
     public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
@@ -47,6 +48,7 @@ final class ImplementsInterface implements Assertion
         }
     }
 
+    /** @psalm-assert class-string<T> $value */
     public function __invoke(mixed $value): bool
     {
         (new IsClass())->assert($value);

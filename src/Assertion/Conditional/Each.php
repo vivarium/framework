@@ -24,15 +24,9 @@ use function sprintf;
  */
 final class Each implements Assertion
 {
-    /** @var Assertion<T> */
-    private Assertion $assertion;
-
-    /**
-     * @param Assertion<T> $assertion
-     */
-    public function __construct(Assertion $assertion)
+    /** @param Assertion<T> $assertion */
+    public function __construct(private Assertion $assertion)
     {
-        $this->assertion = $assertion;
     }
 
     /** @psalm-assert array<T> $value */

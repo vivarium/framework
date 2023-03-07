@@ -30,7 +30,6 @@ final class IsLong implements Assertion
     /** @psalm-assert string $value */
     public function assert(mixed $value, string $message = ''): void
     {
-        /** @var string $value */
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
@@ -44,7 +43,7 @@ final class IsLong implements Assertion
         }
     }
 
-    /** @psalm-assert-if-true string $value */
+    /** @psalm-assert string $value */
     public function __invoke(mixed $value): bool
     {
         (new IsString())

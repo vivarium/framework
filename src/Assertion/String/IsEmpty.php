@@ -35,7 +35,7 @@ final class IsEmpty implements Assertion
         }
     }
 
-    /** @psalm-assert-if-true string $value */
+    /** @psalm-assert string $value */
     public function __invoke(mixed $value): bool
     {
         (new IsString())->assert($value);

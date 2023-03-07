@@ -28,7 +28,6 @@ final class IsLongTest extends TestCase
 
         (new IsLong(11))
             ->assert('Hello World');
-
     }
 
     /**

@@ -35,7 +35,7 @@ final class IsClass implements Assertion
         }
     }
 
-    /** @psalm-assert-if-true class-string $value */
+    /** @psalm-assert class-string $value */
     public function __invoke(mixed $value): bool
     {
         (new IsString())->assert($value);

@@ -25,7 +25,7 @@ final class IsNumericTest extends TestCase
     public function testAssert(): void
     {
         static::expectNotToPerformAssertions();
-        
+
         (new IsNumeric())(3.14);
 
         (new IsNumeric())

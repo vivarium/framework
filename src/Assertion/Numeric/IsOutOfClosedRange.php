@@ -24,23 +24,14 @@ use function sprintf;
  */
 final class IsOutOfClosedRange implements Assertion
 {
-    /** @var T */
-    private $min;
-
-    /** @var T */
-    private $max;
-
     /**
      * @param T $min
      * @param T $max
      */
-    public function __construct($min, $max)
+    public function __construct(private $min, private $max)
     {
         (new IsLessThan($max))
             ->assert($min, 'Lower bound must be lower than upper bound. Got [%1$s, %2$s].');
-
-        $this->min = $min;
-        $this->max = $max;
     }
 
     /** @psalm-assert T $value */
@@ -59,7 +50,7 @@ final class IsOutOfClosedRange implements Assertion
         }
     }
 
-    /** @psalm-assert-if-true T $value */
+    /** @psalm-assert T $value */
     public function __invoke(mixed $value): bool
     {
         (new IsNumeric())

@@ -30,8 +30,9 @@ final class Either implements Assertion
      */
     public function __construct(
         private Assertion $assertion1,
-        private Assertion $assertion2
-    ) {}
+        private Assertion $assertion2,
+    ) {
+    }
 
     /** @psalm-assert A|B $value */
     public function assert(mixed $value, string $message = ''): void

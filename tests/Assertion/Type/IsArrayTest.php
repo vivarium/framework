@@ -33,7 +33,7 @@ final class IsArrayTest extends TestCase
      * @covers ::assert()
      * @covers ::__invoke()
      */
-    public function testAssertException (): void
+    public function testAssertException(): void
     {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be array. Got integer.');

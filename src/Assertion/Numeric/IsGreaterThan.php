@@ -24,18 +24,10 @@ use function sprintf;
  */
 final class IsGreaterThan implements Assertion
 {
-    /** @var T */
-    private $compare;
-
     /** @param T $compare */
-    public function __construct($compare)
+    public function __construct(private $compare)
     {
         (new IsNumeric())->assert($compare);
-
-        /**
-         * @var T $compare
-         */
-        $this->compare = $compare;
     }
 
     /** @psalm-assert T $value */
@@ -53,7 +45,7 @@ final class IsGreaterThan implements Assertion
         }
     }
 
-    /** @psalm-assert-if-true T $value */
+    /** @psalm-assert T $value */
     public function __invoke(mixed $value): bool
     {
         (new IsNumeric())->assert($value);

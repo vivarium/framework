@@ -13,7 +13,6 @@ namespace Vivarium\Test\Assertion\Comparison;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Comparison\IsEqualsTo;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Equality\Equality;
 
 /** @coversDefaultClass \Vivarium\Assertion\Comparison\IsEqualsTo */
 final class IsEqualsToTest extends TestCase
@@ -40,7 +39,6 @@ final class IsEqualsToTest extends TestCase
     {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be equals to "RandomString". Got "Hello World"');
-
 
         (new IsEqualsTo('RandomString'))
             ->assert('Hello World');

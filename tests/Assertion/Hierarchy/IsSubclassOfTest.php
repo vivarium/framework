@@ -38,7 +38,6 @@ final class IsSubclassOfTest extends TestCase
             ->assert(StubClassExtension::class);
     }
 
-
     /**
      * @covers ::__construct()
      * @covers ::assert()
