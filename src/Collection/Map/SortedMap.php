@@ -240,7 +240,7 @@ class SortedMap implements Map
              * @param Pair<K, V> $pair1
              * @param Pair<K, V> $pair2
              */
-            function (Pair $pair1, Pair $pair2) : int {
+            function (Pair $pair1, Pair $pair2): int {
                 return $this->comparator->compare(
                     $pair1->getKey(),
                     $pair2->getKey(),
@@ -261,7 +261,7 @@ class SortedMap implements Map
              * @param Pair<K, V> $pair
              * @param K          $key
              */
-            function (Pair $pair, $key) : int {
+            function (Pair $pair, $key): int {
                 return $this->comparator->compare(
                     $pair->getKey(),
                     $key,

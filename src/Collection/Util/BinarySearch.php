@@ -24,9 +24,7 @@ final class BinarySearch implements SearchAlgorithm
 
     private const RIGHT_HALF = 1;
 
-    /**
-     * @var callable(T, V): int
-     */
+    /** @var callable(T, V): int */
     private $comparator;
 
     /** @param callable(T, V): int $comparator */
