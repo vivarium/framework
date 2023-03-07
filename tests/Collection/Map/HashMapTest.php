@@ -218,7 +218,7 @@ class HashMapTest extends TestCase
     public function testPairs(): void
     {
         /** @var array<int> $keys */
-        $keys   = [1, 2, 3, 4];
+        $keys = [1, 2, 3, 4];
         /** @var array<string> $values */
         $values = ['a', 'b', 'c', 'd'];
 

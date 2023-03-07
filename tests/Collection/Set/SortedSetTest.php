@@ -86,7 +86,7 @@ class SortedSetTest extends TestCase
     public function testGetIterator(): void
     {
         /** @var array<int> $values */
-        $values   = [3, 2, 1, 3, 1, 3];
+        $values = [3, 2, 1, 3, 1, 3];
         /** @var array<int> $expected */
         $expected = [1, 2, 3];
 

@@ -152,10 +152,10 @@ final class HashBuilderTest extends TestCase
                     'a' => 1,
                     'b' => 2,
                     'c' => [
-                        'a',
-                        'b',
-                        'c' => [3 => 'c']
-                    ]
+                        0 => 'a',
+                        1 => 'b',
+                        'c' => [3 => 'c'],
+                    ],
                 ],
                 '9356b8b9c963674063a6d422c8b21eeccd890148',
             ],
