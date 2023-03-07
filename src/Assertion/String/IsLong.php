@@ -27,13 +27,10 @@ final class IsLong implements Assertion
         (new IsSystemEncoding())->assert($encoding);
     }
 
-    /**
-     * @param string $value
-     *
-     * @throws AssertionFailed
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert string $value */
+    public function assert(mixed $value, string $message = ''): void
     {
+        /** @var string $value */
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
@@ -47,10 +44,11 @@ final class IsLong implements Assertion
         }
     }
 
-    /** @param string $value */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true string $value */
+    public function __invoke(mixed $value): bool
     {
-        (new IsString())->assert($value);
+        (new IsString())
+            ->assert($value);
 
         return mb_strlen($value, $this->encoding) === $this->length;
     }

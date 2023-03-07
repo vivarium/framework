@@ -23,8 +23,8 @@ use function sprintf;
 /** @template-implements Assertion<string> */
 final class IsSystemEncoding implements Assertion
 {
-    /** @param string $value */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert string $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! ($this)($value)) {
             $message = sprintf(
@@ -36,13 +36,8 @@ final class IsSystemEncoding implements Assertion
         }
     }
 
-    /**
-     * @param string $value
-     *
-     * @psalm-suppress ImpureFunctionCall  mb_internal_encoding is called and then restored
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
-     */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true string $value */
+    public function __invoke(mixed $value): bool
     {
         (new IsString())->assert($value);
 

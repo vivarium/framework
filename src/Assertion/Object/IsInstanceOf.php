@@ -23,7 +23,7 @@ use function sprintf;
 
 /**
  * @template T as object
- * @template-implements Assertion<object>
+ * @template-implements Assertion<T>
  */
 final class IsInstanceOf implements Assertion
 {
@@ -40,14 +40,8 @@ final class IsInstanceOf implements Assertion
         ))->assert($class, 'Argument must be a class or interface name. Got %s');
     }
 
-    /**
-     * @param object $value
-     *
-     * @throws AssertionFailed
-     *
-     * @psalm-assert T $value
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert T $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -61,14 +55,8 @@ final class IsInstanceOf implements Assertion
         }
     }
 
-    /**
-     * @param object $value
-     *
-     * @throws AssertionFailed
-     *
-     * @psalm-assert-if-true T $value
-     */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true T $value */
+    public function __invoke(mixed $value): bool
     {
         (new IsObject())->assert($value);
 

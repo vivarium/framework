@@ -18,15 +18,11 @@ use Vivarium\Assertion\Type\IsBoolean;
 
 use function sprintf;
 
-/** @template-implements Assertion<bool> */
+/** @template-implements Assertion<true> */
 final class IsTrue implements Assertion
 {
-    /**
-     * @param bool $value
-     *
-     * @psalm-assert true $value
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert true $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -39,12 +35,8 @@ final class IsTrue implements Assertion
         }
     }
 
-    /**
-     * @param bool $value
-     *
-     * @psalm-assert-if-true true $value
-     */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true true $value */
+    public function __invoke(mixed $value): bool
     {
         (new IsBoolean())->assert($value);
 

@@ -16,7 +16,7 @@ use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\Type\IsString;
 
 use function sprintf;
-use function strpos;
+use function str_contains;
 
 /** @template-implements Assertion<string> */
 final class Contains implements Assertion
@@ -25,12 +25,8 @@ final class Contains implements Assertion
     {
     }
 
-    /**
-     * @param string $value
-     *
-     * @throws AssertionFailed
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert string $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -44,11 +40,11 @@ final class Contains implements Assertion
         }
     }
 
-    /** @param string $value */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true string $value */
+    public function __invoke(mixed $value): bool
     {
         (new IsString())->assert($value);
 
-        return strpos($value, $this->substring, 0) !== false;
+        return str_contains($value, $this->substring);
     }
 }

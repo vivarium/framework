@@ -12,13 +12,15 @@ namespace Vivarium\Assertion\Type;
 
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Conditional\Either;
-use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsEmpty;
 
-/** @template-implements Assertion<mixed> */
+/**
+ * @template T of int|float
+ * @template-implements Assertion<T>
+ */
 final class IsNumeric implements Assertion
 {
-    /** @var Assertion<mixed> */
+    /** @var Either<int, float> */
     private Assertion $isNumeric;
 
     public function __construct()
@@ -29,14 +31,8 @@ final class IsNumeric implements Assertion
         );
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @throws AssertionFailed
-     *
-     * @psalm-assert int|float $value
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert T $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         $this->isNumeric->assert(
             $value,
@@ -45,12 +41,8 @@ final class IsNumeric implements Assertion
         );
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @psalm-assert-if-true int|float $value
-     */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true T $value */
+    public function __invoke(mixed $value): bool
     {
         return ($this->isNumeric)($value);
     }

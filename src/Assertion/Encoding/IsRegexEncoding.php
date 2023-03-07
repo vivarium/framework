@@ -23,8 +23,8 @@ use function sprintf;
 /** @template-implements Assertion<string> */
 final class IsRegexEncoding implements Assertion
 {
-    /** @param string $value */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert string $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! ($this)($value)) {
             $message = sprintf(
@@ -36,13 +36,8 @@ final class IsRegexEncoding implements Assertion
         }
     }
 
-    /**
-     * @param string $value
-     *
-     * @psalm-suppress ImpureFunctionCall  mb_regex_encoding is called and then restored
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
-     */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true string $value */
+    public function __invoke(mixed $value): bool
     {
         (new IsString())->assert($value);
 
@@ -55,7 +50,6 @@ final class IsRegexEncoding implements Assertion
         } catch (ValueError) {
             $valid = false;
         } finally {
-            /** @psalm-suppress UnusedFunctionCall We can ignore the result since we are restoring the previous value */
             mb_regex_encoding($encoding);
         }
 

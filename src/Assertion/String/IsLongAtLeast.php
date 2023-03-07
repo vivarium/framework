@@ -29,13 +29,10 @@ final class IsLongAtLeast implements Assertion
         (new IsGreaterThan(0))->assert($length);
     }
 
-    /**
-     * @param string $value
-     *
-     *  @throws AssertionFailed
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert string $value */
+    public function assert(mixed $value, string $message = ''): void
     {
+        /** @var string $value */
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
@@ -49,8 +46,8 @@ final class IsLongAtLeast implements Assertion
         }
     }
 
-    /** @param string $value */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true string $value */
+    public function __invoke(mixed $value): bool
     {
         (new IsString())->assert($value);
 

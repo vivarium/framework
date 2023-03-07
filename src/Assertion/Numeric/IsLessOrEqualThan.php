@@ -18,18 +18,28 @@ use Vivarium\Assertion\Type\IsNumeric;
 
 use function sprintf;
 
-/** @template-implements Assertion<int|float> */
+/**
+ * @template T as int|float
+ * @template-implements Assertion<T>
+ */
 final class IsLessOrEqualThan implements Assertion
 {
-    private int|float $compare;
+    /** @var T */
+    private $compare;
 
-    public function __construct(float $compare)
+    /** @param T $compare */
+    public function __construct($compare)
     {
+        (new IsNumeric())->assert($compare);
+
+        /**
+         * @var T $compare
+         */
         $this->compare = $compare;
     }
 
-    /** @param int|float $value */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert T $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -43,8 +53,8 @@ final class IsLessOrEqualThan implements Assertion
         }
     }
 
-    /** @param int|float $value */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true T $value */
+    public function __invoke(mixed $value): bool
     {
         (new IsNumeric())->assert($value);
 

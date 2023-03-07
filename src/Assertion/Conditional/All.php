@@ -33,16 +33,16 @@ final class All implements Assertion
         $this->assertions = array_merge([$assertion], $assertions);
     }
 
-    /** @param T $value */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert T $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         foreach ($this->assertions as $assertion) {
             $assertion->assert($value, $message);
         }
     }
 
-    /** @param T $value */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true T $value */
+    public function __invoke(mixed $value): bool
     {
         try {
             $this->assert($value);

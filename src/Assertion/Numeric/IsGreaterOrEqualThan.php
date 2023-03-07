@@ -11,33 +11,35 @@ declare(strict_types=1);
 namespace Vivarium\Assertion\Numeric;
 
 use Vivarium\Assertion\Assertion;
+use Vivarium\Assertion\Conditional\Either;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
+use Vivarium\Assertion\Type\IsFloat;
+use Vivarium\Assertion\Type\IsInteger;
 use Vivarium\Assertion\Type\IsNumeric;
 
 use function sprintf;
 
-/** @template-implements Assertion<int|float> */
+/**
+ * @template T of int|float
+ * @template-implements Assertion<T>
+ */
 final class IsGreaterOrEqualThan implements Assertion
 {
-    private int|float $compare;
+    /** @var T */
+    private $compare;
 
-    /** @param int|float $compare */
+    /** @param T $compare */
     public function __construct($compare)
     {
-        (new IsNumeric())
-            ->assert($compare);
+        (new IsNumeric())->assert($compare);
 
         $this->compare = $compare;
     }
 
-    /**
-     * @param int|float $value
-     *
-     * @throws AssertionFailed
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert T $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -51,8 +53,8 @@ final class IsGreaterOrEqualThan implements Assertion
         }
     }
 
-    /** @param int|float $value */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true T $value */
+    public function __invoke(mixed $value): bool
     {
         (new IsNumeric())->assert($value);
 

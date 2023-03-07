@@ -18,16 +18,21 @@ use Vivarium\Assertion\Type\IsNumeric;
 
 use function sprintf;
 
-/** @template-implements Assertion<int|float> */
+/**
+ * @template T as int|float
+ * @template-implements Assertion<T>
+ */
 final class IsInOpenRange implements Assertion
 {
-    private int|float $min;
+    /** @var T */
+    private $min;
 
-    private int|float $max;
+    /** @var T */
+    private $max;
 
     /**
-     * @param int|float $min
-     * @param int|float $max
+     * @param T $min
+     * @param T $max
      */
     public function __construct($min, $max)
     {
@@ -38,8 +43,8 @@ final class IsInOpenRange implements Assertion
         $this->max = $max;
     }
 
-    /** @param int|float $value */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert T $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -54,10 +59,11 @@ final class IsInOpenRange implements Assertion
         }
     }
 
-    /** @param int|float $value */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true T $value */
+    public function __invoke(mixed $value): bool
     {
-        (new IsNumeric())->assert($value);
+        (new IsNumeric())
+            ->assert($value);
 
         return ($this->min < $value) && ($value < $this->max);
     }

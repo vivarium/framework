@@ -23,7 +23,7 @@ use function sprintf;
 
 /**
  * @template T
- * @template-implements Assertion<class-string>
+ * @template-implements Assertion<class-string<T>>
  */
 final class ImplementsInterface implements Assertion
 {
@@ -33,12 +33,7 @@ final class ImplementsInterface implements Assertion
         (new IsInterface())->assert($interface);
     }
 
-    /**
-     * @param class-string $value
-     *
-     * @psalm-assert class-string<T> $value
-     */
-    public function assert($value, string $message = ''): void
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -52,18 +47,12 @@ final class ImplementsInterface implements Assertion
         }
     }
 
-    /**
-     * @param class-string $value
-     *
-     * @psalm-assert-if-true class-string<T> $value
-     */
-    public function __invoke($value): bool
+    public function __invoke(mixed $value): bool
     {
         (new IsClass())->assert($value);
 
         $interfaces = class_implements($value);
 
-        return $interfaces === false ?
-            $interfaces : in_array($this->interface, $interfaces, true);
+        return $interfaces !== false && in_array($this->interface, $interfaces, true);
     }
 }

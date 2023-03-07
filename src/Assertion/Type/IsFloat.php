@@ -19,17 +19,11 @@ use function gettype;
 use function is_float;
 use function sprintf;
 
-/** @template-implements Assertion<mixed> */
+/** @template-implements Assertion<float> */
 final class IsFloat implements Assertion
 {
-    /**
-     * @param mixed $value
-     *
-     * @throws AssertionFailed
-     *
-     * @psalm-assert float $value
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert float $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -43,12 +37,8 @@ final class IsFloat implements Assertion
         }
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @psalm-assert-if-true float $value
-     */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true float $value */
+    public function __invoke(mixed $value): bool
     {
         return is_float($value);
     }

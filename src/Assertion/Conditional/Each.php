@@ -16,7 +16,6 @@ use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\Type\IsArray;
 
-use function array_merge;
 use function sprintf;
 
 /**
@@ -25,51 +24,51 @@ use function sprintf;
  */
 final class Each implements Assertion
 {
-    /** @var Assertion<T>[] */
-    private array $assertions;
+    /** @var Assertion<T> */
+    private Assertion $assertion;
 
     /**
      * @param Assertion<T> $assertion
-     * @param Assertion<T> ...$assertions
      */
-    public function __construct(Assertion $assertion, Assertion ...$assertions)
+    public function __construct(Assertion $assertion)
     {
-        $this->assertions = array_merge([$assertion], $assertions);
+        $this->assertion = $assertion;
     }
 
-    /** @param array<T> $value */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert array<T> $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         (new IsArray())->assert($value);
 
         foreach ($value as $key => $element) {
-            foreach ($this->assertions as $assertion) {
-                try {
-                    $assertion->assert($element);
-                } catch (AssertionFailed $ex) {
-                    $message = sprintf(
-                        ! (new IsEmpty())($message) ?
-                             $message : 'Element at index %2$s failed the assertion.',
-                        (new TypeToString())($element),
-                        (new TypeToString())($key),
-                    );
+            try {
+                $this->assertion->assert($element);
+            } catch (AssertionFailed $ex) {
+                $message = sprintf(
+                    ! (new IsEmpty())($message) ?
+                         $message : 'Element at index %2$s failed the assertion.',
+                    (new TypeToString())($element),
+                    (new TypeToString())($key),
+                );
 
-                    throw new AssertionFailed($message, 0, $ex);
-                }
+                throw new AssertionFailed($message, 0, $ex);
             }
         }
     }
 
-    /** @param array<T> $value */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true array<T> $value */
+    public function __invoke(mixed $value): bool
     {
         (new IsArray())->assert($value);
 
+        /**
+         * We know this is a mixed assignment, we are trying to assert the type of elements in the array
+         *
+         * @psalm-suppress  MixedAssignment
+         */
         foreach ($value as $element) {
-            foreach ($this->assertions as $assertion) {
-                if (! $assertion($element)) {
-                    return false;
-                }
+            if (! ($this->assertion)($element)) {
+                return false;
             }
         }
 
