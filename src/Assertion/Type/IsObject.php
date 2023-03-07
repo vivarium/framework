@@ -19,17 +19,11 @@ use function gettype;
 use function is_object;
 use function sprintf;
 
-/** @template-implements Assertion<mixed> */
+/** @template-implements Assertion<object> */
 final class IsObject implements Assertion
 {
-    /**
-     * @param mixed $value
-     *
-     * @throws AssertionFailed
-     *
-     * @psalm-assert object $value
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert object $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -43,12 +37,8 @@ final class IsObject implements Assertion
         }
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @psalm-assert-if-true object $value
-     */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true object $value */
+    public function __invoke(mixed $value): bool
     {
         return is_object($value);
     }

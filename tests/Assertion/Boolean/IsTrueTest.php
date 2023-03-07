@@ -23,11 +23,23 @@ final class IsTrueTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsTrue())
+            ->assert(true);
+    }
+
+    /**
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected boolean to be true. Got false.');
 
-        (new IsTrue())->assert(true);
-        (new IsTrue())->assert(false);
+        (new IsTrue())
+            ->assert(false);
     }
 
     /**
@@ -39,12 +51,7 @@ final class IsTrueTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be boolean. Got integer.');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress InvalidScalarArgument
-         * @phpstan-ignore-next-line
-         */
-        (new IsTrue())->assert(42);
+        (new IsTrue())
+            ->assert(42);
     }
 }

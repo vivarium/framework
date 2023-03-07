@@ -24,10 +24,22 @@ final class IsObjectTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsObject())
+            ->assert(new stdClass());
+    }
+
+    /**
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be object. Got integer.');
 
-        (new IsObject())->assert(new stdClass());
-        (new IsObject())->assert(42);
+        (new IsObject())
+            ->assert(42);
     }
 }

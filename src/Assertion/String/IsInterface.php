@@ -18,17 +18,11 @@ use Vivarium\Assertion\Type\IsString;
 use function interface_exists;
 use function sprintf;
 
-/** @template-implements Assertion<string> */
+/** @template-implements Assertion<class-string> */
 final class IsInterface implements Assertion
 {
-    /**
-     * @param string $value
-     *
-     * @throws AssertionFailed
-     *
-     * @psalm-assert class-string $value
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert class-string $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -41,12 +35,8 @@ final class IsInterface implements Assertion
         }
     }
 
-    /**
-     * @param string $value
-     *
-     * @psalm-assert-if-true class-string $value
-     */
-    public function __invoke($value): bool
+    /** @psalm-assert string $value */
+    public function __invoke(mixed $value): bool
     {
         (new IsString())->assert($value);
 

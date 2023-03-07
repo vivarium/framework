@@ -15,29 +15,27 @@ use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 
-use function array_merge;
 use function sprintf;
 
 /**
- * @template T
- * @template-implements Assertion<T>
+ * @template A
+ * @template B
+ * @template-implements Assertion<A|B>
  */
 final class Either implements Assertion
 {
-    /** @var array<Assertion<T>> */
-    private array $assertions;
-
     /**
-     * @param Assertion<T> $assertion
-     * @param Assertion<T> ...$assertions
+     * @param Assertion<A> $assertion1
+     * @param Assertion<B> $assertion2
      */
-    public function __construct(Assertion $assertion, Assertion ...$assertions)
-    {
-        $this->assertions = array_merge([$assertion], $assertions);
+    public function __construct(
+        private Assertion $assertion1,
+        private Assertion $assertion2,
+    ) {
     }
 
-    /** @param T $value */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert A|B $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -50,15 +48,9 @@ final class Either implements Assertion
         }
     }
 
-    /** @param T $value */
-    public function __invoke($value): bool
+    /** @psalm-assert-if-true A|B $value */
+    public function __invoke(mixed $value): bool
     {
-        foreach ($this->assertions as $assertion) {
-            if ($assertion($value)) {
-                return true;
-            }
-        }
-
-        return false;
+        return ($this->assertion1)($value) || ($this->assertion2)($value);
     }
 }

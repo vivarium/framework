@@ -26,11 +26,21 @@ final class NullOrTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
-        static::expectExceptionMessage('Expected value to be string. Got array.');
+        static::expectNotToPerformAssertions();
 
         (new NullOr(new IsString()))->assert('Hello World');
         (new NullOr(new IsString()))->assert(null);
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     */
+    public function testAssertException(): void
+    {
+        static::expectException(InvalidArgumentException::class);
+        static::expectExceptionMessage('Expected value to be string. Got array.');
+
         (new NullOr(new IsString()))->assert([]);
     }
 

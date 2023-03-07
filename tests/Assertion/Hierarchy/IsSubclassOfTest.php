@@ -29,6 +29,22 @@ final class IsSubclassOfTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsSubclassOf(Stub::class))
+            ->assert(StubClass::class);
+
+        (new IsSubclassOf(StubClass::class))
+            ->assert(StubClassExtension::class);
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage(
             sprintf(
@@ -38,9 +54,8 @@ final class IsSubclassOfTest extends TestCase
             ),
         );
 
-        (new IsSubclassOf(Stub::class))->assert(StubClass::class);
-        (new IsSubclassOf(StubClass::class))->assert(StubClassExtension::class);
-        (new IsSubclassOf(StubClassExtension::class))->assert(StubClass::class);
+        (new IsSubclassOf(StubClassExtension::class))
+            ->assert(StubClass::class);
     }
 
     /** @covers ::__construct() */
@@ -50,13 +65,14 @@ final class IsSubclassOfTest extends TestCase
         static::expectExceptionMessage('Argument must be a class or interface name. Got "RandomString"');
 
         /**
-         * This is covered by static analysis but it is a valid runtime call
+         * This is covered by static analysis, but it is a valid runtime call
          *
          * @psalm-suppress ArgumentTypeCoercion
          * @psalm-suppress UndefinedClass
          * @phpstan-ignore-next-line
          */
-        (new IsSubclassOf('RandomString'))->assert(Stub::class);
+        (new IsSubclassOf('RandomString'))
+            ->assert(Stub::class);
     }
 
     /**
@@ -69,13 +85,7 @@ final class IsSubclassOfTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Argument must be a class or interface name. Got "RandomString"');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress ArgumentTypeCoercion
-         * @psalm-suppress UndefinedClass
-         * @phpstan-ignore-next-line
-         */
-        (new IsSubclassOf(Stub::class))->assert('RandomString');
+        (new IsSubclassOf(Stub::class))
+            ->assert('RandomString');
     }
 }

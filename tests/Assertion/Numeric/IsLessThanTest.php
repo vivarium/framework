@@ -24,11 +24,23 @@ final class IsLessThanTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsLessThan(10))->assert(5);
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be less than 10. Got 10.');
 
-        (new IsLessThan(10))->assert(5);
-        (new IsLessThan(10))->assert(10);
+        (new IsLessThan(10))
+            ->assert(10);
     }
 
     /**
@@ -40,12 +52,7 @@ final class IsLessThanTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be either integer or float. Got "String".');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress InvalidScalarArgument
-         * @phpstan-ignore-next-line
-         */
-        (new IsLessThan(10))->assert('String');
+        (new IsLessThan(10))
+            ->assert('String');
     }
 }

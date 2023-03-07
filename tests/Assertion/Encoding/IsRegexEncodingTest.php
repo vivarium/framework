@@ -25,6 +25,18 @@ final class IsRegexEncodingTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsRegexEncoding())->assert('UTF-8');
+        (new IsRegexEncoding())('UTF-8');
+    }
+
+    /**
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('"Windows-1251" is not a valid regex encoding.');
 
@@ -52,12 +64,6 @@ final class IsRegexEncodingTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be string. Got integer.');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress InvalidScalarArgument
-         * @phpstan-ignore-next-line
-         */
         (new IsRegexEncoding())->assert(42);
     }
 }

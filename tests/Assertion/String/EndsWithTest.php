@@ -24,11 +24,24 @@ class EndsWithTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new EndsWith('d'))
+            ->assert('Hello World');
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected that string "Foo Bar" ends with "d".');
 
-        (new EndsWith('d'))->assert('Hello World');
-        (new EndsWith('d'))->assert('Foo Bar');
+        (new EndsWith('d'))
+            ->assert('Foo Bar');
     }
 
     /** @covers ::assert() */
@@ -37,12 +50,7 @@ class EndsWithTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be string. Got integer.');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress InvalidScalarArgument
-         * @phpstan-ignore-next-line
-         */
-        (new EndsWith('Hello'))->assert(42);
+        (new EndsWith('Hello'))
+            ->assert(42);
     }
 }

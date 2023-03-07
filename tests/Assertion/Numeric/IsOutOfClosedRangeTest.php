@@ -24,14 +24,35 @@ final class IsOutOfClosedRangeTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsOutOfClosedRange(0, 9))
+            ->assert(42);
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testInvoke(): void
+    {
+        static::assertFalse((new IsOutOfClosedRange(0, 9))(0));
+        static::assertFalse((new IsOutOfClosedRange(0, 9))(9));
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be out of closed range [0, 9]. Got 5.');
 
-        static::assertFalse((new IsOutOfClosedRange(0, 9))(0));
-        static::assertFalse((new IsOutOfClosedRange(0, 9))(9));
-
-        (new IsOutOfClosedRange(0, 9))->assert(42);
-        (new IsOutOfClosedRange(0, 9))->assert(5);
+        (new IsOutOfClosedRange(0, 9))
+            ->assert(5);
     }
 
     /** @covers ::assert() */
@@ -52,12 +73,7 @@ final class IsOutOfClosedRangeTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be either integer or float. Got "String".');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress InvalidScalarArgument
-         * @phpstan-ignore-next-line
-         */
-        (new IsOutOfClosedRange(0, 10))->assert('String');
+        (new IsOutOfClosedRange(0, 10))
+            ->assert('String');
     }
 }

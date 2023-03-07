@@ -14,11 +14,10 @@ use PHPUnit\Framework\TestCase;
 use Traversable;
 use Vivarium\Assertion\Conditional\Each;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Numeric\IsGreaterOrEqualThan;
 use Vivarium\Assertion\Numeric\IsInClosedRange;
-use Vivarium\Assertion\Numeric\IsLessThan;
 use Vivarium\Assertion\Object\IsInstanceOf;
 use Vivarium\Assertion\String\IsLongAtLeast;
+use Vivarium\Assertion\Type\IsInteger;
 
 /** @coversDefaultClass \Vivarium\Assertion\Conditional\Each */
 final class EachTest extends TestCase
@@ -54,12 +53,11 @@ final class EachTest extends TestCase
     public function testAssertFailLater(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Element at index 3 failed the assertion.');
+        static::expectExceptionMessage('Element at index 2 failed the assertion.');
 
         (new Each(
-            new IsGreaterOrEqualThan(0),
-            new IsLessThan(10),
-        ))->assert([0, 9, 3, 42]);
+            new IsInteger(),
+        ))->assert([0, 9, '3', 42]);
     }
 
     /**
@@ -71,14 +69,9 @@ final class EachTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be array. Got integer.');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress InvalidArgument
-         */
         (new Each(
             new IsLongAtLeast(27),
-        ))->assert(42); /* @phpstan-ignore-line */
+        ))->assert(42);
     }
 
     /** @covers ::__invoke() */
@@ -98,13 +91,8 @@ final class EachTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be array. Got integer.');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress InvalidArgument
-         */
         (new Each(
             new IsLongAtLeast(27),
-        ))(42); /* @phpstan-ignore-line */
+        ))(42);
     }
 }

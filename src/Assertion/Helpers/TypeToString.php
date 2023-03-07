@@ -17,8 +17,7 @@ use function is_string;
 /** @internal */
 final class TypeToString
 {
-    /** @param mixed $value */
-    public function __invoke($value): string
+    public function __invoke(mixed $value): string
     {
         if ($value === true) {
             return 'true';

@@ -24,7 +24,7 @@ use function sprintf;
 
 /**
  * @template T
- * @template-implements Assertion<class-string>
+ * @template-implements Assertion<class-string<T>>
  */
 final class IsSubclassOf implements Assertion
 {
@@ -34,12 +34,8 @@ final class IsSubclassOf implements Assertion
         (new IsClassOrInterface())->assert($class);
     }
 
-    /**
-     * @param class-string $value
-     *
-     * @psalm-assert class-string<T> $value
-     */
-    public function assert($value, string $message = ''): void
+    /** @psalm-assert class-string<T> $value */
+    public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -53,12 +49,8 @@ final class IsSubclassOf implements Assertion
         }
     }
 
-    /**
-     * @param class-string $value
-     *
-     * @psalm-assert-if-true class-string<T> $value
-     */
-    public function __invoke($value): bool
+    /** @psalm-assert class-string<T> $value */
+    public function __invoke(mixed $value): bool
     {
         (new Either(
             new IsClass(),

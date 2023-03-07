@@ -27,6 +27,20 @@ final class EitherTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new Either(
+            new IsGreaterThan(100),
+            new IsInClosedRange(0, 9),
+        ))->assert(6);
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Failed all assertions in either condition.');
 

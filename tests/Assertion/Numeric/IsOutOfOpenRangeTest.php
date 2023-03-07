@@ -24,14 +24,26 @@ final class IsOutOfOpenRangeTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be out of open range (0, 9). Got 8.');
+        static::expectNotToPerformAssertions();
 
         (new IsOutOfOpenRange(0, 9))->assert(-42);
         (new IsOutOfOpenRange(0, 9))->assert(0);
         (new IsOutOfOpenRange(0, 9))->assert(9);
         (new IsOutOfOpenRange(0, 9))->assert(42);
-        (new IsOutOfOpenRange(0, 9))->assert(8);
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
+        static::expectException(AssertionFailed::class);
+        static::expectExceptionMessage('Expected value to be out of open range (0, 9). Got 8.');
+
+        (new IsOutOfOpenRange(0, 9))
+            ->assert(8);
     }
 
     /** @covers ::assert() */
@@ -40,7 +52,8 @@ final class IsOutOfOpenRangeTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Lower bound must be lower than upper bound. Got (10, 0).');
 
-        (new IsOutOfOpenRange(10, 0))->assert(5);
+        (new IsOutOfOpenRange(10, 0))
+            ->assert(5);
     }
 
     /**
@@ -52,12 +65,7 @@ final class IsOutOfOpenRangeTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be either integer or float. Got "String".');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress InvalidScalarArgument
-         * @phpstan-ignore-next-line
-         */
-        (new IsOutOfOpenRange(0, 10))->assert('String');
+        (new IsOutOfOpenRange(0, 10))
+            ->assert('String');
     }
 }
