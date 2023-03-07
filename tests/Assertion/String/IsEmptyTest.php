@@ -23,11 +23,23 @@ final class IsEmptyTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsEmpty())
+            ->assert('');
+    }
+
+    /**
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected string to be empty. Got "Hello World".');
 
-        (new IsEmpty())->assert('');
-        (new IsEmpty())->assert('Hello World');
+        (new IsEmpty())
+            ->assert('Hello World');
     }
 
     /** @covers ::assert() */
@@ -36,12 +48,7 @@ final class IsEmptyTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be string. Got integer.');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress InvalidScalarArgument
-         * @phpstan-ignore-next-line
-         */
-        (new IsEmpty())->assert(42);
+        (new IsEmpty())
+            ->assert(42);
     }
 }

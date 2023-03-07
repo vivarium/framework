@@ -23,11 +23,23 @@ final class IsInterfaceTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsInterface())
+            ->assert('Traversable');
+    }
+
+    /**
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected string to be interface name. Got "Foo".');
 
-        (new IsInterface())->assert('Traversable');
-        (new IsInterface())->assert('Foo');
+        (new IsInterface())
+            ->assert('Foo');
     }
 
     /** @covers ::assert() */
@@ -36,12 +48,7 @@ final class IsInterfaceTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be string. Got integer.');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress InvalidScalarArgument
-         * @phpstan-ignore-next-line
-         */
-        (new IsInterface())->assert(42);
+        (new IsInterface())
+            ->assert(42);
     }
 }

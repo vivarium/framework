@@ -24,10 +24,21 @@ class ContainsTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new Contains('Bar'))->assert('Foo Bar');
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected that string contains "Hello".');
 
-        (new Contains('Bar'))->assert('Foo Bar');
         (new Contains('Hello'))->assert('Foo Bar');
     }
 
@@ -45,12 +56,7 @@ class ContainsTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be string. Got integer.');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress InvalidScalarArgument
-         * @phpstan-ignore-next-line
-         */
-        (new Contains('Hello'))->assert(42);
+        (new Contains('Hello'))
+            ->assert(42);
     }
 }

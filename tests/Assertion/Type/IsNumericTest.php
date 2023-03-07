@@ -24,11 +24,25 @@ final class IsNumericTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+        
+        (new IsNumeric())(3.14);
+
+        (new IsNumeric())
+            ->assert(42);
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be either integer or float. Got "42".');
 
-        (new IsNumeric())(3.14);
-        (new IsNumeric())->assert(42);
-        (new IsNumeric())->assert('42');
+        (new IsNumeric())
+            ->assert('42');
     }
 }

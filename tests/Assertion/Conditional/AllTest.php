@@ -17,6 +17,7 @@ use Vivarium\Assertion\Numeric\IsGreaterThan;
 use Vivarium\Assertion\Numeric\IsLessOrEqualThan;
 use Vivarium\Assertion\String\Contains;
 use Vivarium\Assertion\String\IsLongAtLeast;
+use Vivarium\Assertion\Type\IsString;
 
 /** @coversDefaultClass \Vivarium\Assertion\Conditional\All */
 final class AllTest extends TestCase
@@ -27,13 +28,22 @@ final class AllTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be long at least 10. Got 6.');
+        static::expectNotToPerformAssertions();
 
         (new All(
-            new IsGreaterThan(0),
-            new IsLessOrEqualThan(7),
-        ))->assert(5);
+            new IsString(),
+            new IsLongAtLeast(5)
+        ))->assert('Hello');
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     */
+    public function testAssertException(): void
+    {
+        static::expectException(AssertionFailed::class);
+        static::expectExceptionMessage('Expected string to be long at least 10. Got 6.');
 
         (new All(
             new IsLongAtLeast(10),
@@ -48,23 +58,23 @@ final class AllTest extends TestCase
     public function testAssertFailLater(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected number to be less or equal than 1. Got 5.');
+        static::expectExceptionMessage('Expected string to be long at least 5. Got 2.');
 
         (new All(
-            new IsGreaterThan(0),
-            new IsLessOrEqualThan(1),
-        ))->assert(5);
+            new IsString(),
+            new IsLongAtLeast(5)
+        ))->assert('Hi');
     }
 
     /** @covers ::__invoke() */
     public function testInvoke(): void
     {
-        $assertion1 = (new All(
-            new IsGreaterThan(0),
-            new IsLessOrEqualThan(7),
+        $assertion = (new All(
+            new IsString(),
+            new IsLongAtLeast(5)
         ));
 
-        static::assertTrue($assertion1(5));
+        static::assertTrue($assertion('Hello'));
     }
 
     /**
@@ -74,8 +84,8 @@ final class AllTest extends TestCase
     public function testInvokeFail(): void
     {
         $assertion = (new All(
-            new IsGreaterThan(0),
-            new IsLessOrEqualThan(1),
+            new IsString(),
+            new IsLongAtLeast(5)
         ));
 
         static::assertFalse($assertion(7));

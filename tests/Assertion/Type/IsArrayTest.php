@@ -23,10 +23,22 @@ final class IsArrayTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsArray())
+            ->assert([1, 2, 3]);
+    }
+
+    /**
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException (): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be array. Got integer.');
 
-        (new IsArray())->assert([1, 2, 3]);
-        (new IsArray())->assert(42);
+        (new IsArray())
+            ->assert(42);
     }
 }

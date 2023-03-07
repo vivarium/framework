@@ -23,10 +23,22 @@ final class IsBooleanTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsBoolean())
+            ->assert(true);
+    }
+
+    /**
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be boolean. Got integer.');
 
-        (new IsBoolean())->assert(true);
-        (new IsBoolean())->assert(42);
+        (new IsBoolean())
+            ->assert(42);
     }
 }

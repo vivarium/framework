@@ -24,10 +24,22 @@ final class IsCallableTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new IsCallable())
+            ->assert(new IsInteger());
+    }
+
+    /**
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be callable. Got integer.');
 
-        (new IsCallable())->assert(new IsInteger());
-        (new IsCallable())->assert(42);
+        (new IsCallable())
+            ->assert(42);
     }
 }

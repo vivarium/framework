@@ -25,11 +25,21 @@ final class IsSystemEncodingTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('"Foo" is not a valid system encoding');
+        static::expectNotToPerformAssertions();
 
         (new IsSystemEncoding())->assert('UTF-8');
         (new IsSystemEncoding())('UTF-8');
+    }
+
+    /**
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertException(): void
+    {
+        static::expectException(AssertionFailed::class);
+        static::expectExceptionMessage('"Foo" is not a valid system encoding');
+
         (new IsSystemEncoding())->assert('Foo');
     }
 
@@ -50,12 +60,6 @@ final class IsSystemEncodingTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be string. Got integer.');
 
-        /**
-         * This is covered by static analysis but it is a valid runtime call
-         *
-         * @psalm-suppress InvalidScalarArgument
-         * @phpstan-ignore-next-line
-         */
         (new IsSystemEncoding())->assert(42);
     }
 }

@@ -24,13 +24,25 @@ final class NotTest extends TestCase
      */
     public function testAssert(): void
     {
+        static::expectNotToPerformAssertions();
+
+        (new Not(new IsString()))
+            ->assert(42);
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     */
+    public function testAssertException(): void
+    {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage(
             'Failed negating the assertion "Vivarium\Assertion\Type\IsString" with value "Hello World".',
         );
 
-        (new Not(new IsString()))->assert(42);
-        (new Not(new IsString()))->assert('Hello World');
+        (new Not(new IsString()))
+            ->assert('Hello World');
     }
 
     /** @covers ::__invoke() */
