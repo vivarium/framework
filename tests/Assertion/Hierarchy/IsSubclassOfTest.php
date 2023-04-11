@@ -62,7 +62,7 @@ final class IsSubclassOfTest extends TestCase
     public function testConstructorWithoutClass(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Argument must be a class or interface name. Got "RandomString"');
+        static::expectExceptionMessage('Expected string to be class or interface name. Got "RandomString"');
 
         /**
          * This is covered by static analysis, but it is a valid runtime call
