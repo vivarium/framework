@@ -37,7 +37,7 @@ final class IsIntersection implements Assertion
             }
 
             (new Each(
-                new IsBasicType(),
+                new IsClassOrInterface(),
             ))->assert($types);
         }
         catch (AssertionFailed $ex) {
