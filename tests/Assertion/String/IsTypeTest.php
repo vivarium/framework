@@ -72,6 +72,7 @@ final class IsTypeTest extends TestCase
             ['float'],
             ['string'],
             ['callable'],
+            ['object'],
             ['array'],
             ['stdClass'],
             ['Vivarium\Test\Assertion\Stub\StubClass'],
