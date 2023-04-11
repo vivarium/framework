@@ -4,7 +4,6 @@ namespace Vivarium\Test\Assertion\String;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsIntersection;
-use Vivarium\Test\Assertion\Type\IsNumericTest;
 
 /**
  * @coversDefaultClass \Vivarium\Assertion\String\IsIntersection
@@ -44,6 +43,19 @@ final class IsIntersectionTest extends TestCase
 
         (new IsIntersection())
             ->assert('stdClass');
+    }
+
+    /**
+     * @covers ::assert()
+     * @covers ::__invoke()
+     */
+    public function testAssertWithPrimitive(): void
+    {
+        static::expectException(AssertionFailed::class);
+        static::expectExceptionMessage('Expected string to be intersection. Got "int&float"');
+
+        (new IsIntersection())
+            ->assert('int&float');
     }
 
     /**
