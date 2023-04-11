@@ -16,4 +16,9 @@ final class StubClassExtension extends StubClass
     {
         return 'StubClassExtension';
     }
+
+    public function __invoke(): int
+    {
+        return 42;
+    }
 }
