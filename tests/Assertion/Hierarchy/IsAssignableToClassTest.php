@@ -12,15 +12,15 @@ namespace Vivarium\Test\Assertion\Hierarchy;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Hierarchy\IsSubclassOf;
+use Vivarium\Assertion\Hierarchy\IsAssignableToClass;
 use Vivarium\Test\Assertion\Stub\Stub;
 use Vivarium\Test\Assertion\Stub\StubClass;
 use Vivarium\Test\Assertion\Stub\StubClassExtension;
 
 use function sprintf;
 
-/** @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsSubclassOf */
-final class IsSubclassOfTest extends TestCase
+/** @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsAssignableToClass */
+final class IsAssignableToClassTest extends TestCase
 {
     /**
      * @covers ::__construct()
@@ -31,10 +31,13 @@ final class IsSubclassOfTest extends TestCase
     {
         static::expectNotToPerformAssertions();
 
-        (new IsSubclassOf(Stub::class))
+        (new IsAssignableToClass(Stub::class))
+            ->assert(Stub::class);
+
+        (new IsAssignableToClass(Stub::class))
             ->assert(StubClass::class);
 
-        (new IsSubclassOf(StubClass::class))
+        (new IsAssignableToClass(StubClass::class))
             ->assert(StubClassExtension::class);
     }
 
@@ -48,21 +51,23 @@ final class IsSubclassOfTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage(
             sprintf(
-                'Expected class "%s" to be subclass of "%2$s".',
-                StubClass::class,
+                'Expected class "%s" to be assignable to "%2$s".',
+                Stub::class,
                 StubClassExtension::class,
             ),
         );
 
-        (new IsSubclassOf(StubClassExtension::class))
-            ->assert(StubClass::class);
+        (new IsAssignableToClass(StubClassExtension::class))
+            ->assert(Stub::class);
     }
 
     /** @covers ::__construct() */
     public function testConstructorWithoutClass(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be class or interface name. Got "RandomString"');
+        static::expectExceptionMessage(
+            'Expected string to be class or interface name. Got "RandomString"',
+        );
 
         /**
          * This is covered by static analysis, but it is a valid runtime call
@@ -71,7 +76,7 @@ final class IsSubclassOfTest extends TestCase
          * @psalm-suppress UndefinedClass
          * @phpstan-ignore-next-line
          */
-        (new IsSubclassOf('RandomString'))
+        (new IsAssignableToClass('RandomString'))
             ->assert(Stub::class);
     }
 
@@ -83,9 +88,9 @@ final class IsSubclassOfTest extends TestCase
     public function testAssertWithoutClass(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Argument must be a class or interface name. Got "RandomString"');
+        static::expectExceptionMessage('Expected string to be class or interface name. Got "RandomString"');
 
-        (new IsSubclassOf(Stub::class))
+        (new IsAssignableToClass(Stub::class))
             ->assert('RandomString');
     }
 }

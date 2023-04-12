@@ -31,12 +31,12 @@ final class IsClassOrInterface implements Assertion
     public function assert(mixed $value, string $message = ''): void
     {
         $message = (new IsEmpty())($message) ?
-            'Argument must be a class or interface name. Got %s' : $message;
+            'Expected string to be class or interface name. Got %s.' : $message;
 
         $this->assertion->assert($value, $message);
     }
 
-    /** @psalm-assert class-string $value */
+    /** @psalm-assert-if-true class-string $value */
     public function __invoke(mixed $value): bool
     {
         return ($this->assertion)($value);
