@@ -29,6 +29,20 @@ final class IsAssignableToUnionTest extends TestCase
     }
 
     /**
+     * @covers ::__invoke()
+     */
+    public function testInvoke(): void
+    {
+        $union = 'stdClass|' . StubClass::class;
+
+        $assertion = new IsAssignableToUnion($union);
+
+        static::assertTrue($assertion('stdClass'));
+        static::assertTrue($assertion(StubClass::class));
+        static::assertFalse($assertion('int'));
+    }
+
+    /**
      * @covers ::assert()
      * @covers ::__invoke()
      */
