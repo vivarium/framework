@@ -36,7 +36,7 @@ final class IsClassOrInterface implements Assertion
         $this->assertion->assert($value, $message);
     }
 
-    /** @psalm-assert class-string $value */
+    /** @psalm-assert-if-true class-string $value */
     public function __invoke(mixed $value): bool
     {
         return ($this->assertion)($value);
