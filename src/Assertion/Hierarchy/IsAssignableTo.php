@@ -35,9 +35,16 @@ final class IsAssignableTo implements Assertion
         $this->assertion = $this->getAssertion($this->type);
     }
 
+    /** @psalm-assert string */
     public function assert(mixed $value, string $message = ''): void
     {
-        if (! $this($value)) {
+        (new IsType())
+            ->assert($value);
+
+        try {
+            $this->assertion->assert($value);
+        }
+        catch (AssertionFailed $ex) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
                     $message : 'Expected type %s to be assignable to %2$s.',
@@ -45,17 +52,17 @@ final class IsAssignableTo implements Assertion
                 (new TypeToString())($this->type),
             );
 
-            throw new AssertionFailed($message);
+            throw new AssertionFailed($message, $ex->getCode(), $ex);
         }
     }
 
+    /** @psalm-assert-if-true string $value */
     public function __invoke(mixed $value): bool
     {
-        (new IsType())
-            ->assert($value);
-
         try {
-            return ($this->assertion)($value);
+            $this->assert($value);
+
+            return true;
         }
         catch (AssertionFailed) {
             return false;
