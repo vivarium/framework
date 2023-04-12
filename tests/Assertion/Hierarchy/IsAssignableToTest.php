@@ -27,7 +27,6 @@ final class IsAssignableToTest extends TestCase
      * @covers ::assert()
      * @covers ::__invoke()
      * @covers ::getAssertion()
-     *
      * @dataProvider pairAssignmentProvider()
      */
     public function testAssert(string $type, string $assign): void
@@ -41,7 +40,6 @@ final class IsAssignableToTest extends TestCase
     /**
      * @covers ::__invoke()
      * @covers ::getAssertion()
-     *
      * @dataProvider pairAssignmentProvider()
      */
     public function testInvoke(string $type, string $assign): void
@@ -74,7 +72,7 @@ final class IsAssignableToTest extends TestCase
     {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage(
-            'Expected string to be a primitive, class, interface, union or intersection. Got "RandomString"'
+            'Expected string to be a primitive, class, interface, union or intersection. Got "RandomString"',
         );
 
         /**
@@ -96,26 +94,22 @@ final class IsAssignableToTest extends TestCase
     {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage(
-            'Expected string to be a primitive, class, interface, union or intersection. Got "RandomString".'
+            'Expected string to be a primitive, class, interface, union or intersection. Got "RandomString".',
         );
 
         (new IsAssignableTo(Stub::class))
             ->assert('RandomString');
     }
 
-    /**
-     * @covers ::__invoke()
-     */
+    /** @covers ::__invoke() */
     public function testInvokeFalsy(): void
     {
         static::assertFalse(
-            (new IsAssignableTo(StubClassExtension::class))('string')
+            (new IsAssignableTo(StubClassExtension::class))('string'),
         );
     }
 
-    /**
-     * @return array<array<string>>
-     */
+    /** @return array<array<string>> */
     public function pairAssignmentProvider(): array
     {
         return [

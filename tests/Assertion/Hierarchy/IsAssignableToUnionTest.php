@@ -1,16 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Vivarium\Test\Assertion\Hierarchy;
 
-use _PHPStan_950705577\Nette\Utils\AssertionException;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Hierarchy\IsAssignableToUnion;
 use Vivarium\Test\Assertion\Stub\StubClass;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsAssignableToUnion
- */
+/** @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsAssignableToUnion */
 final class IsAssignableToUnionTest extends TestCase
 {
     /**
@@ -28,9 +27,7 @@ final class IsAssignableToUnionTest extends TestCase
         $assertion->assert(StubClass::class);
     }
 
-    /**
-     * @covers ::__invoke()
-     */
+    /** @covers ::__invoke() */
     public function testInvoke(): void
     {
         $union = 'stdClass|' . StubClass::class;
@@ -55,9 +52,7 @@ final class IsAssignableToUnionTest extends TestCase
             ->assert('stdClass');
     }
 
-    /**
-     * @covers ::__construct()
-     */
+    /** @covers ::__construct() */
     public function testConstructorException(): void
     {
         static::expectException(AssertionFailed::class);

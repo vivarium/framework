@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Vivarium\Test\Assertion\String;
 
@@ -7,9 +9,7 @@ use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsClassOrInterface;
 use Vivarium\Test\Assertion\Stub\Stub;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\String\IsClassOrInterface
- */
+/** @coversDefaultClass \Vivarium\Assertion\String\IsClassOrInterface */
 final class IsClassOrInterfaceTest extends TestCase
 {
     /**
@@ -35,15 +35,15 @@ final class IsClassOrInterfaceTest extends TestCase
     public function testInvoke(): void
     {
         static::assertTrue(
-            (new IsClassOrInterface())('stdClass')
+            (new IsClassOrInterface())('stdClass'),
         );
 
         static::assertTrue(
-            (new IsClassOrInterface())(Stub::class)
+            (new IsClassOrInterface())(Stub::class),
         );
 
         static::assertFalse(
-            (new IsClassOrInterface())('NonExistentClass')
+            (new IsClassOrInterface())('NonExistentClass'),
         );
     }
 

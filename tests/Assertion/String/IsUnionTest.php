@@ -1,18 +1,17 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Vivarium\Test\Assertion\String;
+
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsUnion;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\String\IsUnion
- */
+/** @coversDefaultClass \Vivarium\Assertion\String\IsUnion */
 final class IsUnionTest extends TestCase
 {
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssert(): void
     {
         static::expectNotToPerformAssertions();
@@ -21,9 +20,7 @@ final class IsUnionTest extends TestCase
             ->assert('stdClass|Vivarium\Test\Assertion\Stub\StubClass');
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertException(): void
     {
         static::expectException(AssertionFailed::class);
@@ -33,9 +30,7 @@ final class IsUnionTest extends TestCase
             ->assert('Foo|Bar');
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertExceptionSingleString(): void
     {
         static::expectException(AssertionFailed::class);
@@ -45,9 +40,7 @@ final class IsUnionTest extends TestCase
             ->assert('stdClass');
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertWithNonString(): void
     {
         static::expectException(AssertionFailed::class);
@@ -57,21 +50,19 @@ final class IsUnionTest extends TestCase
             ->assert(1);
     }
 
-    /**
-     * @covers ::__invoke()
-     */
+    /** @covers ::__invoke() */
     public function testInvoke(): void
     {
         static::assertTrue(
-            (new IsUnion())('stdClass|Vivarium\Test\Assertion\Stub\StubClass')
+            (new IsUnion())('stdClass|Vivarium\Test\Assertion\Stub\StubClass'),
         );
 
         static::assertFalse(
-            (new IsUnion())('Foo|Bar')
+            (new IsUnion())('Foo|Bar'),
         );
 
         static::assertFalse(
-            (new IsUnion())('stdClass')
+            (new IsUnion())('stdClass'),
         );
     }
 }

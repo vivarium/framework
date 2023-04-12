@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Vivarium\Test\Assertion\String;
 
@@ -6,14 +8,11 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsPrimitive;
 
-/**
- * @covers \Vivarium\Assertion\String\IsPrimitive
- */
+/** @covers \Vivarium\Assertion\String\IsPrimitive */
 final class IsPrimitiveTest extends TestCase
 {
     /**
      * @covers ::assert()
-     *
      * @dataProvider typesProvider()
      */
     public function testAssert(string $type): void
@@ -24,9 +23,7 @@ final class IsPrimitiveTest extends TestCase
             ->assert($type);
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertException(): void
     {
         static::expectException(AssertionFailed::class);
@@ -38,7 +35,6 @@ final class IsPrimitiveTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     *
      * @dataProvider typesProvider()
      */
     public function testInvoke(string $type): void

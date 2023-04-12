@@ -66,7 +66,7 @@ final class IsAssignableToClassTest extends TestCase
     {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage(
-            'Expected string to be class or interface name. Got "RandomString"'
+            'Expected string to be class or interface name. Got "RandomString"',
         );
 
         /**

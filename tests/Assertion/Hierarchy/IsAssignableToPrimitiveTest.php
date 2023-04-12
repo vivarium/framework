@@ -10,14 +10,11 @@ use Vivarium\Assertion\Hierarchy\IsAssignableToPrimitive;
 use Vivarium\Test\Assertion\Stub\StubClass;
 use Vivarium\Test\Assertion\Stub\StubClassExtension;
 
-/**
- * @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsAssignableToPrimitive
- */
+/** @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsAssignableToPrimitive */
 final class IsAssignableToPrimitiveTest extends TestCase
 {
     /**
      * @covers ::assert()
-     *
      * @dataProvider primitivePairs()
      */
     public function testAssert(string $primitive, string $type): void
@@ -26,39 +23,33 @@ final class IsAssignableToPrimitiveTest extends TestCase
 
         (new IsAssignableToPrimitive($primitive))
             ->assert($type);
-
     }
 
     /**
      * @covers ::__invoke()
-     *
      * @dataProvider primitivePairs()
      */
     public function testInvoke(string $primitive, string $type): void
     {
         static::assertTrue(
-            (new IsAssignableToPrimitive($primitive))($type)
+            (new IsAssignableToPrimitive($primitive))($type),
         );
     }
 
-    /**
-     * @covers ::__invoke()
-     */
+    /** @covers ::__invoke() */
     public function testInvokeFalsy(): void
     {
         static::assertFalse(
-            (new IsAssignableToPrimitive('int'))(StubClass::class)
+            (new IsAssignableToPrimitive('int'))(StubClass::class),
         );
     }
 
-    /**
-     * @covers ::assert()
-     */
+    /** @covers ::assert() */
     public function testAssertException(): void
     {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage(
-            'Expected type to be assignable to primitive type "int". Got "float".'
+            'Expected type to be assignable to primitive type "int". Got "float".',
         );
 
         (new IsAssignableToPrimitive('int'))

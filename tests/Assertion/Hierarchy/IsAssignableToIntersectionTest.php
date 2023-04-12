@@ -29,19 +29,17 @@ final class IsAssignableToIntersectionTest extends TestCase
             ->assert(StubClassExtension::class);
     }
 
-    /**
-     * @covers ::__invoke()
-     */
+    /** @covers ::__invoke() */
     public function testInvoke(): void
     {
         $intersection = Stub::class . '&' . InvokableStub::class;
 
         static::assertTrue(
-            (new IsAssignableToIntersection($intersection))(StubClassExtension::class)
+            (new IsAssignableToIntersection($intersection))(StubClassExtension::class),
         );
 
         static::assertFalse(
-            (new IsAssignableToIntersection($intersection))(StubClass::class)
+            (new IsAssignableToIntersection($intersection))(StubClass::class),
         );
     }
 
@@ -62,9 +60,7 @@ final class IsAssignableToIntersectionTest extends TestCase
             ->assert(StubClass::class);
     }
 
-    /**
-     * @covers ::__construct()
-     */
+    /** @covers ::__construct() */
     public function testConstructorException(): void
     {
         static::expectException(AssertionFailed::class);
