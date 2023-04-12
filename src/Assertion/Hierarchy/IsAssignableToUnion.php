@@ -15,9 +15,8 @@ use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsBasicType;
 use Vivarium\Assertion\String\IsEmpty;
-use Vivarium\Assertion\String\IsIntersection;
-
 use Vivarium\Assertion\String\IsUnion;
+
 use function explode;
 use function sprintf;
 

@@ -20,9 +20,7 @@ use Vivarium\Assertion\String\IsPrimitive;
 
 use function sprintf;
 
-/**
- * @template-implements Assertion<string>
- */
+/** @template-implements Assertion<string> */
 final class IsAssignableToPrimitive implements Assertion
 {
     public function __construct(private string $primitive)

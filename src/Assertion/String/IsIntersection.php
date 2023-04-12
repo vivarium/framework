@@ -15,8 +15,8 @@ use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Conditional\Each;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
-
 use Vivarium\Assertion\Type\IsString;
+
 use function count;
 use function explode;
 use function sprintf;
@@ -39,8 +39,7 @@ final class IsIntersection implements Assertion
             (new Each(
                 new IsClassOrInterface(),
             ))->assert($types);
-        }
-        catch (AssertionFailed $ex) {
+        } catch (AssertionFailed $ex) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
                     $message : 'Expected string to be intersection. Got %s.',

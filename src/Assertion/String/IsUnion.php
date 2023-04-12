@@ -14,14 +14,16 @@ use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Conditional\Each;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
-
 use Vivarium\Assertion\Type\IsString;
+
 use function count;
 use function explode;
 use function sprintf;
 
+/** @template-implements Assertion<string> */
 final class IsUnion implements Assertion
 {
+    /** @psalm-assert string $value */
     public function assert(mixed $value, string $message = ''): void
     {
         (new IsString())
@@ -37,8 +39,7 @@ final class IsUnion implements Assertion
             (new Each(
                 new IsBasicType(),
             ))->assert($types);
-        }
-        catch (AssertionFailed $ex) {
+        } catch (AssertionFailed $ex) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
                     $message : 'Expected string to be union. Got %s.',
@@ -49,6 +50,7 @@ final class IsUnion implements Assertion
         }
     }
 
+    /** @psalm-assert-if-true string $value */
     public function __invoke(mixed $value): bool
     {
         try {

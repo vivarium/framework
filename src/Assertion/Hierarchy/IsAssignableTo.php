@@ -24,7 +24,7 @@ use function sprintf;
 /** @template-implements Assertion<string> */
 final class IsAssignableTo implements Assertion
 {
-    /** @var Assertion<string> */
+    /** @var Assertion<string>|Assertion<class-string> */
     private Assertion $assertion;
 
     public function __construct(private string $type)
@@ -35,7 +35,7 @@ final class IsAssignableTo implements Assertion
         $this->assertion = $this->getAssertion($this->type);
     }
 
-    /** @psalm-assert string */
+    /** @psalm-assert string $value*/
     public function assert(mixed $value, string $message = ''): void
     {
         (new IsType())
@@ -43,8 +43,7 @@ final class IsAssignableTo implements Assertion
 
         try {
             $this->assertion->assert($value);
-        }
-        catch (AssertionFailed $ex) {
+        } catch (AssertionFailed $ex) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
                     $message : 'Expected type %s to be assignable to %2$s.',
@@ -63,17 +62,12 @@ final class IsAssignableTo implements Assertion
             $this->assert($value);
 
             return true;
-        }
-        catch (AssertionFailed) {
+        } catch (AssertionFailed) {
             return false;
         }
     }
 
-    /**
-     * @param string $type
-     *
-     * @return Assertion<string>
-     */
+    /** @return Assertion<string>|Assertion<class-string> */
     private function getAssertion(string $type): Assertion
     {
         if ((new IsUnion())($type)) {
@@ -85,6 +79,7 @@ final class IsAssignableTo implements Assertion
         }
 
         if ((new IsClassOrInterface())($type)) {
+            /** @psalm-var class-string $type */
             return new IsAssignableToClass($type);
         }
 
