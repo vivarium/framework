@@ -16,7 +16,7 @@ final class IsBasicTypeTest extends TestCase
      *
      * @dataProvider provideTypes()
      */
-    public function testAssert($type): void
+    public function testAssert(string $type): void
     {
         static::expectNotToPerformAssertions();
 
