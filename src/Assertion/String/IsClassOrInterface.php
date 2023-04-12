@@ -31,7 +31,7 @@ final class IsClassOrInterface implements Assertion
     public function assert(mixed $value, string $message = ''): void
     {
         $message = (new IsEmpty())($message) ?
-            'Expected string to be class or interface name. Got %s' : $message;
+            'Expected string to be class or interface name. Got %s.' : $message;
 
         $this->assertion->assert($value, $message);
     }
