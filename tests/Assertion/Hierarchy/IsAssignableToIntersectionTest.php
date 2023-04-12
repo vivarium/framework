@@ -68,9 +68,9 @@ final class IsAssignableToIntersectionTest extends TestCase
     public function testConstructorException(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be intersection. Got "Foo|Bar".');
+        static::expectExceptionMessage('Expected string to be intersection. Got "int&string".');
 
-        (new IsAssignableToIntersection('Foo&Bar'))
+        (new IsAssignableToIntersection('int&string'))
             ->assert('stdClass');
     }
 }
