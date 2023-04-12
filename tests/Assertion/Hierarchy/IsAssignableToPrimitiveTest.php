@@ -17,7 +17,6 @@ final class IsAssignableToPrimitiveTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * @covers ::__invoke()
      *
      * @dataProvider primitivePairs()
      */
@@ -27,6 +26,29 @@ final class IsAssignableToPrimitiveTest extends TestCase
 
         (new IsAssignableToPrimitive($primitive))
             ->assert($type);
+
+    }
+
+    /**
+     * @covers ::__invoke()
+     *
+     * @dataProvider primitivePairs()
+     */
+    public function testInvoke(string $primitive, string $type): void
+    {
+        static::assertTrue(
+            (new IsAssignableToPrimitive($primitive))($type)
+        );
+    }
+
+    /**
+     * @covers ::__invoke()
+     */
+    public function testInvokeFalsy(): void
+    {
+        static::assertFalse(
+            (new IsAssignableToPrimitive('int'))(StubClass::class)
+        );
     }
 
     /**
