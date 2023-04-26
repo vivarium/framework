@@ -39,7 +39,9 @@ final class IsTypeTest extends TestCase
     public function testAssertWithNonString(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be string. Got integer.');
+        static::expectExceptionMessage(
+            'Expected string to be a primitive, class, interface, union or intersection. Got 1.',
+        );
 
         (new IsType())
             ->assert(1);

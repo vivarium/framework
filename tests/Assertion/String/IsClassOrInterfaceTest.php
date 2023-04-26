@@ -64,7 +64,7 @@ final class IsClassOrInterfaceTest extends TestCase
     public function testAssertWithoutString(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be string. Got integer.');
+        static::expectExceptionMessage('Expected string to be class or interface name. Got 42.');
 
         (new IsClassOrInterface())
             ->assert(42);
