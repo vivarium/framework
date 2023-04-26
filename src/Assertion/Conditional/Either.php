@@ -51,6 +51,21 @@ final class Either implements Assertion
     /** @psalm-assert-if-true A|B $value */
     public function __invoke(mixed $value): bool
     {
-        return ($this->assertion1)($value) || ($this->assertion2)($value);
+        return $this->safeAssert($this->assertion1, $value) ||
+               $this->safeAssert($this->assertion2, $value);
+    }
+
+    /**
+     * @param Assertion<T> $assertion
+     *
+     * @template T
+     */
+    public function safeAssert(Assertion $assertion, mixed $value): bool
+    {
+        try {
+            return $assertion($value);
+        } catch (AssertionFailed) {
+            return false;
+        }
     }
 }
