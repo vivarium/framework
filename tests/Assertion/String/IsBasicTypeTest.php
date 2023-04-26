@@ -39,7 +39,7 @@ final class IsBasicTypeTest extends TestCase
     public function testAssertExceptionWithNonString(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be string. Got integer.');
+        static::expectExceptionMessage('Expected string to be a primitive type, class or interface. Got 1.');
 
         (new IsBasicType())
             ->assert(1);
