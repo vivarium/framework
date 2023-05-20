@@ -17,6 +17,7 @@ use Vivarium\Equality\EqualsBuilder;
 use Vivarium\Equality\HashBuilder;
 
 use function array_fill;
+use function array_values;
 use function count;
 
 /**
@@ -41,7 +42,7 @@ final class HashSet implements Set
     }
 
     /**
-     * @param array<array-key, K> $elements
+     * @param array<K> $elements
      *
      * @return HashSet<K>
      *
@@ -49,7 +50,7 @@ final class HashSet implements Set
      */
     public static function fromArray(array $elements): HashSet
     {
-        return new HashSet(...$elements);
+        return new HashSet(...array_values($elements));
     }
 
     /** @return HashSet<T> */
