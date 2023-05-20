@@ -30,18 +30,14 @@ final class ArrayStack implements Stack
     /** @var ArraySequence<T> */
     private ArraySequence $elements;
 
-    /**
-     * @param T ...$elements
-     *
-     * @no-named-arguments
-     */
+    /** @param T ...$elements */
     public function __construct(...$elements)
     {
         $this->elements = ArraySequence::fromArray($elements);
     }
 
     /**
-     * @param array<int, K> $elements
+     * @param array<K> $elements
      *
      * @return ArrayStack<K>
      *

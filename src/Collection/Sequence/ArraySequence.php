@@ -44,7 +44,7 @@ final class ArraySequence implements Sequence
     }
 
     /**
-     * @param array<int, T0> $elements
+     * @param array<T0> $elements
      *
      * @return ArraySequence<T0>
      *
@@ -52,7 +52,7 @@ final class ArraySequence implements Sequence
      */
     public static function fromArray(array $elements): ArraySequence
     {
-        return new ArraySequence(...$elements);
+        return new ArraySequence(...array_values($elements));
     }
 
     /**

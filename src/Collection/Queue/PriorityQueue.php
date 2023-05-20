@@ -38,8 +38,8 @@ final class PriorityQueue implements Queue
     }
 
     /**
-     * @param Comparator<K>       $comparator
-     * @param array<array-key, K> $elements
+     * @param Comparator<K> $comparator
+     * @param array<K>      $elements
      *
      * @return PriorityQueue<K>
      *
