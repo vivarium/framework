@@ -17,6 +17,7 @@ use Vivarium\Assertion\Type\IsString;
 
 use function sprintf;
 use function strlen;
+use function trim;
 
 /** @template-implements Assertion<string> */
 final class IsEmpty implements Assertion
@@ -40,6 +41,6 @@ final class IsEmpty implements Assertion
     {
         (new IsString())->assert($value);
 
-        return strlen($value) === 0;
+        return strlen(trim($value)) === 0;
     }
 }

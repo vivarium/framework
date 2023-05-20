@@ -27,6 +27,9 @@ final class IsEmptyTest extends TestCase
 
         (new IsEmpty())
             ->assert('');
+
+        (new IsEmpty())
+            ->assert('        ');
     }
 
     /**
