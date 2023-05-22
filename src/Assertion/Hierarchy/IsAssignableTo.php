@@ -21,10 +21,10 @@ use Vivarium\Assertion\String\IsUnion;
 
 use function sprintf;
 
-/** @template-implements Assertion<string> */
+/** @template-implements Assertion<non-empty-string> */
 final class IsAssignableTo implements Assertion
 {
-    /** @var Assertion<string>|Assertion<class-string> */
+    /** @var Assertion<non-empty-string>|Assertion<class-string> */
     private Assertion $assertion;
 
     public function __construct(private string $type)
@@ -67,7 +67,7 @@ final class IsAssignableTo implements Assertion
         }
     }
 
-    /** @return Assertion<string>|Assertion<class-string> */
+    /** @return Assertion<non-empty-string>|Assertion<class-string> */
     private function getAssertion(string $type): Assertion
     {
         if ((new IsUnion())($type)) {

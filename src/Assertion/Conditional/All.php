@@ -12,44 +12,49 @@ namespace Vivarium\Assertion\Conditional;
 
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
+use Vivarium\Assertion\Helpers\TypeToString;
+use Vivarium\Assertion\String\IsEmpty;
 
-use function array_merge;
+use function sprintf;
 
 /**
- * @template T
- * @template-implements Assertion<T>
+ * @template A
+ * @template B
+ * @template-implements Assertion<A&B>
  */
 final class All implements Assertion
 {
-    /** @var array<Assertion<T>> */
-    private array $assertions;
-
     /**
-     * @param Assertion<T> $assertion
-     * @param Assertion<T> ...$assertions
+     * @param Assertion<A> $assertion1
+     * @param Assertion<B> $assertion2
      */
-    public function __construct(Assertion $assertion, Assertion ...$assertions)
-    {
-        $this->assertions = array_merge([$assertion], $assertions);
+    public function __construct(
+        private Assertion $assertion1,
+        private Assertion $assertion2,
+    ) {
     }
 
-    /** @psalm-assert T $value */
+    /** @psalm-assert A&B $value */
     public function assert(mixed $value, string $message = ''): void
     {
-        foreach ($this->assertions as $assertion) {
-            $assertion->assert($value, $message);
+        try {
+            $this->assertion1->assert($value);
+            $this->assertion2->assert($value);
+        } catch (AssertionFailed $ex) {
+            $message = sprintf(
+                ! (new IsEmpty())($message) ?
+                    $message : $ex->getMessage(),
+                (new TypeToString())($value),
+            );
+
+            throw new AssertionFailed($message);
         }
     }
 
-    /** @psalm-assert-if-true T $value */
+    /** @psalm-assert-if-true A&B $value */
     public function __invoke(mixed $value): bool
     {
-        try {
-            $this->assert($value);
-        } catch (AssertionFailed) {
-            return false;
-        }
-
-        return true;
+        return ($this->assertion1)($value) &&
+               ($this->assertion2)($value);
     }
 }

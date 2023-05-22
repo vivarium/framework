@@ -35,7 +35,10 @@ final class IsInterface implements Assertion
         }
     }
 
-    /** @psalm-assert string $value */
+    /**
+     * @psalm-assert string $value
+     * @psalm-assert-if-true class-string $value
+     */
     public function __invoke(mixed $value): bool
     {
         (new IsString())->assert($value);
