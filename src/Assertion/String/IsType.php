@@ -17,9 +17,10 @@ use Vivarium\Assertion\Helpers\TypeToString;
 
 use function sprintf;
 
-/** @template-implements Assertion<string> */
+/** @template-implements Assertion<non-empty-string|'int'|'float'|'string'|'array'|'callable'|'object'|class-string> */
 final class IsType implements Assertion
 {
+    /** @psalm-assert non-empty-string|'int'|'float'|'string'|'array'|'callable'|'object'|class-string $value */
     public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
@@ -33,6 +34,10 @@ final class IsType implements Assertion
         }
     }
 
+    /**
+     * @psalm-assert string $value
+     * @psalm-assert-if-true non-empty-string|'int'|'float'|'string'|'array'|'callable'|'object'|class-string $value
+     */
     public function __invoke(mixed $value): bool
     {
         return (new Either(

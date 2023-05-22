@@ -20,10 +20,10 @@ use Vivarium\Assertion\Type\IsString;
 use function mb_regex_encoding;
 use function sprintf;
 
-/** @template-implements Assertion<string> */
+/** @template-implements Assertion<non-empty-string> */
 final class IsRegexEncoding implements Assertion
 {
-    /** @psalm-assert string $value */
+    /** @psalm-assert non-empty-string $value */
     public function assert(mixed $value, string $message = ''): void
     {
         if (! ($this)($value)) {
@@ -38,6 +38,7 @@ final class IsRegexEncoding implements Assertion
 
     /**
      * @psalm-assert string $value
+     * @psalm-assert-if-true non-empty-string $value
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function __invoke(mixed $value): bool

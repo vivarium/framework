@@ -49,7 +49,10 @@ final class IsSubclassOf implements Assertion
         }
     }
 
-    /** @psalm-assert class-string<T> $value */
+    /**
+     * @psalm-assert class-string $value
+     * @psalm-assert-if-true class-string<T> $value
+     */
     public function __invoke(mixed $value): bool
     {
         (new Either(

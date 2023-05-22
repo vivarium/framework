@@ -18,10 +18,10 @@ use Vivarium\Assertion\Type\IsString;
 
 use function sprintf;
 
-/** @template-implements Assertion<string> */
+/** @template-implements Assertion<non-empty-string> */
 final class IsEncoding implements Assertion
 {
-    /** @psalm-assert string $value */
+    /** @psalm-assert non-empty-string $value */
     public function assert(mixed $value, string $message = ''): void
     {
         if (! ($this)($value)) {
@@ -34,7 +34,10 @@ final class IsEncoding implements Assertion
         }
     }
 
-    /** @psalm-assert string $value */
+    /**
+     * @psalm-assert string $value
+     * @psalm-assert-if-true non-empty-string $value
+     */
     public function __invoke(mixed $value): bool
     {
         (new IsString())->assert($value);
