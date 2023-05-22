@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsPrimitive;
 
-/** @covers \Vivarium\Assertion\String\IsPrimitive */
+/** @coversDefaultClass \Vivarium\Assertion\String\IsPrimitive */
 final class IsPrimitiveTest extends TestCase
 {
     /**

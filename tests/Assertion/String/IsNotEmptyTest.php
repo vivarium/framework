@@ -8,13 +8,14 @@ declare(strict_types=1);
  * Copyright (c) 2023 Luca Cantoreggi
  */
 
-namespace String;
+namespace Vivarium\Test\Assertion\String;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\String\IsNotEmpty;
 
+/** @coversDefaultClass \Vivarium\Assertion\String\IsNotEmpty */
 final class IsNotEmptyTest extends TestCase
 {
     /**
