@@ -1,21 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2021 Luca Cantoreggi
+ * Copyright (c) 2023 Luca Cantoreggi
  */
 
-declare(strict_types=1);
-
-namespace Vivarium\Test\Assertion\String;
+namespace String;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsEmpty;
+use Vivarium\Assertion\String\IsNotEmpty;
 
-/** @coversDefaultClass \Vivarium\Assertion\String\IsEmpty */
-final class IsEmptyTest extends TestCase
+final class IsNotEmptyTest extends TestCase
 {
     /**
      * @covers ::assert()
@@ -25,11 +25,8 @@ final class IsEmptyTest extends TestCase
     {
         static::expectNotToPerformAssertions();
 
-        (new IsEmpty())
-            ->assert('');
-
-        (new IsEmpty())
-            ->assert('        ');
+        (new IsNotEmpty())
+            ->assert('Foo');
     }
 
     /**
@@ -39,10 +36,10 @@ final class IsEmptyTest extends TestCase
     public function testAssertException(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be empty. Got "Hello World".');
+        static::expectExceptionMessage('Expected string to be not empty.');
 
-        (new IsEmpty())
-            ->assert('Hello World');
+        (new IsNotEmpty())
+            ->assert('       ');
     }
 
     /** @covers ::assert() */

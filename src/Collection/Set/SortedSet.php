@@ -46,7 +46,7 @@ final class SortedSet implements Set
 
     /**
      * @param Comparator<K> $comparator
-     * @param K[]           $elements
+     * @param array<K>      $elements
      *
      * @return SortedSet<K>
      *

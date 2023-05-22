@@ -1,11 +1,5 @@
 <?php
 
-/*
- * This file is part of Vivarium
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2021 Luca Cantoreggi
- */
-
 declare(strict_types=1);
 
 namespace Vivarium\Assertion\String;
@@ -15,20 +9,19 @@ use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\Type\IsString;
 
+use function explode;
+use function preg_match;
 use function sprintf;
-use function strlen;
-use function trim;
 
 /** @template-implements Assertion<string> */
-final class IsEmpty implements Assertion
+final class IsNamespace implements Assertion
 {
-    /** @psalm-assert string $value */
     public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
-                     $message : 'Expected string to be empty. Got %s.',
+                    $message : 'Expected string to be namespace. Got %s.',
                 (new TypeToString())($value),
             );
 
@@ -36,11 +29,19 @@ final class IsEmpty implements Assertion
         }
     }
 
-    /** @psalm-assert string $value */
     public function __invoke(mixed $value): bool
     {
-        (new IsString())->assert($value);
+        (new IsString())
+           ->assert($value);
 
-        return strlen(trim($value)) === 0;
+        $parts = explode('\\', $value);
+
+        foreach ($parts as $part) {
+            if (preg_match('/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$/', $part) !== 1) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
