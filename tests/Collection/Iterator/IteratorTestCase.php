@@ -16,7 +16,7 @@ use Vivarium\Equality\Equal;
 
 use function array_values;
 
-abstract class CommonIteratorTest extends TestCase
+abstract class IteratorTestCase extends TestCase
 {
     /**
      * @param Iterator<T, int> $iterator

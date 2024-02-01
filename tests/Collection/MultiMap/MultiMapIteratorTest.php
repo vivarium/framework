@@ -15,11 +15,11 @@ use Vivarium\Collection\MultiMap\MultiMapIterator;
 use Vivarium\Collection\Pair\Pair;
 use Vivarium\Collection\Sequence\ArraySequence;
 use Vivarium\Equality\HashBuilder;
-use Vivarium\Test\Collection\Iterator\CommonIteratorTest;
+use Vivarium\Test\Collection\Iterator\IteratorTestCase;
 use Vivarium\Test\Collection\Stub\Key;
 
 /** @coversDefaultClass \Vivarium\Collection\MultiMap\MultiMapIterator */
-final class MultiMapIteratorTest extends CommonIteratorTest
+final class MultiMapIteratorTest extends IteratorTestCase
 {
     /**
      * @covers ::__construct()
