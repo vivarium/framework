@@ -125,11 +125,13 @@ final class AggregateDispatcherTest extends TestCase
         $stopper->expects(static::once())
                 ->method('handle')
                 ->with($event)
-                ->will(static::returnCallback(static function (StoppableEvent $event): StoppableEvent {
-                    $event->stopPropagation();
+                ->willReturnCallback(
+                    static function (StoppableEvent $event): StoppableEvent {
+                        $event->stopPropagation();
 
-                    return $event;
-                }));
+                        return $event;
+                    },
+                );
 
         $eventListenerMap = new EventListenerMap();
         $eventListenerMap = $eventListenerMap
@@ -169,11 +171,13 @@ final class AggregateDispatcherTest extends TestCase
         $stopper->expects(static::once())
                 ->method('handle')
                 ->with($event)
-                ->will(static::returnCallback(static function (StoppableEvent $event): StoppableEvent {
-                    $event->stopPropagation();
+                ->willReturnCallback(
+                    static function (StoppableEvent $event): StoppableEvent {
+                        $event->stopPropagation();
 
-                    return $event;
-                }));
+                        return $event;
+                    },
+                );
 
         $eventListenerMap1 = new EventListenerMap();
         $eventListenerMap2 = new EventListenerMap();

@@ -90,13 +90,13 @@ class HashSetTest extends TestCase
         $stub3 = $this->createMock(Equality::class);
 
         $stub2->method('equals')
-              ->will(static::returnValueMap(
+              ->willReturnMap(
                   [
                       [$stub1, false],
                       [$stub2, true],
                       [$stub3, false],
                   ],
-              ));
+              );
 
         $set = new HashSet($stub1, $stub1, $stub2, $stub3);
 
