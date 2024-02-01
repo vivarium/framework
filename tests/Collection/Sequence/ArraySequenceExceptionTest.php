@@ -75,7 +75,7 @@ class ArraySequenceExceptionTest extends TestCase
     }
 
     /** @return array<string, array{0: array<int, int>, 1: int}> */
-    public function getTestIndexOutOfBoundData(): array
+    public static function getTestIndexOutOfBoundData(): array
     {
         return [
             'Empty List lower bound' =>

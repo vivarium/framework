@@ -66,7 +66,7 @@ final class IsAssignableToPrimitiveTest extends TestCase
     }
 
     /** @return array<array<string>> */
-    public function primitivePairs(): array
+    public static function primitivePairs(): array
     {
         return [
             ['float', 'int'],

@@ -45,7 +45,7 @@ final class IsPrimitiveTest extends TestCase
     }
 
     /** @return array<array<string>> */
-    public function typesProvider(): array
+    public static function typesProvider(): array
     {
         return [
             ['int'],
