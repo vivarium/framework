@@ -12,10 +12,10 @@ namespace Vivarium\Test\Collection\Set;
 
 use Vivarium\Collection\Pair\Pair;
 use Vivarium\Collection\Set\SetIterator;
-use Vivarium\Test\Collection\Iterator\CommonIteratorTest;
+use Vivarium\Test\Collection\Iterator\IteratorTestCase;
 
 /** @coversDefaultClass \Vivarium\Collection\Set\SetIterator */
-class SetIteratorTest extends CommonIteratorTest
+class SetIteratorTest extends IteratorTestCase
 {
     /**
      * @covers ::__construct()
