@@ -21,9 +21,10 @@ use function count;
 use function explode;
 use function sprintf;
 
-/** @template-implements Assertion<string> */
+/** @template-implements Assertion<non-empty-string> */
 final class IsIntersection implements Assertion
 {
+    /** @psalm-assert non-empty-string $value */
     public function assert(mixed $value, string $message = ''): void
     {
         (new IsString())
@@ -50,6 +51,10 @@ final class IsIntersection implements Assertion
         }
     }
 
+    /**
+     * @psalm-assert string $value
+     * @psalm-assert-if-true non-empty-string $value
+     */
     public function __invoke(mixed $value): bool
     {
         try {

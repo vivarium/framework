@@ -20,7 +20,7 @@ use Vivarium\Assertion\String\IsUnion;
 use function explode;
 use function sprintf;
 
-/** @template-implements Assertion<string> */
+/** @template-implements Assertion<non-empty-string> */
 final class IsAssignableToUnion implements Assertion
 {
     public function __construct(private string $union)
@@ -29,6 +29,7 @@ final class IsAssignableToUnion implements Assertion
             ->assert($union);
     }
 
+    /** @psalm-assert non-empty-string $value */
     public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
@@ -43,6 +44,10 @@ final class IsAssignableToUnion implements Assertion
         }
     }
 
+    /**
+     * @psalm-assert string $value
+     * @psalm-assert-if-true non-empty-string $value
+     */
     public function __invoke(mixed $value): bool
     {
         (new IsBasicType())

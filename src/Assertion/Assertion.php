@@ -12,7 +12,7 @@ namespace Vivarium\Assertion;
 
 use Vivarium\Assertion\Exception\AssertionFailed;
 
-/** @template  T */
+/** @template-covariant T */
 interface Assertion
 {
     /**

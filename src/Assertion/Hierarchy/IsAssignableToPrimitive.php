@@ -20,7 +20,7 @@ use Vivarium\Assertion\String\IsPrimitive;
 
 use function sprintf;
 
-/** @template-implements Assertion<string> */
+/** @template-implements Assertion<non-empty-string> */
 final class IsAssignableToPrimitive implements Assertion
 {
     public function __construct(private string $primitive)
@@ -29,6 +29,7 @@ final class IsAssignableToPrimitive implements Assertion
             ->assert($primitive);
     }
 
+    /** @psalm-assert non-empty-string $value */
     public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
@@ -43,6 +44,7 @@ final class IsAssignableToPrimitive implements Assertion
         }
     }
 
+    /** @psalm-assert-if-true non-empty-string $value */
     public function __invoke(mixed $value): bool
     {
         (new IsBasicType())

@@ -19,17 +19,20 @@ use Vivarium\Assertion\String\IsEmpty;
 use function is_a;
 use function sprintf;
 
-/** @template-implements Assertion<class-string> */
+/**
+ * @template T
+ * @template-implements Assertion<class-string<T>>
+ */
 final class IsAssignableToClass implements Assertion
 {
-    /** @param class-string $class */
+    /** @param class-string<T> $class */
     public function __construct(private string $class)
     {
         (new IsClassOrInterface())
             ->assert($class);
     }
 
-    /** @psalm-assert class-string $value */
+    /** @psalm-assert class-string<T> $value */
     public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
@@ -44,7 +47,10 @@ final class IsAssignableToClass implements Assertion
         }
     }
 
-    /** @psalm-assert-if-true class-string $value */
+    /**
+     * @psalm-assert class-string $value
+     * @psalm-assert-if-true class-string<T> $value
+     */
     public function __invoke(mixed $value): bool
     {
         (new IsClassOrInterface())

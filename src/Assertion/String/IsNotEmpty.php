@@ -13,7 +13,7 @@ namespace Vivarium\Assertion\String;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Conditional\Not;
 
-/** @template-implements Assertion<string> */
+/** @template-implements Assertion<non-empty-string> */
 final class IsNotEmpty implements Assertion
 {
     /** @psalm-var Assertion<string>  */
@@ -36,7 +36,10 @@ final class IsNotEmpty implements Assertion
         );
     }
 
-    /** @psalm-assert-if-true non-empty-string $value */
+    /**
+     * @psalm-assert string $value
+     * @psalm-assert-if-true non-empty-string $value
+     */
     public function __invoke(mixed $value): bool
     {
         return ($this->assertion)($value);

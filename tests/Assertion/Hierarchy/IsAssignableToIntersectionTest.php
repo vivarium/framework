@@ -17,7 +17,7 @@ final class IsAssignableToIntersectionTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * @covers ::__invoke()'
+     * @covers ::__invoke()
      */
     public function testAssert(): void
     {
