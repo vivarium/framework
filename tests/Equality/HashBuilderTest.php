@@ -8,12 +8,13 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Equality\Test;
+namespace Vivarium\Test\Equality;
 
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Vivarium\Equality\Equality;
 use Vivarium\Equality\HashBuilder;
+use Vivarium\Test\Equality\Stub\EqualityStub;
 
 /** @coversDefaultClass \Vivarium\Equality\HashBuilder */
 final class HashBuilderTest extends TestCase
@@ -103,20 +104,14 @@ final class HashBuilderTest extends TestCase
         $stdClass->foo = 42;
         $stdClass->bar = 'baz';
 
-        $equality = $this->createMock(Equality::class);
-        $equality
-            ->expects(static::once())
-            ->method('hash')
-            ->willReturn('79169da20d8365b605a4d0802300cb30019eec9f');
-
         return [
             'Object without EqualityInterface' => [
                 $stdClass,
                 'a555f265bb7cf041fa3e8611ee4b3bb9087c44b7',
             ],
             'Object with EqualityInterface' => [
-                $equality,
-                '061dcb8bab856f8eb86506be2d4d9dfec34f9948',
+                new EqualityStub(),
+                'dfd1a10ea192b37227629fb5af0d3a8f27af226a',
             ],
         ];
     }
@@ -171,13 +166,10 @@ final class HashBuilderTest extends TestCase
      */
     public static function getClonePointData(): array
     {
-        $equality = $this->createMock(Equality::class);
-        $equality->method('hash');
-
         return [
             [ 1 ],
             [  0.5 ],
-            [ $equality ],
+            [ new EqualityStub() ],
             [
                 static function (): int {
                     return 1 + 1;

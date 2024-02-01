@@ -8,12 +8,13 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Equality\Test;
+namespace Vivarium\Test\Equality;
 
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Vivarium\Equality\Equality;
 use Vivarium\Equality\EqualsBuilder;
+use Vivarium\Test\Equality\Stub\EqualityStub;
 
 /** @coversDefaultClass \Vivarium\Equality\EqualsBuilder */
 final class EqualsBuilderTest extends TestCase
@@ -213,13 +214,6 @@ final class EqualsBuilderTest extends TestCase
     {
         $stdClass = new stdClass();
 
-        $equality = $this->createMock(Equality::class);
-        $equality
-            ->expects(static::once())
-            ->method('equals')
-            ->with($equality)
-            ->willReturn(true);
-
         return [
             'Object equality without EqualityInterface' =>
                 [
@@ -229,8 +223,8 @@ final class EqualsBuilderTest extends TestCase
                 ],
             'Object equality with EqualityInterface' =>
                 [
-                    $equality,
-                    $equality,
+                    new EqualityStub(),
+                    new EqualityStub(),
                     true,
                 ],
             'Object inequality without EqualityInterface' =>
@@ -279,15 +273,10 @@ final class EqualsBuilderTest extends TestCase
     /** @return array{0: array<int>, 1: array<float>, 2: array<Equality>, 3: array<array<int>>, 4: array<array<int>>} */
     public static function getClonePointData(): array // phpcs:disable
     {
-        $equality = $this->createMock(Equality::class);
-        $equality->method('equals')
-                 ->with($equality)
-                 ->willReturn(true);
-
         return [
             [ 1, 5 ],
             [  0.5, 0.2 ],
-            [ $equality, $equality],
+            [ new EqualityStub(), new EqualityStub()],
             [
                 [1, 2, 4],
                 [4, 5, 6, 7],
