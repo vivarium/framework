@@ -74,7 +74,7 @@ final class HashBuilderTest extends TestCase
     }
 
     /** @return array<array-key, array{0: scalar|null, 1: string}> */
-    public function getTestAppendPrimitiveData(): array
+    public static function getTestAppendPrimitiveData(): array
     {
         return [
             'Integer Hash' => [
@@ -97,7 +97,7 @@ final class HashBuilderTest extends TestCase
     }
 
     /** @return array<array-key, array{0: object, 1: string}> */
-    public function getTestAppendObjectData(): array
+    public static function getTestAppendObjectData(): array
     {
         $stdClass      = new stdClass();
         $stdClass->foo = 42;
@@ -129,7 +129,7 @@ final class HashBuilderTest extends TestCase
      *     3: array{0: array<string, int|array<string|array<int, string>>>, 1:string}
      * }
      */
-    public function getTestAppendEachData(): array
+    public static function getTestAppendEachData(): array
     {
         $stdClass      = new stdClass();
         $stdClass->foo = 42;
@@ -169,7 +169,7 @@ final class HashBuilderTest extends TestCase
      *     3: array<callable>
      * }
      */
-    public function getClonePointData(): array
+    public static function getClonePointData(): array
     {
         $equality = $this->createMock(Equality::class);
         $equality->method('hash');

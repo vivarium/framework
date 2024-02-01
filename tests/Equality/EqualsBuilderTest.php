@@ -117,7 +117,7 @@ final class EqualsBuilderTest extends TestCase
     }
 
     /** @return array<array-key, array{0: scalar, 1: scalar, 2: bool}> */
-    public function getTestAppendScalarData(): array
+    public static function getTestAppendScalarData(): array
     {
         return [
             'Integer Equality' =>
@@ -160,7 +160,7 @@ final class EqualsBuilderTest extends TestCase
     }
 
     /** @return array<array-key, array{0: array<mixed>, 1: array<mixed>, 2: bool}> */
-    public function getTestAppendEachData(): array
+    public static function getTestAppendEachData(): array
     {
         return [
             'Array equality' =>
@@ -209,7 +209,7 @@ final class EqualsBuilderTest extends TestCase
     }
 
     /** @return array<array-key, array{0: object, 1: object, 2: bool}> */
-    public function getTestAppendObjectData(): array
+    public static function getTestAppendObjectData(): array
     {
         $stdClass = new stdClass();
 
@@ -243,7 +243,7 @@ final class EqualsBuilderTest extends TestCase
     }
 
     /** @return array<array-key, array{0: float, 1: float, 2: bool}> */
-    public function getTestAppendFloatData(): array
+    public static function getTestAppendFloatData(): array
     {
         return [
             'Float Equality' =>
@@ -262,7 +262,7 @@ final class EqualsBuilderTest extends TestCase
     }
 
     /** @return array{0: array{0: array<int>, 1: int}, 1: array{0: float, 1:string}} */
-    public function getTestAppendMixedData(): array
+    public static function getTestAppendMixedData(): array
     {
         return [
             [
@@ -277,7 +277,7 @@ final class EqualsBuilderTest extends TestCase
     }
 
     /** @return array{0: array<int>, 1: array<float>, 2: array<Equality>, 3: array<array<int>>, 4: array<array<int>>} */
-    public function getClonePointData(): array // phpcs:disable
+    public static function getClonePointData(): array // phpcs:disable
     {
         $equality = $this->createMock(Equality::class);
         $equality->method('equals')

@@ -110,7 +110,7 @@ final class IsAssignableToTest extends TestCase
     }
 
     /** @return array<array<string>> */
-    public function pairAssignmentProvider(): array
+    public static function pairAssignmentProvider(): array
     {
         return [
             [Stub::class, Stub::class],

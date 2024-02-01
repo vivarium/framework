@@ -63,7 +63,7 @@ final class IsNamespaceTest extends TestCase
     }
 
     /** @return array<array<string>> */
-    public function namespaceProvider(): array
+    public static function namespaceProvider(): array
     {
         return [
             ['Foo\\Bar'],
@@ -73,7 +73,7 @@ final class IsNamespaceTest extends TestCase
     }
 
     /** @return array<array<string>> */
-    public function wrongNamespaceProvider(): array
+    public static function wrongNamespaceProvider(): array
     {
         return [
             ["Foo\\12"],

@@ -57,7 +57,7 @@ final class IsBasicTypeTest extends TestCase
     }
 
     /** @return array<array<string>> */
-    public function provideTypes(): array
+    public static function provideTypes(): array
     {
         return [
             ['int'],
