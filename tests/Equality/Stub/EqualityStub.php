@@ -15,15 +15,14 @@ use Vivarium\Equality\HashBuilder;
 
 final class EqualityStub implements Equality
 {
-
-    public function equals(object $object): bool 
+    public function equals(object $object): bool
     {
         return $object instanceof EqualityStub;
     }
 
-    public function hash(): string 
-    { 
-        return (new HashBuilder)
+    public function hash(): string
+    {
+        return (new HashBuilder())
             ->append(42)
             ->getHashCode();
     }
