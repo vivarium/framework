@@ -167,11 +167,11 @@ class ArraySequenceTest extends TestCase
         $stub3 = $this->createMock(Equality::class);
 
         $stub2->method('equals')
-              ->will(static::returnValueMap([
+              ->willReturnMap([
                   [$stub1, false],
                   [$stub2, true],
                   [$stub3, false],
-              ]));
+              ]);
 
         $list = new ArraySequence($stub1, $stub2, $stub3);
 
