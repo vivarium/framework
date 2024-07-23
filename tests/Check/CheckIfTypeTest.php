@@ -64,7 +64,7 @@ final class CheckIfTypeTest extends TestCase
     }
 
     /** @covers ::isAssignableToIntersection() */
-    public function isAssignableToIntersection(): void
+    public function testIsAssignableToIntersection(): void
     {
         $intersection = Stub::class . '&' . InvokableStub::class;
 
