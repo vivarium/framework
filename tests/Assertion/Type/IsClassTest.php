@@ -8,13 +8,13 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Assertion\String;
+namespace Vivarium\Test\Assertion\Type;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\String\IsClass;
+use Vivarium\Assertion\Type\IsClass;
 
-/** @coversDefaultClass \Vivarium\Assertion\String\IsClass */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsClass */
 final class IsClassTest extends TestCase
 {
     /**

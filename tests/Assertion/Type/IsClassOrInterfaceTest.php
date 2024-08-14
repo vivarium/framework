@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Assertion\String;
+namespace Vivarium\Test\Assertion\Type;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\String\IsClassOrInterface;
+use Vivarium\Assertion\Type\IsClassOrInterface;
 use Vivarium\Test\Assertion\Stub\Stub;
 
-/** @coversDefaultClass \Vivarium\Assertion\String\IsClassOrInterface */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsClassOrInterface */
 final class IsClassOrInterfaceTest extends TestCase
 {
     /**

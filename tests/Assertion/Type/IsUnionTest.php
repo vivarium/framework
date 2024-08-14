@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Assertion\String;
+namespace Vivarium\Test\Assertion\Type;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\String\IsUnion;
+use Vivarium\Assertion\Type\IsUnion;
 
-/** @coversDefaultClass \Vivarium\Assertion\String\IsUnion */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsUnion */
 final class IsUnionTest extends TestCase
 {
     /** @covers ::assert() */

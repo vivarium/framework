@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Assertion\String;
+namespace Vivarium\Test\Assertion\Type;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\String\IsPrimitive;
+use Vivarium\Assertion\Type\IsPrimitive;
 
-/** @coversDefaultClass \Vivarium\Assertion\String\IsPrimitive */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsPrimitive */
 final class IsPrimitiveTest extends TestCase
 {
     /**

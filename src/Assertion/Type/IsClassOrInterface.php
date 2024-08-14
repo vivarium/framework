@@ -8,10 +8,11 @@ declare(strict_types=1);
  * Copyright (c) 2021 Luca Cantoreggi
  */
 
-namespace Vivarium\Assertion\String;
+namespace Vivarium\Assertion\Type;
 
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Conditional\Either;
+use Vivarium\Assertion\String\IsEmpty;
 
 /** @template-implements Assertion<class-string> */
 final class IsClassOrInterface implements Assertion

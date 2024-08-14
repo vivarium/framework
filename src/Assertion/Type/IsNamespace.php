@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Assertion\String;
+namespace Vivarium\Assertion\Type;
 
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
+use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\Var\IsString;
 
 use function explode;

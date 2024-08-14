@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Assertion\String;
+namespace Vivarium\Test\Assertion\Type;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\String\IsIntersection;
+use Vivarium\Assertion\Type\IsIntersection;
 
-/** @coversDefaultClass \Vivarium\Assertion\String\IsIntersection */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsIntersection */
 final class IsIntersectionTest extends TestCase
 {
     /** @covers ::assert() */
