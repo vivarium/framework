@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Assertion\Hierarchy;
+namespace Vivarium\Assertion\Type;
 
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;

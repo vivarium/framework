@@ -3,33 +3,35 @@
 /*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2023 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
 
-namespace Vivarium\Assertion\Hierarchy;
+namespace Vivarium\Assertion\Type;
 
 use Vivarium\Assertion\Assertion;
+use Vivarium\Assertion\Conditional\Either;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
+use Vivarium\Assertion\Type\IsClass;
 use Vivarium\Assertion\Type\IsClassOrInterface;
 use Vivarium\Assertion\String\IsEmpty;
+use Vivarium\Assertion\Type\IsInterface;
 
-use function is_a;
+use function is_subclass_of;
 use function sprintf;
 
 /**
  * @template T
  * @template-implements Assertion<class-string<T>>
  */
-final class IsAssignableToClass implements Assertion
+final class IsSubclassOf implements Assertion
 {
     /** @param class-string<T> $class */
     public function __construct(private string $class)
     {
-        (new IsClassOrInterface())
-            ->assert($class);
+        (new IsClassOrInterface())->assert($class);
     }
 
     /** @psalm-assert class-string<T> $value */
@@ -38,7 +40,7 @@ final class IsAssignableToClass implements Assertion
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
-                    $message : 'Expected class %s to be assignable to %2$s.',
+                     $message : 'Expected class %s to be subclass of %2$s.',
                 (new TypeToString())($value),
                 (new TypeToString())($this->class),
             );
@@ -53,9 +55,11 @@ final class IsAssignableToClass implements Assertion
      */
     public function __invoke(mixed $value): bool
     {
-        (new IsClassOrInterface())
-            ->assert($value);
+        (new Either(
+            new IsClass(),
+            new IsInterface(),
+        ))->assert($value, 'Argument must be a class or interface name. Got %s');
 
-        return is_a($value, $this->class, true);
+        return is_subclass_of($value, $this->class, true);
     }
 }

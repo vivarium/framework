@@ -14,9 +14,9 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use Traversable;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Hierarchy\ImplementsInterface;
+use Vivarium\Assertion\Type\ImplementsInterface;
 
-/** @coversDefaultClass \Vivarium\Assertion\Hierarchy\ImplementsInterface */
+/** @coversDefaultClass \Vivarium\Assertion\Type\ImplementsInterface */
 final class ImplementsInterfaceTest extends TestCase
 {
     /**

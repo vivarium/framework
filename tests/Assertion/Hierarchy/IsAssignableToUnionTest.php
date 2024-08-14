@@ -6,10 +6,10 @@ namespace Vivarium\Test\Assertion\Hierarchy;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Hierarchy\IsAssignableToUnion;
+use Vivarium\Assertion\Type\IsAssignableToUnion;
 use Vivarium\Test\Assertion\Stub\StubClass;
 
-/** @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsAssignableToUnion */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsAssignableToUnion */
 final class IsAssignableToUnionTest extends TestCase
 {
     /**

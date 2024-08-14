@@ -6,11 +6,11 @@ namespace Vivarium\Test\Assertion\Hierarchy;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Hierarchy\IsAssignableToPrimitive;
+use Vivarium\Assertion\Type\IsAssignableToPrimitive;
 use Vivarium\Test\Assertion\Stub\StubClass;
 use Vivarium\Test\Assertion\Stub\StubClassExtension;
 
-/** @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsAssignableToPrimitive */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsAssignableToPrimitive */
 final class IsAssignableToPrimitiveTest extends TestCase
 {
     /**

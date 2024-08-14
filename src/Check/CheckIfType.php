@@ -10,13 +10,22 @@ declare(strict_types=1);
 
 namespace Vivarium\Check;
 
-use Vivarium\Assertion\Hierarchy\ImplementsInterface;
-use Vivarium\Assertion\Hierarchy\IsAssignableTo;
-use Vivarium\Assertion\Hierarchy\IsAssignableToClass;
-use Vivarium\Assertion\Hierarchy\IsAssignableToIntersection;
-use Vivarium\Assertion\Hierarchy\IsAssignableToPrimitive;
-use Vivarium\Assertion\Hierarchy\IsAssignableToUnion;
-use Vivarium\Assertion\Hierarchy\IsSubclassOf;
+use Vivarium\Assertion\Type\ImplementsInterface;
+use Vivarium\Assertion\Type\IsAssignableTo;
+use Vivarium\Assertion\Type\IsAssignableToClass;
+use Vivarium\Assertion\Type\IsAssignableToIntersection;
+use Vivarium\Assertion\Type\IsAssignableToPrimitive;
+use Vivarium\Assertion\Type\IsAssignableToUnion;
+use Vivarium\Assertion\Type\IsSubclassOf;
+use Vivarium\Assertion\Type\IsBasicType;
+use Vivarium\Assertion\Type\IsClass;
+use Vivarium\Assertion\Type\IsClassOrInterface;
+use Vivarium\Assertion\Type\IsInterface;
+use Vivarium\Assertion\Type\IsIntersection;
+use Vivarium\Assertion\Type\IsNamespace;
+use Vivarium\Assertion\Type\IsPrimitive;
+use Vivarium\Assertion\Type\IsType;
+use Vivarium\Assertion\Type\IsUnion;
 
 final class CheckIfType
 {
@@ -58,6 +67,45 @@ final class CheckIfType
         return (new IsAssignableToUnion($union))($type);
     }
 
+    /** @psalm-assert-if-true 'int'|'float'|'string'|'array'|'callable'|'object'|class-string $string */
+    public static function isBasicType(string $string): bool
+    {
+        return (new IsBasicType())($string);
+    }
+
+    /** @psalm-assert-if-true class-string $string */
+    public static function isClass(string $string): bool
+    {
+        return (new IsClass())($string);
+    }
+
+    /** @psalm-assert-if-true class-string $string */
+    public static function isClassOrInterface(string $string): bool
+    {
+        return (new IsClassOrInterface())($string);
+    }
+    
+    /** @psalm-assert-if-true class-string $string */
+    public static function isInterface(string $string): bool
+    {
+        return (new IsInterface())($string);
+    }
+
+    public static function isIntersection(string $string): bool
+    {
+        return (new IsIntersection())($string);
+    }
+
+    public static function isNamespace(string $string): bool
+    {
+        return (new IsNamespace())($string);
+    }
+
+    public static function isPrimitive(string $string): bool
+    {
+        return (new IsPrimitive())($string);
+    }
+
     /**
      * @param class-string $class
      * @param class-string $subclass
@@ -65,5 +113,15 @@ final class CheckIfType
     public static function isSubclassOf($class, $subclass): bool
     {
         return (new IsSubclassOf($subclass))($class);
+    }
+
+    public static function isType(string $string): bool
+    {
+        return (new IsType())($string);
+    }
+
+    public static function isUnion(string $string): bool
+    {
+        return (new IsUnion())($string);
     }
 }
