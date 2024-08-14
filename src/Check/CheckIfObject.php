@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Vivarium\Check;
 
 use Vivarium\Assertion\Object\HasMethod;
+use Vivarium\Assertion\Object\HasProperty;
 use Vivarium\Assertion\Object\IsInstanceOf;
 
 final class CheckIfObject
@@ -18,6 +19,11 @@ final class CheckIfObject
     public static function hasMethod(object|string $object, string $method): bool
     {
         return (new HasMethod($method))($object);
+    }
+
+    public static function hasProperty(object|string $object, string $property): bool
+    {
+        return (new HasProperty($property))($object);
     }
 
     /**

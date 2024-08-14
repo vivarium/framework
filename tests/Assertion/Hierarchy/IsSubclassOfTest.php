@@ -12,14 +12,14 @@ namespace Vivarium\Test\Assertion\Hierarchy;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Hierarchy\IsSubclassOf;
+use Vivarium\Assertion\Type\IsSubclassOf;
 use Vivarium\Test\Assertion\Stub\Stub;
 use Vivarium\Test\Assertion\Stub\StubClass;
 use Vivarium\Test\Assertion\Stub\StubClassExtension;
 
 use function sprintf;
 
-/** @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsSubclassOf */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsSubclassOf */
 final class IsSubclassOfTest extends TestCase
 {
     /**

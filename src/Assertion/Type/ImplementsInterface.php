@@ -8,30 +8,29 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Assertion\Hierarchy;
+namespace Vivarium\Assertion\Type;
 
 use Vivarium\Assertion\Assertion;
-use Vivarium\Assertion\Conditional\Either;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\Type\IsClass;
-use Vivarium\Assertion\Type\IsClassOrInterface;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\Type\IsInterface;
 
-use function is_subclass_of;
+use function class_implements;
+use function in_array;
 use function sprintf;
 
 /**
  * @template T
  * @template-implements Assertion<class-string<T>>
  */
-final class IsSubclassOf implements Assertion
+final class ImplementsInterface implements Assertion
 {
-    /** @param class-string<T> $class */
-    public function __construct(private string $class)
+    /** @param class-string<T> $interface */
+    public function __construct(private string $interface)
     {
-        (new IsClassOrInterface())->assert($class);
+        (new IsInterface())->assert($interface);
     }
 
     /** @psalm-assert class-string<T> $value */
@@ -40,9 +39,9 @@ final class IsSubclassOf implements Assertion
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
-                     $message : 'Expected class %s to be subclass of %2$s.',
+                     $message : 'Expected class %s to implements %2$s.',
                 (new TypeToString())($value),
-                (new TypeToString())($this->class),
+                (new TypeToString())($this->interface),
             );
 
             throw new AssertionFailed($message);
@@ -55,11 +54,10 @@ final class IsSubclassOf implements Assertion
      */
     public function __invoke(mixed $value): bool
     {
-        (new Either(
-            new IsClass(),
-            new IsInterface(),
-        ))->assert($value, 'Argument must be a class or interface name. Got %s');
+        (new IsClass())->assert($value);
 
-        return is_subclass_of($value, $this->class, true);
+        $interfaces = class_implements($value);
+
+        return $interfaces !== false && in_array($this->interface, $interfaces, true);
     }
 }

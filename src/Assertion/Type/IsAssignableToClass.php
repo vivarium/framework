@@ -3,34 +3,33 @@
 /*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2021 Luca Cantoreggi
+ * Copyright (c) 2023 Luca Cantoreggi
  */
 
 declare(strict_types=1);
 
-namespace Vivarium\Assertion\Hierarchy;
+namespace Vivarium\Assertion\Type;
 
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\Type\IsClass;
+use Vivarium\Assertion\Type\IsClassOrInterface;
 use Vivarium\Assertion\String\IsEmpty;
-use Vivarium\Assertion\Type\IsInterface;
 
-use function class_implements;
-use function in_array;
+use function is_a;
 use function sprintf;
 
 /**
  * @template T
  * @template-implements Assertion<class-string<T>>
  */
-final class ImplementsInterface implements Assertion
+final class IsAssignableToClass implements Assertion
 {
-    /** @param class-string<T> $interface */
-    public function __construct(private string $interface)
+    /** @param class-string<T> $class */
+    public function __construct(private string $class)
     {
-        (new IsInterface())->assert($interface);
+        (new IsClassOrInterface())
+            ->assert($class);
     }
 
     /** @psalm-assert class-string<T> $value */
@@ -39,9 +38,9 @@ final class ImplementsInterface implements Assertion
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
-                     $message : 'Expected class %s to implements %2$s.',
+                    $message : 'Expected class %s to be assignable to %2$s.',
                 (new TypeToString())($value),
-                (new TypeToString())($this->interface),
+                (new TypeToString())($this->class),
             );
 
             throw new AssertionFailed($message);
@@ -54,10 +53,9 @@ final class ImplementsInterface implements Assertion
      */
     public function __invoke(mixed $value): bool
     {
-        (new IsClass())->assert($value);
+        (new IsClassOrInterface())
+            ->assert($value);
 
-        $interfaces = class_implements($value);
-
-        return $interfaces !== false && in_array($this->interface, $interfaces, true);
+        return is_a($value, $this->class, true);
     }
 }

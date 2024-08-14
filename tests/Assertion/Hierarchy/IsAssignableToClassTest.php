@@ -12,14 +12,14 @@ namespace Vivarium\Test\Assertion\Hierarchy;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Hierarchy\IsAssignableToClass;
+use Vivarium\Assertion\Type\IsAssignableToClass;
 use Vivarium\Test\Assertion\Stub\Stub;
 use Vivarium\Test\Assertion\Stub\StubClass;
 use Vivarium\Test\Assertion\Stub\StubClassExtension;
 
 use function sprintf;
 
-/** @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsAssignableToClass */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsAssignableToClass */
 final class IsAssignableToClassTest extends TestCase
 {
     /**

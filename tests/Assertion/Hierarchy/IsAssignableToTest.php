@@ -12,7 +12,7 @@ namespace Vivarium\Test\Assertion\Hierarchy;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Hierarchy\IsAssignableTo;
+use Vivarium\Assertion\Type\IsAssignableTo;
 use Vivarium\Test\Assertion\Stub\InvokableStub;
 use Vivarium\Test\Assertion\Stub\Stub;
 use Vivarium\Test\Assertion\Stub\StubClass;
@@ -20,7 +20,7 @@ use Vivarium\Test\Assertion\Stub\StubClassExtension;
 
 use function sprintf;
 
-/** @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsAssignableTo */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsAssignableTo */
 final class IsAssignableToTest extends TestCase
 {
     /**

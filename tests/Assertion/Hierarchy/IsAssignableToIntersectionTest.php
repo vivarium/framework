@@ -6,13 +6,13 @@ namespace Vivarium\Test\Assertion\Hierarchy;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Hierarchy\IsAssignableToIntersection;
+use Vivarium\Assertion\Type\IsAssignableToIntersection;
 use Vivarium\Test\Assertion\Stub\InvokableStub;
 use Vivarium\Test\Assertion\Stub\Stub;
 use Vivarium\Test\Assertion\Stub\StubClass;
 use Vivarium\Test\Assertion\Stub\StubClassExtension;
 
-/** @coversDefaultClass \Vivarium\Assertion\Hierarchy\IsAssignableToIntersection */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsAssignableToIntersection */
 final class IsAssignableToIntersectionTest extends TestCase
 {
     /**
