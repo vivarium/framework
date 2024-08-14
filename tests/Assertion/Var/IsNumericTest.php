@@ -8,16 +8,17 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Assertion\Type;
+namespace Vivarium\Test\Assertion\Var;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Type\IsBoolean;
+use Vivarium\Assertion\Var\IsNumeric;
 
-/** @coversDefaultClass \Vivarium\Assertion\Type\IsBoolean */
-final class IsBooleanTest extends TestCase
+/** @coversDefaultClass \Vivarium\Assertion\Var\IsNumeric */
+final class IsNumericTest extends TestCase
 {
     /**
+     * @covers ::__construct()
      * @covers ::assert()
      * @covers ::__invoke()
      */
@@ -25,20 +26,23 @@ final class IsBooleanTest extends TestCase
     {
         static::expectNotToPerformAssertions();
 
-        (new IsBoolean())
-            ->assert(true);
+        (new IsNumeric())(3.14);
+
+        (new IsNumeric())
+            ->assert(42);
     }
 
     /**
+     * @covers ::__construct()
      * @covers ::assert()
      * @covers ::__invoke()
      */
     public function testAssertException(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be boolean. Got integer.');
+        static::expectExceptionMessage('Expected value to be either integer or float. Got "42".');
 
-        (new IsBoolean())
-            ->assert(42);
+        (new IsNumeric())
+            ->assert('42');
     }
 }

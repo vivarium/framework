@@ -10,7 +10,7 @@ use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsClassOrInterface;
 use Vivarium\Assertion\String\IsEmpty;
-use Vivarium\Assertion\Type\IsObject;
+use Vivarium\Assertion\Var\IsObject;
 
 use function method_exists;
 use function sprintf;

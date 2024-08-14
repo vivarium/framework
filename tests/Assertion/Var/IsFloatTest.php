@@ -8,13 +8,13 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Assertion\Type;
+namespace Vivarium\Test\Assertion\Var;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Type\IsFloat;
+use Vivarium\Assertion\Var\IsFloat;
 
-/** @coversDefaultClass \Vivarium\Assertion\Type\IsFloat */
+/** @coversDefaultClass \Vivarium\Assertion\Var\IsFloat */
 final class IsFloatTest extends TestCase
 {
     /**

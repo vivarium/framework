@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Assertion\Type;
+namespace Vivarium\Assertion\Var;
 
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
@@ -16,19 +16,19 @@ use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 
 use function gettype;
-use function is_callable;
+use function is_bool;
 use function sprintf;
 
-/** @template-implements Assertion<callable> */
-final class IsCallable implements Assertion
+/** @template-implements Assertion<bool> */
+final class IsBoolean implements Assertion
 {
-    /** @psalm-assert callable $value */
+    /** @psalm-assert bool $value */
     public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
-                     $message : 'Expected value to be callable. Got %2$s.',
+                     $message : 'Expected value to be boolean. Got %2$s.',
                 (new TypeToString())($value),
                 gettype($value),
             );
@@ -37,9 +37,9 @@ final class IsCallable implements Assertion
         }
     }
 
-    /** @psalm-assert-if-true callable $value */
+    /** @psalm-assert-if-true bool $value */
     public function __invoke(mixed $value): bool
     {
-        return is_callable($value);
+        return is_bool($value);
     }
 }
