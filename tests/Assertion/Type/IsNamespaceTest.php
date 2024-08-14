@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Assertion\String;
+namespace Vivarium\Test\Assertion\Type;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\String\IsNamespace;
+use Vivarium\Assertion\Type\IsNamespace;
 
 use function sprintf;
 
-/** @coversDefaultClass \Vivarium\Assertion\String\IsNamespace */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsNamespace */
 final class IsNamespaceTest extends TestCase
 {
     /**

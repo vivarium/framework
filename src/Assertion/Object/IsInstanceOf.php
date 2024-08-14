@@ -14,9 +14,9 @@ use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Conditional\Either;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\String\IsClass;
+use Vivarium\Assertion\Type\IsClass;
 use Vivarium\Assertion\String\IsEmpty;
-use Vivarium\Assertion\String\IsInterface;
+use Vivarium\Assertion\Type\IsInterface;
 use Vivarium\Assertion\Var\IsObject;
 
 use function sprintf;

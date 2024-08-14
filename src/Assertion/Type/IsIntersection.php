@@ -4,16 +4,18 @@
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
  * Copyright (c) 2023 Luca Cantoreggi
+ *
  */
 
 declare(strict_types=1);
 
-namespace Vivarium\Assertion\String;
+namespace Vivarium\Assertion\Type;
 
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Conditional\Each;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
+use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\Var\IsString;
 
 use function count;
@@ -21,7 +23,7 @@ use function explode;
 use function sprintf;
 
 /** @template-implements Assertion<non-empty-string> */
-final class IsUnion implements Assertion
+final class IsIntersection implements Assertion
 {
     /** @psalm-assert non-empty-string $value */
     public function assert(mixed $value, string $message = ''): void
@@ -30,19 +32,19 @@ final class IsUnion implements Assertion
             ->assert($value);
 
         try {
-            $types = explode('|', $value);
+            $types = explode('&', $value);
 
             if (count($types) <= 1) {
-                throw new AssertionFailed('Union must be composed at least by two elements.');
+                throw new AssertionFailed('Intersection must be composed at least by two elements.');
             }
 
             (new Each(
-                new IsBasicType(),
+                new IsClassOrInterface(),
             ))->assert($types);
         } catch (AssertionFailed $ex) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
-                    $message : 'Expected string to be union. Got %s.',
+                    $message : 'Expected string to be intersection. Got %s.',
                 (new TypeToString())($value),
             );
 

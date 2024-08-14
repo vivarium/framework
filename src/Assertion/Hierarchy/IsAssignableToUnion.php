@@ -13,9 +13,9 @@ namespace Vivarium\Assertion\Hierarchy;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\String\IsBasicType;
+use Vivarium\Assertion\Type\IsBasicType;
 use Vivarium\Assertion\String\IsEmpty;
-use Vivarium\Assertion\String\IsUnion;
+use Vivarium\Assertion\Type\IsUnion;
 
 use function explode;
 use function sprintf;

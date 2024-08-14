@@ -13,11 +13,11 @@ namespace Vivarium\Assertion\Hierarchy;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\String\IsClassOrInterface;
+use Vivarium\Assertion\Type\IsClassOrInterface;
 use Vivarium\Assertion\String\IsEmpty;
-use Vivarium\Assertion\String\IsIntersection;
-use Vivarium\Assertion\String\IsType;
-use Vivarium\Assertion\String\IsUnion;
+use Vivarium\Assertion\Type\IsIntersection;
+use Vivarium\Assertion\Type\IsType;
+use Vivarium\Assertion\Type\IsUnion;
 
 use function sprintf;
 

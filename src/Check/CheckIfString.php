@@ -12,21 +12,21 @@ namespace Vivarium\Check;
 
 use Vivarium\Assertion\String\Contains;
 use Vivarium\Assertion\String\EndsWith;
-use Vivarium\Assertion\String\IsBasicType;
-use Vivarium\Assertion\String\IsClass;
-use Vivarium\Assertion\String\IsClassOrInterface;
+use Vivarium\Assertion\Type\IsBasicType;
+use Vivarium\Assertion\Type\IsClass;
+use Vivarium\Assertion\Type\IsClassOrInterface;
 use Vivarium\Assertion\String\IsEmpty;
-use Vivarium\Assertion\String\IsInterface;
-use Vivarium\Assertion\String\IsIntersection;
+use Vivarium\Assertion\Type\IsInterface;
+use Vivarium\Assertion\Type\IsIntersection;
 use Vivarium\Assertion\String\IsLong;
 use Vivarium\Assertion\String\IsLongAtLeast;
 use Vivarium\Assertion\String\IsLongAtMax;
 use Vivarium\Assertion\String\IsLongBetween;
 use Vivarium\Assertion\String\IsNamespace;
 use Vivarium\Assertion\String\IsNotEmpty;
-use Vivarium\Assertion\String\IsPrimitive;
-use Vivarium\Assertion\String\IsType;
-use Vivarium\Assertion\String\IsUnion;
+use Vivarium\Assertion\Type\IsPrimitive;
+use Vivarium\Assertion\Type\IsType;
+use Vivarium\Assertion\Type\IsUnion;
 use Vivarium\Assertion\String\StartsWith;
 
 final class CheckIfString

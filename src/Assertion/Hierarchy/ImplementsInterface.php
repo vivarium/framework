@@ -13,9 +13,9 @@ namespace Vivarium\Assertion\Hierarchy;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\String\IsClass;
+use Vivarium\Assertion\Type\IsClass;
 use Vivarium\Assertion\String\IsEmpty;
-use Vivarium\Assertion\String\IsInterface;
+use Vivarium\Assertion\Type\IsInterface;
 
 use function class_implements;
 use function in_array;

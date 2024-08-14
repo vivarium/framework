@@ -8,13 +8,13 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Assertion\String;
+namespace Vivarium\Test\Assertion\Type;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\String\IsInterface;
+use Vivarium\Assertion\Type\IsInterface;
 
-/** @coversDefaultClass \Vivarium\Assertion\String\IsInterface */
+/** @coversDefaultClass \Vivarium\Assertion\Type\IsInterface */
 final class IsInterfaceTest extends TestCase
 {
     /**
