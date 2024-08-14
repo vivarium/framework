@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Assertion\Type;
+namespace Vivarium\Assertion\Var;
 
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
@@ -16,19 +16,19 @@ use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 
 use function gettype;
-use function is_int;
+use function is_array;
 use function sprintf;
 
-/** @template-implements Assertion<int> */
-final class IsInteger implements Assertion
+/** @template-implements Assertion<array> */
+final class IsArray implements Assertion
 {
-    /** @psalm-assert int $value */
+    /** @psalm-assert array $value */
     public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
-                     $message : 'Expected value to be an integer. Got %2$s.',
+                     $message : 'Expected value to be array. Got %2$s.',
                 (new TypeToString())($value),
                 gettype($value),
             );
@@ -37,9 +37,9 @@ final class IsInteger implements Assertion
         }
     }
 
-    /** @psalm-assert-if-true int $value */
+    /** @psalm-assert-if-true array $value */
     public function __invoke(mixed $value): bool
     {
-        return is_int($value);
+        return is_array($value);
     }
 }

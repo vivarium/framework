@@ -8,15 +8,14 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Assertion\Type;
+namespace Vivarium\Test\Assertion\Var;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Type\IsCallable;
-use Vivarium\Assertion\Type\IsInteger;
+use Vivarium\Assertion\Var\IsBoolean;
 
-/** @coversDefaultClass \Vivarium\Assertion\Type\IsCallable */
-final class IsCallableTest extends TestCase
+/** @coversDefaultClass \Vivarium\Assertion\Var\IsBoolean */
+final class IsBooleanTest extends TestCase
 {
     /**
      * @covers ::assert()
@@ -26,8 +25,8 @@ final class IsCallableTest extends TestCase
     {
         static::expectNotToPerformAssertions();
 
-        (new IsCallable())
-            ->assert(new IsInteger());
+        (new IsBoolean())
+            ->assert(true);
     }
 
     /**
@@ -37,9 +36,9 @@ final class IsCallableTest extends TestCase
     public function testAssertException(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be callable. Got integer.');
+        static::expectExceptionMessage('Expected value to be boolean. Got integer.');
 
-        (new IsCallable())
+        (new IsBoolean())
             ->assert(42);
     }
 }

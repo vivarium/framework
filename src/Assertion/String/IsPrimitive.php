@@ -15,7 +15,7 @@ use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Comparison\IsOneOf;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\Type\IsString;
+use Vivarium\Assertion\Var\IsString;
 
 use function sprintf;
 

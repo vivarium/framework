@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Assertion\Type;
+namespace Vivarium\Assertion\Var;
 
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
@@ -16,19 +16,19 @@ use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 
 use function gettype;
-use function is_bool;
+use function is_float;
 use function sprintf;
 
-/** @template-implements Assertion<bool> */
-final class IsBoolean implements Assertion
+/** @template-implements Assertion<float> */
+final class IsFloat implements Assertion
 {
-    /** @psalm-assert bool $value */
+    /** @psalm-assert float $value */
     public function assert(mixed $value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
-                     $message : 'Expected value to be boolean. Got %2$s.',
+                     $message : 'Expected value to be float. Got %2$s.',
                 (new TypeToString())($value),
                 gettype($value),
             );
@@ -37,9 +37,9 @@ final class IsBoolean implements Assertion
         }
     }
 
-    /** @psalm-assert-if-true bool $value */
+    /** @psalm-assert-if-true float $value */
     public function __invoke(mixed $value): bool
     {
-        return is_bool($value);
+        return is_float($value);
     }
 }

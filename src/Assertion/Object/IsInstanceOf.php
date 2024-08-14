@@ -17,7 +17,7 @@ use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsClass;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\String\IsInterface;
-use Vivarium\Assertion\Type\IsObject;
+use Vivarium\Assertion\Var\IsObject;
 
 use function sprintf;
 

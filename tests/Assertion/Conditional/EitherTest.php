@@ -15,8 +15,8 @@ use Vivarium\Assertion\Conditional\Either;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Numeric\IsGreaterThan;
 use Vivarium\Assertion\Numeric\IsInClosedRange;
-use Vivarium\Assertion\Type\IsInteger;
-use Vivarium\Assertion\Type\IsString;
+use Vivarium\Assertion\Var\IsInteger;
+use Vivarium\Assertion\Var\IsString;
 
 /** @coversDefaultClass \Vivarium\Assertion\Conditional\Either */
 final class EitherTest extends TestCase

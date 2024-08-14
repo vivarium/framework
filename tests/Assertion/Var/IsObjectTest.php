@@ -8,14 +8,15 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Assertion\Type;
+namespace Vivarium\Test\Assertion\Var;
 
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Type\IsInteger;
+use Vivarium\Assertion\Var\IsObject;
 
-/** @coversDefaultClass \Vivarium\Assertion\Type\IsInteger */
-final class IsIntegerTest extends TestCase
+/** @coversDefaultClass \Vivarium\Assertion\Var\IsObject */
+final class IsObjectTest extends TestCase
 {
     /**
      * @covers ::assert()
@@ -25,8 +26,8 @@ final class IsIntegerTest extends TestCase
     {
         static::expectNotToPerformAssertions();
 
-        (new IsInteger())
-            ->assert(42);
+        (new IsObject())
+            ->assert(new stdClass());
     }
 
     /**
@@ -36,9 +37,9 @@ final class IsIntegerTest extends TestCase
     public function testAssertException(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be an integer. Got string.');
+        static::expectExceptionMessage('Expected value to be object. Got integer.');
 
-        (new IsInteger())
-            ->assert('Hello World');
+        (new IsObject())
+            ->assert(42);
     }
 }

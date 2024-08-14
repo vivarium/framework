@@ -8,17 +8,17 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Assertion\Type;
+namespace Vivarium\Test\Assertion\Var;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Type\IsNumeric;
+use Vivarium\Assertion\Var\IsCallable;
+use Vivarium\Assertion\Var\IsInteger;
 
-/** @coversDefaultClass \Vivarium\Assertion\Type\IsNumeric */
-final class IsNumericTest extends TestCase
+/** @coversDefaultClass \Vivarium\Assertion\Var\IsCallable */
+final class IsCallableTest extends TestCase
 {
     /**
-     * @covers ::__construct()
      * @covers ::assert()
      * @covers ::__invoke()
      */
@@ -26,23 +26,20 @@ final class IsNumericTest extends TestCase
     {
         static::expectNotToPerformAssertions();
 
-        (new IsNumeric())(3.14);
-
-        (new IsNumeric())
-            ->assert(42);
+        (new IsCallable())
+            ->assert(new IsInteger());
     }
 
     /**
-     * @covers ::__construct()
      * @covers ::assert()
      * @covers ::__invoke()
      */
     public function testAssertException(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be either integer or float. Got "42".');
+        static::expectExceptionMessage('Expected value to be callable. Got integer.');
 
-        (new IsNumeric())
-            ->assert('42');
+        (new IsCallable())
+            ->assert(42);
     }
 }

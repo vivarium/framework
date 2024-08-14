@@ -7,7 +7,7 @@ namespace Vivarium\Assertion\String;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\Type\IsString;
+use Vivarium\Assertion\Var\IsString;
 
 use function explode;
 use function preg_match;

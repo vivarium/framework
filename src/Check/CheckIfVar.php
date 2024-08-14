@@ -10,13 +10,13 @@ declare(strict_types=1);
 
 namespace Vivarium\Check;
 
-use Vivarium\Assertion\Type\IsArray;
-use Vivarium\Assertion\Type\IsCallable;
-use Vivarium\Assertion\Type\IsFloat;
-use Vivarium\Assertion\Type\IsInteger;
-use Vivarium\Assertion\Type\IsNumeric;
-use Vivarium\Assertion\Type\IsObject;
-use Vivarium\Assertion\Type\IsString;
+use Vivarium\Assertion\Var\IsArray;
+use Vivarium\Assertion\Var\IsCallable;
+use Vivarium\Assertion\Var\IsFloat;
+use Vivarium\Assertion\Var\IsInteger;
+use Vivarium\Assertion\Var\IsNumeric;
+use Vivarium\Assertion\Var\IsObject;
+use Vivarium\Assertion\Var\IsString;
 
 final class CheckIfVar
 {

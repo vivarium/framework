@@ -14,7 +14,7 @@ use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Conditional\Each;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\Type\IsString;
+use Vivarium\Assertion\Var\IsString;
 
 use function count;
 use function explode;
