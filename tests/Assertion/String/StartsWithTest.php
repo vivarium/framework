@@ -20,36 +20,76 @@ final class StartsWithTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssert(): void
+    public function testAssert(string $string, string $start): void
     {
         static::expectNotToPerformAssertions();
 
-        (new StartsWith('Hello'))->assert('Hello World');
+        (new StartsWith($start))
+            ->assert($string);
     }
 
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     * @dataProvider provideNonString()
      */
-    public function testAssertException(): void
+    public function testAssertException(string|int $string, string $start, string $message): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected that string "Hello World" starts with "World".');
+        static::expectExceptionMessage($message);
 
-        (new StartsWith('World'))
-            ->assert('Hello World');
+        (new StartsWith($start))
+            ->assert($string);
     }
 
-    /** @covers ::assert() */
-    public function testAssertWithoutString(): void
+        /**
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
+     */
+    public function testInvoke(string $string, string $start): void
     {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be string. Got integer.');
+        static::assertTrue((new StartsWith($start))($string));
+    }
 
-        (new StartsWith('H'))
-            ->assert(42);
+    /**
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testInvokeFailure(string $string, string $start, string $message): void
+    {
+        static::assertFalse((new StartsWith($start))($string));
+    }
+
+    public static function provideSuccess(): array
+    {
+        return [
+            ['Hello World', 'Hello'],
+            ['Hello World', 'H'],
+            ['Hello World', 'Hello W'],
+            ['Hello World', 'Hello ']
+        ];
+    }
+
+    public static function provideFailure(): array
+    {
+        return [
+            ['Hello World', 'World', 'Expected that string "Hello World" starts with "World".']
+        ];
+    }
+
+    public static function provideNonString(): array
+    {
+        return [
+            [42, 'H', 'Expected value to be string. Got integer.']
+        ];
     }
 }
