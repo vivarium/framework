@@ -23,7 +23,7 @@ class ContainsTest extends TestCase
      * 
      * @dataProvider provideSuccess()
      */
-    public function testAssert($string, $substring): void
+    public function testAssert(string $string, string $substring): void
     {
         static::expectNotToPerformAssertions();
 
@@ -36,8 +36,9 @@ class ContainsTest extends TestCase
      * @covers ::assert()
      * 
      * @dataProvider provideFailure()
+     * @dataProvider provideNonValid()
      */
-    public function testAssertException($string, $substring, $message): void
+    public function testAssertException(string|int $string, string $substring, string $message): void
     {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage($message);
@@ -52,7 +53,7 @@ class ContainsTest extends TestCase
      * 
      * @dataProvider provideSuccess()
      */
-    public function testInvoke($string, $substring): void
+    public function testInvoke(string $string, string $substring): void
     {
         static::assertTrue((new Contains($substring))($string));
     }
@@ -63,19 +64,9 @@ class ContainsTest extends TestCase
      * 
      * @dataProvider provideFailure()
      */
-    public function testInvokeFailure($string, $substring): void
+    public function testInvokeFailure(string $string, string $substring): void
     {
         static::assertFalse((new Contains($substring))($string));
-    }
-
-    /** @covers ::assert() */
-    public function testAssertWithoutString(): void
-    {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be string. Got integer.');
-
-        (new Contains('Hello'))
-            ->assert(42);
     }
 
     public static function provideSuccess(): array
@@ -95,6 +86,13 @@ class ContainsTest extends TestCase
         return [
             ['Hello World', 'Foo', 'Expected that string contains "Foo".'],
             ['Hello World', '  ', 'Expected that string contains "  ".']
+        ];
+    }
+
+    public static function provideNonValid(): array
+    {
+        return [
+            [42, 'Foo', 'Expected value to be string. Got integer.']
         ];
     }
 }

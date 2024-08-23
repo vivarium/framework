@@ -23,7 +23,7 @@ class EndsWithTest extends TestCase
      * 
      * @dataProvider provideSuccess()
      */
-    public function testAssert($string, $end): void
+    public function testAssert(string $string, string $end): void
     {
         static::expectNotToPerformAssertions();
 
@@ -36,8 +36,9 @@ class EndsWithTest extends TestCase
      * @covers ::assert()
      * 
      * @dataProvider provideFailure()
+     * @dataProvider provideNonValid()
      */
-    public function testAssertException($string, $end, $message): void
+    public function testAssertException(string|int $string, string $end, string $message): void
     {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage($message);
@@ -52,7 +53,7 @@ class EndsWithTest extends TestCase
      * 
      * @dataProvider provideSuccess()
      */
-    public function testInvoke($string, $end): void
+    public function testInvoke(string $string, string $end): void
     {
         static::assertTrue((new EndsWith($end))($string));
     }
@@ -63,19 +64,9 @@ class EndsWithTest extends TestCase
      * 
      * @dataProvider provideFailure()
      */
-    public function testInvokeFailure($string, $end): void
+    public function testInvokeFailure(string $string, string $end): void
     {
         static::assertFalse((new EndsWith($end))($string));
-    }
-
-    /** @covers ::assert() */
-    public function testAssertWithoutString(): void
-    {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be string. Got integer.');
-
-        (new EndsWith('Hello'))
-            ->assert(42);
     }
 
     public static function provideSuccess(): array
@@ -90,6 +81,13 @@ class EndsWithTest extends TestCase
     {
         return [
             ['Foo Bar', 'd', 'Expected that string "Foo Bar" ends with "d".']
+        ];
+    }
+
+    public static function provideNonValid(): array
+    {
+        return [
+            [42, 'Hello', 'Expected value to be string. Got integer.']
         ];
     }
 }
