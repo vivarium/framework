@@ -20,28 +20,52 @@ class EndsWithTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssert(): void
+    public function testAssert($string, $end): void
     {
         static::expectNotToPerformAssertions();
 
-        (new EndsWith('d'))
-            ->assert('Hello World');
+        (new EndsWith($end))
+            ->assert($string);
     }
 
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
      */
-    public function testAssertException(): void
+    public function testAssertException($string, $end, $message): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected that string "Foo Bar" ends with "d".');
+        static::expectExceptionMessage($message);
 
-        (new EndsWith('d'))
-            ->assert('Foo Bar');
+        (new EndsWith($end))
+            ->assert($string);
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
+     */
+    public function testInvoke($string, $end): void
+    {
+        static::assertTrue((new EndsWith($end))($string));
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testInvokeFailure($string, $end): void
+    {
+        static::assertFalse((new EndsWith($end))($string));
     }
 
     /** @covers ::assert() */
@@ -52,5 +76,20 @@ class EndsWithTest extends TestCase
 
         (new EndsWith('Hello'))
             ->assert(42);
+    }
+
+    public static function provideSuccess(): array
+    {
+        return [
+            ['Hello World', 'd'],
+            ['Hello World', ' World']
+        ];
+    }
+
+    public static function provideFailure(): array
+    {
+        return [
+            ['Foo Bar', 'd', 'Expected that string "Foo Bar" ends with "d".']
+        ];
     }
 }
