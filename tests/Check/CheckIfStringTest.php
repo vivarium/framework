@@ -10,29 +10,39 @@ declare(strict_types=1);
 
 namespace Vivarium\Test\Check;
 
-use PHPUnit\Framework\TestCase;
 use Vivarium\Check\CheckIfString;
 
 /** @coversDefaultClass \Vivarium\Check\CheckIfString */
-final class CheckIfStringTest extends TestCase
+final class CheckIfStringTest extends CheckTestCase
 {
-    /**
-     * @covers ::contains()
-     * 
-     * @dataProvider Vivarium\Test\Assertion\String\ContainsTest::provideSuccess()
-     */
-    public function testContains($string, $substring): void 
-    {
-        static::assertTrue(CheckIfString::contains($string, $substring));
-    }
+    const NAMESPACE = 'Vivarium\Test\Assertion\String';
 
     /**
-     * @covers ::contains()
+     * @covers ::__callStatic()
      * 
-     * @dataProvider Vivarium\Test\Assertion\String\ContainsTest::provideFailure()
+     * @dataProvider provideMethods()
      */
-    public function testContainsFailure($string, $substring): void
+    public function testCallStatic(string $method): void
     {
-        static::assertFalse(CheckIfString::contains($string, $substring));
+        $this->doTest(
+            CheckIfString::class,
+            $method,
+            static::NAMESPACE
+        );
+    }
+
+    public static function provideMethods(): array
+    {
+        return [
+            ['contains'],
+            ['endsWith'],
+            ['isEmpty'],
+            ['isLong'],
+            ['isLongAtLeast'],
+            ['isLongAtMax'],
+            ['isLongBetween'],
+            ['isNotEmpty'],
+            ['startsWith'],
+        ];
     }
 }
