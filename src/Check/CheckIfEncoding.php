@@ -10,24 +10,21 @@ declare(strict_types=1);
 
 namespace Vivarium\Check;
 
-use Vivarium\Assertion\Encoding\IsEncoding;
-use Vivarium\Assertion\Encoding\IsRegexEncoding;
-use Vivarium\Assertion\Encoding\IsSystemEncoding;
-
+/**
+ * @method static bool isEncoding(string $encoding)
+ * @method static bool isRegexEncoding(string $encoding)
+ * @method static bool isSystemEncoding(string $encoding)
+ */
 final class CheckIfEncoding
 {
-    public static function isValid(string $encoding): bool
-    {
-        return (new IsEncoding())($encoding);
-    }
+    private static Check|null $check = null;
 
-    public static function isValidForRegex(string $encoding): bool
+    public static function __callStatic($name, $arguments)
     {
-        return (new IsRegexEncoding())($encoding);
-    }
+        if (static::$check === null) {
+            static::$check = Check::encoding();
+        }
 
-    public static function isValidForSystem(string $encoding): bool
-    {
-        return (new IsSystemEncoding())($encoding);
+        return static::$check->$name(...$arguments);
     }
 }
