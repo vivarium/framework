@@ -10,31 +10,33 @@ declare(strict_types=1);
 
 namespace Vivarium\Test\Check;
 
-use PHPUnit\Framework\TestCase;
-use stdClass;
-use Traversable;
 use Vivarium\Check\CheckIfObject;
-use Vivarium\Test\Assertion\Stub\StubClass;
 
 /** @coversDefaultClass \Vivarium\Check\CheckIfObject */
-final class CheckIfObjectTest extends TestCase
+final class CheckIfObjectTest extends CheckTestCase
 {
-    /** @covers ::hasMethod() */
-    public function testHasMethod(): void
-    {
-        $stub = new StubClass();
+    const NAMESPACE = 'Vivarium\Test\Assertion\Object';
 
-        static::assertTrue(CheckIfObject::hasMethod(StubClass::class, '__toString'));
-        static::assertTrue(CheckIfObject::hasMethod($stub, '__toString'));
-        static::assertFalse(CheckIfObject::hasMethod(new stdClass(), '__toString'));
+    /**
+     * @covers ::__callStatic()
+     * 
+     * @dataProvider provideMethods()
+     */
+    public function testCallStatic(string $method): void
+    {
+        $this->doTest(
+            CheckIfObject::class,
+            $method,
+            static::NAMESPACE
+        );
     }
 
-    /** @covers ::isInstanceOf() */
-    public function testIsInstanceOf(): void
+    public static function provideMethods(): array
     {
-        $stub = $this->createMock(Traversable::class);
-
-        static::assertTrue(CheckIfObject::isInstanceOf($stub, Traversable::class));
-        static::assertFalse(CheckIfObject::isInstanceOf(new stdClass(), Traversable::class));
+        return [
+            ['hasMethod'],
+            //['hasProperty'],
+            ['isInstanceOf']
+        ];
     }
 }
