@@ -10,29 +10,21 @@ declare(strict_types=1);
 
 namespace Vivarium\Check;
 
-use Vivarium\Assertion\Object\HasMethod;
-use Vivarium\Assertion\Object\HasProperty;
-use Vivarium\Assertion\Object\IsInstanceOf;
-
+/**
+ * @method static bool hasMethod(object $object, string $method)
+ * @method static bool hasProperty(object $object, string $property)
+ * @method static bool isInstanceOf(object $object, string $class)
+ */
 final class CheckIfObject
 {
-    public static function hasMethod(object|string $object, string $method): bool
-    {
-        return (new HasMethod($method))($object);
-    }
+    private static Check|null $check = null;
 
-    public static function hasProperty(object|string $object, string $property): bool
+    public static function __callStatic($name, $arguments)
     {
-        return (new HasProperty($property))($object);
-    }
+        if (static::$check === null) {
+            static::$check = Check::object();
+        }
 
-    /**
-     * @param class-string<T> $class
-     *
-     * @template T of object
-     */
-    public static function isInstanceOf(object $object, string $class): bool
-    {
-        return (new IsInstanceOf($class))($object);
+        return static::$check->$name(...$arguments);
     }
 }
