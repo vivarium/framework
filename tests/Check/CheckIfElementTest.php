@@ -10,35 +10,33 @@ declare(strict_types=1);
 
 namespace Vivarium\Test\Check;
 
-use PHPUnit\Framework\TestCase;
-use stdClass;
 use Vivarium\Check\CheckIfElement;
 
 /** @coversDefaultClass \Vivarium\Check\CheckIfElement */
-final class CheckIfElementTest extends TestCase
+final class CheckIfElementTest extends CheckTestCase
 {
-    /** @covers ::isEqualTo() */
-    public function testEqualTo(): void
+    const NAMESPACE = 'Vivarium\Test\Assertion\Comparison';
+
+    /**
+     * @covers ::__callStatic()
+     * 
+     * @dataProvider provideMethods()
+     */
+    public function testCallStatic(string $method): void
     {
-        static::assertTrue(CheckIfElement::isEqualTo(5, 5));
-        static::assertFalse(CheckIfElement::isEqualTo(2, 'str'));
+        $this->doTest(
+            CheckIfElement::class,
+            $method,
+            static::NAMESPACE
+        );
     }
 
-    /** @covers ::isOneOf() */
-    public function testIsOneOf(): void
+    public static function provideMethods(): array
     {
-        $choices = [1,2,3,4,5];
-
-        static::assertTrue(CheckIfElement::isOneOf(5, ...$choices));
-        static::assertFalse(CheckIfElement::isOneOf(7, ...$choices));
-    }
-
-    /** @covers ::isSameOf() */
-    public function testIsSameOf(): void
-    {
-        $stdClass = new stdClass();
-        
-        static::assertTrue(CheckIfElement::isSameOf($stdClass, $stdClass));
-        static::assertFalse(CheckIfElement::isSameOf($stdClass, new stdClass()));
+        return [
+            ['isEqualsTo'],
+            ['isOneOf'],
+            ['isSameOf']
+        ];
     }
 }
