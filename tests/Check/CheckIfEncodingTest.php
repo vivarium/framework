@@ -11,30 +11,33 @@ declare(strict_types=1);
 namespace Vivarium\Test\Check;
 
 use PHPUnit\Framework\TestCase;
-use stdClass;
 use Vivarium\Check\CheckIfEncoding;
 
 /** @coversDefaultClass \Vivarium\Check\CheckIfEncoding */
-final class CheckIfEncodingTest extends TestCase
+final class CheckIfEncodingTest extends CheckTestCase
 {
-    /** @covers ::isValid() */
-    public function testIsValid(): void
+    const NAMESPACE = 'Vivarium\Test\Assertion\Encoding';
+
+    /**
+     * @covers ::__callStatic()
+     * 
+     * @dataProvider provideMethods()
+     */
+    public function testCallStatic(string $method): void
     {
-        static::assertTrue(CheckIfEncoding::isValid('UTF-8'));
-        static::assertFalse(CheckIfEncoding::isValid('Windows-1251'));
+        $this->doTest(
+            CheckIfEncoding::class,
+            $method,
+            static::NAMESPACE
+        );
     }
 
-    /** @covers ::isValidForRegex() */
-    public function testIsValidForRegex(): void
+    public static function provideMethods(): array
     {
-        static::assertTrue(CheckIfEncoding::isValidForRegex('UTF-8'));
-        static::assertFalse(CheckIfEncoding::isValidForRegex('Windows-1251'));
-    }
-
-    /** @covers ::isValidForSystem() */
-    public function testIsValidForSystem(): void
-    {
-        static::assertTrue(CheckIfEncoding::isValidForSystem('Windows-1251'));
-        static::assertFalse(CheckIfEncoding::isValidForSystem('Foo'));
+        return [
+            ['isEncoding'],
+            ['isRegexEncoding'],
+            ['isSystemEncoding']
+        ];
     }
 }
