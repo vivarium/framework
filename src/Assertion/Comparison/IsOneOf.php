@@ -30,12 +30,11 @@ final class IsOneOf implements Assertion
     private array $choices;
 
     /**
-     * @param T $choice
-     * @param T ...$choices
+     * @param array<T> choices
      */
-    public function __construct($choice, ...$choices)
+    public function __construct(array $choices)
     {
-        $this->choices = array_merge([$choice], $choices);
+        $this->choices = $choices;
     }
 
     /** @psalm-assert T $value */
