@@ -14,38 +14,21 @@ use Vivarium\Assertion\Comparison\IsEqualsTo;
 use Vivarium\Assertion\Comparison\IsOneOf;
 use Vivarium\Assertion\Comparison\IsSameOf;
 
+/**
+ * @method static bool isEqualsTo(mixed $first, mixed $second)
+ * @method static bool isOneOf(mixed $element, array $elements)
+ * @method static bool isSameOf(mixed $element, array $elements)
+ */
 final class CheckIfElement
 {
-    /**
-     * @param T $element
-     * @param T $compare
-     *
-     * @template T
-     */
-    public static function isEqualTo($element, $compare): bool
-    {
-        return (new IsEqualsTo($compare))($element);
-    }
+    private static Check|null $check = null;
 
-    /**
-     * @param T $element
-     * @param T ...$choices
-     *
-     * @template T
-     */
-    public static function isOneOf($element, ...$choices): bool
+    public static function __callStatic($name, $arguments)
     {
-        return (new IsOneOf(...$choices))($element);
-    }
+        if (static::$check === null) {
+            static::$check = Check::comparison();
+        }
 
-    /**
-     * @param T $element
-     * @param T $compare
-     *
-     * @template T
-     */
-    public static function isSameOf($element, $compare): bool
-    {
-        return (new IsSameOf($compare))($element);
+        return static::$check->$name(...$arguments);
     }
 }
