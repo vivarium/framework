@@ -14,6 +14,7 @@ final class CheckTest extends CheckTestCase
 {
     const COMPARISON_NAMESPACE = 'Vivarium\Test\Assertion\Comparison';
     const ENCODING_NAMESPACE   = 'Vivarium\Test\Assertion\Encoding';
+    const OBJECT_NAMESPACE     = 'Vivarium\Test\Assertion\Object';
     const STRING_NAMESPACE     = 'Vivarium\Test\Assertion\String';
 
     /**
@@ -48,7 +49,7 @@ final class CheckTest extends CheckTestCase
         );
     }
 
-        /**
+    /**
      * @covers ::__construct()
      * @covers ::encoding()
      * @covers ::__call()
@@ -61,6 +62,22 @@ final class CheckTest extends CheckTestCase
             Check::encoding(), 
             $method, 
             static::ENCODING_NAMESPACE
+        );
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::object()
+     * @covers ::__call()
+     * 
+     * @dataProvider Vivarium\Test\Check\CheckIfObjectTest::provideMethods()
+     */
+    public function testObject($method): void
+    {
+        $this->doTest(
+            Check::object(), 
+            $method, 
+            static::OBJECT_NAMESPACE
         );
     }
 
