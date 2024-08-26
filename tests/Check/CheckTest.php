@@ -13,6 +13,7 @@ use Vivarium\Check\Exception\TooMuchArguments;
 final class CheckTest extends CheckTestCase
 {
     const COMPARISON_NAMESPACE = 'Vivarium\Test\Assertion\Comparison';
+    const ENCODING_NAMESPACE   = 'Vivarium\Test\Assertion\Encoding';
     const STRING_NAMESPACE     = 'Vivarium\Test\Assertion\String';
 
     /**
@@ -44,6 +45,22 @@ final class CheckTest extends CheckTestCase
             Check::comparison(), 
             $method, 
             static::COMPARISON_NAMESPACE
+        );
+    }
+
+        /**
+     * @covers ::__construct()
+     * @covers ::encoding()
+     * @covers ::__call()
+     * 
+     * @dataProvider Vivarium\Test\Check\CheckIfEncodingTest::provideMethods()
+     */
+    public function testEncoding($method): void
+    {
+        $this->doTest(
+            Check::encoding(), 
+            $method, 
+            static::ENCODING_NAMESPACE
         );
     }
 
