@@ -17,6 +17,7 @@ final class CheckTest extends CheckTestCase
     const NUMERIC_NAMESPACE    = 'Vivarium\Test\Assertion\Numeric';
     const OBJECT_NAMESPACE     = 'Vivarium\Test\Assertion\Object';
     const STRING_NAMESPACE     = 'Vivarium\Test\Assertion\String';
+    const TYPE_NAMESPACE       = 'Vivarium\Test\Assertion\Type';
     const VAR_NAMESPACE        = 'Vivarium\Test\Assertion\Var';
 
     /**
@@ -114,6 +115,23 @@ final class CheckTest extends CheckTestCase
             static::STRING_NAMESPACE
         );
     }
+
+        /**
+     * @covers ::__construct()
+     * @covers ::type()
+     * @covers ::__call()
+     * 
+     * @dataProvider Vivarium\Test\Check\CheckIfStringTest::provideMethods()
+     */
+    public function testType(string $method): void
+    {
+        $this->doTest(
+            Check::type(), 
+            $method, 
+            static::TYPE_NAMESPACE
+        );
+    }
+
 
         /**
      * @covers ::__construct()
