@@ -14,6 +14,7 @@ use Vivarium\Test\Assertion\Stub\StubClass;
 final class HasMethodTest extends TestCase
 {
     /** 
+     * @covers ::__construct()
      * @covers ::assert()
      *  
      * @dataProvider provideSuccess()
@@ -27,6 +28,7 @@ final class HasMethodTest extends TestCase
     }
 
     /** 
+     * @covers ::__construct()
      * @covers ::assert() 
      * 
      * @dataProvider provideFailure()
@@ -42,6 +44,7 @@ final class HasMethodTest extends TestCase
     }
 
     /** 
+     * @covers ::__construct()
      * @covers ::__invoke() 
      *
      * @dataProvider provideSuccess()
@@ -54,6 +57,7 @@ final class HasMethodTest extends TestCase
     }
 
     /** 
+     * @covers ::__construct()
      * @covers ::__invoke() 
      *
      * @dataProvider provideFailure()
