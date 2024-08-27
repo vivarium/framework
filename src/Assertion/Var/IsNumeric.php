@@ -37,7 +37,7 @@ final class IsNumeric implements Assertion
         $this->isNumeric->assert(
             $value,
             ! (new IsEmpty())($message) ?
-                $message : 'Expected value to be either integer or float. Got %s.',
+                $message : 'Expected value to be either integer or float. Got %2$s.',
         );
     }
 
