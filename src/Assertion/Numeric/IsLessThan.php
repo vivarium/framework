@@ -36,7 +36,7 @@ final class IsLessThan implements Assertion
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
-                     $message : 'Expected value to be less than %2$s. Got %s.',
+                     $message : 'Expected number to be less than %2$s. Got %s.',
                 (new TypeToString())($value),
                 (new TypeToString())($this->compare),
             );
