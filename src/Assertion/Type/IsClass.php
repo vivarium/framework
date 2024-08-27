@@ -28,7 +28,7 @@ final class IsClass implements Assertion
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
-                     $message : 'Expected string to be a class name. Got %s.',
+                     $message : 'Expected string to be class name. Got %s.',
                 (new TypeToString())($value),
             );
 
@@ -42,7 +42,8 @@ final class IsClass implements Assertion
      */
     public function __invoke(mixed $value): bool
     {
-        (new IsString())->assert($value);
+        (new IsString())
+            ->assert($value);
 
         return class_exists($value);
     }
