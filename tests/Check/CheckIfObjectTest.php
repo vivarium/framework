@@ -35,7 +35,7 @@ final class CheckIfObjectTest extends CheckTestCase
     {
         return [
             ['hasMethod'],
-            //['hasProperty'],
+            ['hasProperty'],
             ['isInstanceOf']
         ];
     }
