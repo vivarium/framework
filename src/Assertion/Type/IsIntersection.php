@@ -38,9 +38,20 @@ final class IsIntersection implements Assertion
                 throw new AssertionFailed('Intersection must be composed at least by two elements.');
             }
 
-            (new Each(
-                new IsClassOrInterface(),
-            ))->assert($types);
+            foreach ($types as $type) {
+                (new IsClassOrInterface)
+                    ->assert($type);
+
+                if (count(array_keys($types, $type)) > 1) {
+                    throw new AssertionFailed(
+                        sprintf(
+                            'Duplicate type %s is reduntant.', 
+                            (new TypeToString())($type)
+                        )
+                    );
+                }
+            }
+
         } catch (AssertionFailed $ex) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
