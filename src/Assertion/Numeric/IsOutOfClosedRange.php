@@ -40,7 +40,7 @@ final class IsOutOfClosedRange implements Assertion
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
-                     $message : 'Expected value to be out of closed range [%2$s, %3$s]. Got %s.',
+                     $message : 'Expected number to be out of closed range [%2$s, %3$s]. Got %s.',
                 (new TypeToString())($value),
                 (new TypeToString())($this->min),
                 (new TypeToString())($this->max),
