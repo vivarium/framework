@@ -13,7 +13,8 @@ final class IsBasicTypeTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * @dataProvider provideTypes()
+     * 
+     * @dataProvider provideSuccess()
      */
     public function testAssert(string $type): void
     {
@@ -23,31 +24,25 @@ final class IsBasicTypeTest extends TestCase
             ->assert($type);
     }
 
-    /** @covers ::assert() */
-    public function testAssertException(): void
+    /** 
+     * @covers ::assert() 
+     *
+     * @dataProvider provideFailure()
+     * @dataProvider provideInvalid()
+     */
+    public function testAssertException(string|int $type, string $message): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage(
-            'Expected string to be a primitive type, class or interface. Got "stdClass|StubClass".',
-        );
+        static::expectExceptionMessage($message);
 
         (new IsBasicType())
-            ->assert('stdClass|StubClass');
-    }
-
-    /** @covers ::assert() */
-    public function testAssertExceptionWithNonString(): void
-    {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be a primitive type, class or interface. Got 1.');
-
-        (new IsBasicType())
-            ->assert(1);
+            ->assert($type);
     }
 
     /**
      * @covers ::__invoke()
-     * @dataProvider provideTypes()
+     * 
+     * @dataProvider provideSuccess()
      */
     public function testInvoke(string $type): void
     {
@@ -56,8 +51,20 @@ final class IsBasicTypeTest extends TestCase
         );
     }
 
+    /**
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testInvokeFailure(string $type): void
+    {
+        static::assertFalse(
+            (new IsBasicType())($type)
+        );
+    }
+
     /** @return array<array<string>> */
-    public static function provideTypes(): array
+    public static function provideSuccess(): array
     {
         return [
             ['int'],
@@ -68,6 +75,23 @@ final class IsBasicTypeTest extends TestCase
             ['array'],
             ['stdClass'],
             ['Vivarium\Test\Assertion\Stub\StubClass'],
+        ];
+    }
+
+    public static function provideFailure(): array
+    {
+        return [
+            [
+                'stdClass|StubClass', 
+                'Expected string to be a primitive type, class or interface. Got "stdClass|StubClass".'
+            ],
+        ];
+    }
+
+    public static function provideInvalid(): array
+    {
+        return [
+            [1, 'Expected string to be a primitive type, class or interface. Got 1.']
         ];
     }
 }

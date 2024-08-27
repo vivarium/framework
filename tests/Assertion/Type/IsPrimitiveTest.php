@@ -7,13 +7,14 @@ namespace Vivarium\Test\Assertion\Type;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsPrimitive;
+use Vivarium\Test\Assertion\Stub\Stub;
 
 /** @coversDefaultClass \Vivarium\Assertion\Type\IsPrimitive */
 final class IsPrimitiveTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * @dataProvider typesProvider()
+     * @dataProvider provideSuccess()
      */
     public function testAssert(string $type): void
     {
@@ -23,29 +24,46 @@ final class IsPrimitiveTest extends TestCase
             ->assert($type);
     }
 
-    /** @covers ::assert() */
-    public function testAssertException(): void
+    /** 
+     * @covers ::assert() 
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testAssertException(string $type, string $message): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be a primitive type. Got "RandomString".');
+        static::expectExceptionMessage($message);
 
         (new IsPrimitive())
-            ->assert('RandomString');
+            ->assert($type);
     }
 
     /**
      * @covers ::__invoke()
-     * @dataProvider typesProvider()
+     * 
+     * @dataProvider provideSuccess()
      */
     public function testInvoke(string $type): void
     {
-        static::expectNotToPerformAssertions();
+        static::assertTrue(
+            (new IsPrimitive())($type)
+        );
+    }
 
-        (new IsPrimitive())($type);
+    /**
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testInvokeFailure(string $type): void
+    {
+        static::assertFalse(
+            (new IsPrimitive())($type)
+        );
     }
 
     /** @return array<array<string>> */
-    public static function typesProvider(): array
+    public static function provideSuccess(): array
     {
         return [
             ['int'],
@@ -54,6 +72,14 @@ final class IsPrimitiveTest extends TestCase
             ['callable'],
             ['object'],
             ['array'],
+        ];
+    }
+
+    public static function provideFailure(): array
+    {
+        return [
+            ['RandomString', 'Expected string to be a primitive type. Got "RandomString".'],
+            [Stub::class, 'Expected string to be a primitive type. Got Vivarium\Test\Assertion\Stub\Stub.']
         ];
     }
 }

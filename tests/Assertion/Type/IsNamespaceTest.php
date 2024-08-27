@@ -15,7 +15,8 @@ final class IsNamespaceTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * @dataProvider namespaceProvider()
+     * 
+     * @dataProvider provideSuccess()
      */
     public function testAssert(string $namespace): void
     {
@@ -27,7 +28,8 @@ final class IsNamespaceTest extends TestCase
 
     /**
      * @covers ::assert()
-     * @dataProvider wrongNamespaceProvider()
+     * 
+     * @dataProvider provideFailure()
      */
     public function testAssertException(string $namespace): void
     {
@@ -42,7 +44,8 @@ final class IsNamespaceTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * @dataProvider namespaceProvider()
+     * 
+     * @dataProvider provideSuccess()
      */
     public function testInvoke(string $namespace): void
     {
@@ -53,9 +56,10 @@ final class IsNamespaceTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * @dataProvider wrongNamespaceProvider()
+     * 
+     * @dataProvider provideFailure()
      */
-    public function testInvokeFail(string $namespace): void
+    public function testInvokeFailure(string $namespace): void
     {
         static::assertFalse(
             (new IsNamespace())($namespace),
@@ -63,7 +67,7 @@ final class IsNamespaceTest extends TestCase
     }
 
     /** @return array<array<string>> */
-    public static function namespaceProvider(): array
+    public static function provideSuccess(): array
     {
         return [
             ['Foo\\Bar'],
@@ -73,7 +77,7 @@ final class IsNamespaceTest extends TestCase
     }
 
     /** @return array<array<string>> */
-    public static function wrongNamespaceProvider(): array
+    public static function provideFailure(): array
     {
         return [
             ["Foo\\12"],

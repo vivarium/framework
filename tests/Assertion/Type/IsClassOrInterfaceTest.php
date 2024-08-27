@@ -8,65 +8,91 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsClassOrInterface;
 use Vivarium\Test\Assertion\Stub\Stub;
+use Vivarium\Test\Assertion\Stub\StubClass;
 
 /** @coversDefaultClass \Vivarium\Assertion\Type\IsClassOrInterface */
 final class IsClassOrInterfaceTest extends TestCase
 {
     /**
-     * @covers ::__construct()
      * @covers ::assert()
-     * @covers ::__invoke()
+     * @covers ::__construct()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssert(): void
+    public function testAssert(string $type): void
     {
         static::expectNotToPerformAssertions();
 
         (new IsClassOrInterface())
-            ->assert('stdClass');
-
-        (new IsClassOrInterface())
-            ->assert(Stub::class);
+            ->assert($type);
     }
 
-    /**
-     * @covers ::__construct()
-     * @covers ::__invoke()
-     */
-    public function testInvoke(): void
-    {
-        static::assertTrue(
-            (new IsClassOrInterface())('stdClass'),
-        );
-
-        static::assertTrue(
-            (new IsClassOrInterface())(Stub::class),
-        );
-
-        static::assertFalse(
-            (new IsClassOrInterface())('NonExistentClass'),
-        );
-    }
-
-    /**
+    /** 
      * @covers ::assert()
-     * @covers ::__invoke()
+     * @covers ::__construct()
+     *
+     * @dataProvider provideFailure()
+     * @dataProvider provideInvalid()
      */
-    public function testAssertException(): void
+    public function testAssertException(string|int $type, string $message): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be class or interface name. Got "Foo".');
+        static::expectExceptionMessage($message);
 
         (new IsClassOrInterface())
-            ->assert('Foo');
+            ->assert($type);
     }
 
-    /** @covers ::assert() */
-    public function testAssertWithoutString(): void
+    /**
+     * @covers ::__invoke()
+     * @covers ::__construct()
+     * 
+     * @dataProvider provideSuccess()
+     */
+    public function testInvoke(string $type): void
     {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be class or interface name. Got 42.');
+        static::assertTrue(
+            (new IsClassOrInterface())($type),
+        );
+    }
 
-        (new IsClassOrInterface())
-            ->assert(42);
+    /**
+     * @covers ::__invoke()
+     * @covers ::__construct()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testInvokeFailure(string $type): void
+    {
+        static::assertFalse(
+            (new IsClassOrInterface())($type)
+        );
+    }
+
+    /** @return array<array<string>> */
+    public static function provideSuccess(): array
+    {
+        return [
+            ['stdClass'],
+            [Stub::class],
+            [StubClass::class],
+        ];
+    }
+
+    public static function provideFailure(): array
+    {
+        return [
+            [
+                'NonExistentClass', 
+                'Expected string to be class or interface name. Got "NonExistentClass".'
+            ],
+        ];
+    }
+
+    public static function provideInvalid(): array
+    {
+        return [
+            [42, 'Expected string to be class or interface name. Got 42']
+        ];
     }
 }
