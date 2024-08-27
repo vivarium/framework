@@ -28,7 +28,7 @@ final class IsInteger implements Assertion
         if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
-                     $message : 'Expected value to be an integer. Got %2$s.',
+                     $message : 'Expected value to be integer. Got %2$s.',
                 (new TypeToString())($value),
                 gettype($value),
             );
