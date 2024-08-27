@@ -42,6 +42,7 @@ final class Either implements Assertion
                 ! (new IsEmpty())($message) ?
                      $message : 'Failed all assertions in either condition.',
                 (new TypeToString())($value),
+                gettype($value)
             );
 
             throw new AssertionFailed($message);

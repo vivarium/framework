@@ -92,7 +92,7 @@ final class IsLessThanTest extends TestCase
     public static function provideInvalid(): array
     {
         return [
-            ['String', 10, 'Expected value to be either integer or float. Got "String".']
+            ['String', 10, 'Expected value to be either integer or float. Got string.']
         ];
     }
 }

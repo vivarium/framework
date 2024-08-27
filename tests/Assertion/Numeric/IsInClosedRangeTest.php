@@ -95,7 +95,7 @@ final class IsInClosedRangeTest extends TestCase
     {
         return [
             [5, 10, 0, 'Lower bound must be lower or equal than upper bound. Got [10, 0].'],
-            ['String', 0, 10, 'Expected value to be either integer or float. Got "String".']
+            ['String', 0, 10, 'Expected value to be either integer or float. Got string.']
         ];
     }
 }
