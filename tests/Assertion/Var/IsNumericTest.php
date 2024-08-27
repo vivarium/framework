@@ -20,29 +20,75 @@ final class IsNumericTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssert(): void
+    public function testAssert(mixed $var): void
     {
         static::expectNotToPerformAssertions();
 
-        (new IsNumeric())(3.14);
-
         (new IsNumeric())
-            ->assert(42);
+            ->assert($var);
     }
 
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
      */
-    public function testAssertException(): void
+    public function testAssertException(mixed $var, string $message): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be either integer or float. Got "42".');
+        static::expectExceptionMessage($message);
 
         (new IsNumeric())
-            ->assert('42');
+            ->assert($var);
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
+     */
+    public function testInvoke(mixed $var): void
+    {
+        static::assertTrue(
+            (new IsNumeric())($var)
+        );
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testInvokeFailure(mixed $var): void
+    {
+        static::assertFalse(
+            (new IsNumeric())($var)
+        );
+    }
+
+    public static function provideSuccess(): array
+    {
+        return [
+            [1],
+            [0],
+            [-1],
+            [4.0],
+            [4.5],
+            [4.99999]
+        ];
+    }
+
+    public static function provideFailure(): array
+    {
+        return [
+            [[], 'Expected value to be either integer or float. Got array.'],
+            ['String', 'Expected value to be either integer or float. Got string.']
+        ];
     }
 }
