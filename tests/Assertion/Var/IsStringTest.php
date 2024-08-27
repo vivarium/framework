@@ -17,28 +17,72 @@ use Vivarium\Assertion\Var\IsString;
 /** @coversDefaultClass \Vivarium\Assertion\Var\IsString */
 final class IsStringTest extends TestCase
 {
-    /**
+        /**
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssert(): void
+    public function testAssert(mixed $var): void
     {
         static::expectNotToPerformAssertions();
 
         (new IsString())
-            ->assert('Hello World');
+            ->assert($var);
     }
 
     /**
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
      */
-    public function testAssertException(): void
+    public function testAssertException(mixed $var, string $message): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be string. Got integer.');
+        static::expectExceptionMessage($message);
 
         (new IsString())
-            ->assert(42);
+            ->assert($var);
+    }
+
+    /**
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
+     */
+    public function testInvoke(mixed $var): void
+    {
+        static::assertTrue(
+            (new IsString())($var)
+        );
+    }
+
+    /**
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testInvokeFailure(mixed $var): void
+    {
+        static::assertFalse(
+            (new IsString())($var)
+        );
+    }
+
+    public static function provideSuccess(): array
+    {
+        return [
+            [''],
+            ['Hello World'],
+            ['a'],
+            ['42'],
+        ];
+    }
+
+    public static function provideFailure(): array
+    {
+        return [
+            [[], 'Expected value to be string. Got array.'],
+            [42, 'Expected value to be string. Got integer.']
+        ];
     }
 }

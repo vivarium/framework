@@ -19,26 +19,70 @@ final class IsIntegerTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssert(): void
+    public function testAssert(mixed $var): void
     {
         static::expectNotToPerformAssertions();
 
         (new IsInteger())
-            ->assert(42);
+            ->assert($var);
     }
 
     /**
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
      */
-    public function testAssertException(): void
+    public function testAssertException(mixed $var, string $message): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be an integer. Got string.');
+        static::expectExceptionMessage($message);
 
         (new IsInteger())
-            ->assert('Hello World');
+            ->assert($var);
+    }
+
+    /**
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
+     */
+    public function testInvoke(mixed $var): void
+    {
+        static::assertTrue(
+            (new IsInteger())($var)
+        );
+    }
+
+    /**
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testInvokeFailure(mixed $var): void
+    {
+        static::assertFalse(
+            (new IsInteger())($var)
+        );
+    }
+
+    public static function provideSuccess(): array
+    {
+        return [
+            [1],
+            [0],
+            [-1]
+        ];
+    }
+
+    public static function provideFailure(): array
+    {
+        return [
+            [42.0, 'Expected value to be integer. Got double.'],
+            [0.99999, 'Expected value to be integer. Got double.'],
+            ['string', 'Expected value to be integer. Got string.']
+        ];
     }
 }
