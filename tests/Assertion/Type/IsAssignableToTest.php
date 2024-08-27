@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Vivarium\Test\Assertion\Hierarchy;
+namespace Vivarium\Test\Assertion\Type;
 
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
