@@ -13,9 +13,7 @@ namespace Vivarium\Assertion\Type;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\Type\IsClass;
 use Vivarium\Assertion\String\IsEmpty;
-use Vivarium\Assertion\Type\IsInterface;
 
 use function class_implements;
 use function in_array;

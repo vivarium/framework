@@ -14,9 +14,7 @@ use ReflectionClass;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\Type\IsBasicType;
 use Vivarium\Assertion\String\IsEmpty;
-use Vivarium\Assertion\Type\IsPrimitive;
 
 use function sprintf;
 

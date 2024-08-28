@@ -19,7 +19,6 @@ final class IsEmptyTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $string): void
@@ -33,7 +32,6 @@ final class IsEmptyTest extends TestCase
     /**
      * @covers ::assert()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideNonString()
      */
@@ -49,7 +47,6 @@ final class IsEmptyTest extends TestCase
     /**
      * @covers ::assert()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $string): void
@@ -60,7 +57,6 @@ final class IsEmptyTest extends TestCase
     /**
      * @covers ::assert()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $string): void
@@ -72,21 +68,21 @@ final class IsEmptyTest extends TestCase
     {
         return [
             [''],
-            ['        ']
+            ['        '],
         ];
     }
 
     public static function provideFailure(): array
     {
         return [
-            ['Hello World', 'Expected string to be empty. Got "Hello World".']
+            ['Hello World', 'Expected string to be empty. Got "Hello World".'],
         ];
     }
 
     public static function provideNonString(): array
     {
         return [
-            [42, 'Expected value to be string. Got integer.']
+            [42, 'Expected value to be string. Got integer.'],
         ];
     }
 }

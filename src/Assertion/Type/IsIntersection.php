@@ -12,12 +12,12 @@ declare(strict_types=1);
 namespace Vivarium\Assertion\Type;
 
 use Vivarium\Assertion\Assertion;
-use Vivarium\Assertion\Conditional\Each;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\Var\IsString;
 
+use function array_keys;
 use function count;
 use function explode;
 use function sprintf;
@@ -39,19 +39,18 @@ final class IsIntersection implements Assertion
             }
 
             foreach ($types as $type) {
-                (new IsClassOrInterface)
+                (new IsClassOrInterface())
                     ->assert($type);
 
                 if (count(array_keys($types, $type)) > 1) {
                     throw new AssertionFailed(
                         sprintf(
-                            'Duplicate type %s is reduntant.', 
-                            (new TypeToString())($type)
-                        )
+                            'Duplicate type %s is reduntant.',
+                            (new TypeToString())($type),
+                        ),
                     );
                 }
             }
-
         } catch (AssertionFailed $ex) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?

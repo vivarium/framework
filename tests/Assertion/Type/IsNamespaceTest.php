@@ -8,14 +8,11 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsNamespace;
 
-use function sprintf;
-
 /** @coversDefaultClass \Vivarium\Assertion\Type\IsNamespace */
 final class IsNamespaceTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $namespace): void
@@ -28,7 +25,6 @@ final class IsNamespaceTest extends TestCase
 
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      */
     public function testAssertException(string $namespace, string $message): void
@@ -42,7 +38,6 @@ final class IsNamespaceTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $namespace): void
@@ -54,7 +49,6 @@ final class IsNamespaceTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $namespace): void
@@ -81,7 +75,7 @@ final class IsNamespaceTest extends TestCase
             [
                 'Foo\\12',
                 'Expected string to be namespace. Got "Foo\\12".',
-            ]
+            ],
         ];
     }
 }

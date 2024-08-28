@@ -25,7 +25,6 @@ final class IsSubclassOfTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $class, string $subclass): void
@@ -39,7 +38,6 @@ final class IsSubclassOfTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -55,26 +53,24 @@ final class IsSubclassOfTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $class, string $subclass): void
     {
         static::assertTrue(
-            (new IsSubclassOf($subclass))($class)
+            (new IsSubclassOf($subclass))($class),
         );
     }
 
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $class, string $subclass): void
     {
         static::assertFalse(
-            (new IsSubclassOf($subclass))($class)
+            (new IsSubclassOf($subclass))($class),
         );
     }
 
@@ -82,13 +78,13 @@ final class IsSubclassOfTest extends TestCase
     {
         return [
             [
-                StubClass::class, 
-                Stub::class
+                StubClass::class,
+                Stub::class,
             ],
             [
                 StubClassExtension::class,
-                StubClass::class
-            ]
+                StubClass::class,
+            ],
         ];
     }
 
@@ -113,13 +109,13 @@ final class IsSubclassOfTest extends TestCase
             [
                 'RandomString',
                 StubClass::class,
-                'Expected string to be class or interface name. Got "RandomString"'
+                'Expected string to be class or interface name. Got "RandomString"',
             ],
             [
                 StubClass::class,
                 'RandomString',
-                'Expected string to be class or interface name. Got "RandomString"'
-            ]
+                'Expected string to be class or interface name. Got "RandomString"',
+            ],
         ];
     }
 }

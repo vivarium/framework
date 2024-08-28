@@ -14,17 +14,18 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use Vivarium\Assertion\Comparison\IsOneOf;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Equality\Equal;
 use Vivarium\Test\Equality\Stub\EqualityStub;
 
 /** @coversDefaultClass \Vivarium\Assertion\Comparison\IsOneOf */
 final class IsOneOfTest extends TestCase
 {
     /**
+     * @param array<array<scalar|object, array<scalar|object>>> $values
+     *
      * @covers ::__construct()
      * @covers ::assert()
      * @covers ::__invoke()
-     * 
+     *
      * @dataProvider provideSuccess()
      */
     public function testAssert(mixed $value, array $values): void
@@ -37,10 +38,12 @@ final class IsOneOfTest extends TestCase
     }
 
     /**
+     * @param array<array<scalar|object, array<scalar|object>, string>> $values
+     *
      * @covers ::__construct()
      * @covers ::assert()
      * @covers ::__invoke()
-     * 
+     *
      * @dataProvider provideFailure()
      */
     public function testAssertException(mixed $value, array $values, string $message): void
@@ -52,6 +55,7 @@ final class IsOneOfTest extends TestCase
             ->assert($value);
     }
 
+    /** @return array<array<scalar|object, array<scalar|object>>> */
     public static function provideSuccess(): array
     {
         $stdClass = new stdClass();
@@ -62,14 +66,15 @@ final class IsOneOfTest extends TestCase
             [7, [1, 5, 7, 42]],
             [42, [1, 5, 7, 42]],
             [new EqualityStub(), [new EqualityStub(), new EqualityStub()]],
-            [$stdClass, [new stdClass, $stdClass]]
+            [$stdClass, [new stdClass(), $stdClass]],
         ];
     }
 
+    /** @return array<array<scalar|object, array<scalar|object>, string>> */
     public static function provideFailure(): array
     {
         return [
-            [27, [1, 5, 7, 42], 'Expected value to be one of the values provided. Got 27.']    
+            [27, [1, 5, 7, 42], 'Expected value to be one of the values provided. Got 27.'],
         ];
     }
 }

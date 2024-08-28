@@ -20,7 +20,6 @@ final class IsInOpenRangeTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(int|float $number, int|float $min, int|float $max): void
@@ -34,7 +33,6 @@ final class IsInOpenRangeTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -50,26 +48,24 @@ final class IsInOpenRangeTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(int|float $number, int|float $min, int|float $max): void
     {
         static::assertTrue(
-            (new IsInOpenRange($min, $max))($number)
+            (new IsInOpenRange($min, $max))($number),
         );
     }
 
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(int|float $number, int|float $min, int|float $max): void
     {
         static::assertFalse(
-            (new IsInOpenRange($min, $max))($number)
+            (new IsInOpenRange($min, $max))($number),
         );
     }
 
@@ -78,7 +74,7 @@ final class IsInOpenRangeTest extends TestCase
         return [
             [1, 0, 9],
             [8, 0, 9],
-            [5, 0, 9]
+            [5, 0, 9],
         ];
     }
 
@@ -88,7 +84,7 @@ final class IsInOpenRangeTest extends TestCase
             [10, 0, 9, 'Expected number to be in open range (0, 9). Got 10.'],
             [0, 0, 9, 'Expected number to be in open range (0, 9). Got 0.'],
             [9, 0, 9, 'Expected number to be in open range (0, 9). Got 9.'],
-            [9.0001, 0, 9, 'Expected number to be in open range (0, 9). Got 9.0001.']
+            [9.0001, 0, 9, 'Expected number to be in open range (0, 9). Got 9.0001.'],
         ];
     }
 
@@ -96,7 +92,7 @@ final class IsInOpenRangeTest extends TestCase
     {
         return [
             [5, 10, 0, 'Lower bound must be lower than upper bound. Got (10, 0).'],
-            ['String', 0, 10, 'Expected value to be either integer or float. Got string.']
+            ['String', 0, 10, 'Expected value to be either integer or float. Got string.'],
         ];
     }
 }

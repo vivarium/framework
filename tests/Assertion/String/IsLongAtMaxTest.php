@@ -20,7 +20,6 @@ final class IsLongAtMaxTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $string, int $length, string $encoding): void
@@ -34,7 +33,6 @@ final class IsLongAtMaxTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideNonValid()
      */
@@ -48,11 +46,10 @@ final class IsLongAtMaxTest extends TestCase
     }
 
         /**
-     * @covers ::__construct()
-     * @covers ::__invoke()
-     * 
-     * @dataProvider provideSuccess()
-     */
+         * @covers ::__construct()
+         * @covers ::__invoke()
+         * @dataProvider provideSuccess()
+         */
     public function testInvoke(string $string, int $length, string $encoding): void
     {
         static::assertTrue((new IsLongAtMax($length, $encoding))($string));
@@ -61,7 +58,6 @@ final class IsLongAtMaxTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $string, int $length, string $encoding, string $message): void
@@ -74,7 +70,7 @@ final class IsLongAtMaxTest extends TestCase
         return [
             ['Hello', 6, 'UTF-8'],
             ['Hello', 5, 'UTF-8'],
-            ['ππ', 2, 'UTF-8']
+            ['ππ', 2, 'UTF-8'],
         ];
     }
 
@@ -82,7 +78,7 @@ final class IsLongAtMaxTest extends TestCase
     {
         return [
             ['Hello World', 5, 'UTF-8', 'Expected string to be long at max 5. Got 11'],
-            ['ππ', 1, 'UTF-8', 'Expected string to be long at max 1. Got 2.']
+            ['ππ', 1, 'UTF-8', 'Expected string to be long at max 1. Got 2.'],
         ];
     }
 

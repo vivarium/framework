@@ -13,7 +13,6 @@ final class IsBasicTypeTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $type): void
@@ -24,9 +23,8 @@ final class IsBasicTypeTest extends TestCase
             ->assert($type);
     }
 
-    /** 
-     * @covers ::assert() 
-     *
+    /**
+     * @covers ::assert()
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -41,7 +39,6 @@ final class IsBasicTypeTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $type): void
@@ -53,13 +50,12 @@ final class IsBasicTypeTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $type): void
     {
         static::assertFalse(
-            (new IsBasicType())($type)
+            (new IsBasicType())($type),
         );
     }
 
@@ -82,8 +78,8 @@ final class IsBasicTypeTest extends TestCase
     {
         return [
             [
-                'stdClass|StubClass', 
-                'Expected string to be a primitive type, class or interface. Got "stdClass|StubClass".'
+                'stdClass|StubClass',
+                'Expected string to be a primitive type, class or interface. Got "stdClass|StubClass".',
             ],
         ];
     }
@@ -91,7 +87,7 @@ final class IsBasicTypeTest extends TestCase
     public static function provideInvalid(): array
     {
         return [
-            [1, 'Expected string to be a primitive type, class or interface. Got 1.']
+            [1, 'Expected string to be a primitive type, class or interface. Got 1.'],
         ];
     }
 }

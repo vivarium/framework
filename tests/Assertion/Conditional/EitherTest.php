@@ -29,7 +29,6 @@ final class EitherTest extends TestCase
      * @covers ::__construct()
      * @covers ::assert()
      * @covers ::safeAssert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(Assertion $assertion1, Assertion $assertion2, mixed $value): void
@@ -46,7 +45,6 @@ final class EitherTest extends TestCase
      * @covers ::__construct()
      * @covers ::assert()
      * @covers ::safeAssert()
-     * 
      * @dataProvider provideFailure()
      */
     public function testAssertException(Assertion $assertion1, Assertion $assertion2, mixed $value): void
@@ -64,7 +62,6 @@ final class EitherTest extends TestCase
      * @covers ::__construct()
      * @covers ::__invoke()
      * @covers ::safeAssert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(Assertion $assertion1, Assertion $assertion2, mixed $value): void
@@ -72,24 +69,23 @@ final class EitherTest extends TestCase
         static::assertTrue(
             (new Either(
                 $assertion1,
-                $assertion2
+                $assertion2,
             ))($value),
         );
     }
 
         /**
-     * @covers ::__construct()
-     * @covers ::__invoke()
-     * @covers ::safeAssert()
-     * 
-     * @dataProvider provideFailure()
-     */
+         * @covers ::__construct()
+         * @covers ::__invoke()
+         * @covers ::safeAssert()
+         * @dataProvider provideFailure()
+         */
     public function testInvokeFailure(Assertion $assertion1, Assertion $assertion2, mixed $value): void
     {
         static::assertFalse(
             (new Either(
                 $assertion1,
-                $assertion2
+                $assertion2,
             ))($value),
         );
     }
@@ -100,23 +96,23 @@ final class EitherTest extends TestCase
             [
                 new IsGreaterThan(100),
                 new IsInClosedRange(0, 9),
-                6
+                6,
             ],
             [
                 new IsString(),
                 new IsInteger(),
-                42
+                42,
             ],
             [
                 new IsGreaterThan(5),
                 new IsInClosedRange(40, 50),
-                42
+                42,
             ],
             [
                 new IsClassOrInterface(),
                 new IsObject(),
-                new StubClass()
-            ]
+                new StubClass(),
+            ],
         ];
     }
 
@@ -126,8 +122,8 @@ final class EitherTest extends TestCase
             [
                 new IsGreaterThan(100),
                 new IsInClosedRange(0, 9),
-                42
-            ]
+                42,
+            ],
         ];
     }
 }

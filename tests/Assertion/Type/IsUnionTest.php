@@ -15,7 +15,6 @@ final class IsUnionTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $type): void
@@ -26,9 +25,8 @@ final class IsUnionTest extends TestCase
             ->assert($type);
     }
 
-    /** 
-     * @covers ::assert() 
-     *
+    /**
+     * @covers ::assert()
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -43,7 +41,6 @@ final class IsUnionTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $type): void
@@ -55,13 +52,12 @@ final class IsUnionTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $type): void
     {
         static::assertFalse(
-            (new IsUnion())($type)
+            (new IsUnion())($type),
         );
     }
 
@@ -71,7 +67,7 @@ final class IsUnionTest extends TestCase
         return [
             [stdClass::class . '|' . StubClass::class],
             ['int|float'],
-            ['int|' . stdClass::class]
+            ['int|' . stdClass::class],
         ];
     }
 
@@ -79,12 +75,12 @@ final class IsUnionTest extends TestCase
     {
         return [
             [
-                'Foo|Bar', 
-                'Expected string to be union. Got "Foo|Bar".'
+                'Foo|Bar',
+                'Expected string to be union. Got "Foo|Bar".',
             ],
             [
                 stdClass::class,
-                'Expected string to be union. Got "stdClass".'
+                'Expected string to be union. Got "stdClass".',
             ],
         ];
     }
@@ -92,7 +88,7 @@ final class IsUnionTest extends TestCase
     public static function provideInvalid(): array
     {
         return [
-            [42, 'Expected value to be string. Got integer.']
+            [42, 'Expected value to be string. Got integer.'],
         ];
     }
 }

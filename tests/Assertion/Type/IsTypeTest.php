@@ -8,12 +8,13 @@ use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsType;
 
+use function array_merge;
+
 /** @coversDefaultClass \Vivarium\Assertion\Type\IsType */
 final class IsTypeTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $type): void
@@ -26,7 +27,6 @@ final class IsTypeTest extends TestCase
 
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      */
     public function testAssertException(string $type, string $message): void
@@ -40,25 +40,23 @@ final class IsTypeTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $type): void
     {
         static::assertTrue(
-            (new IsType())($type)
+            (new IsType())($type),
         );
     }
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $type): void
     {
         static::assertFalse(
-            (new IsType())($type)
+            (new IsType())($type),
         );
     }
 
@@ -71,7 +69,7 @@ final class IsTypeTest extends TestCase
             IsInterfaceTest::provideSuccess(),
             IsIntersectionTest::provideSuccess(),
             IsPrimitiveTest::provideSuccess(),
-            IsUnionTest::provideSuccess()
+            IsUnionTest::provideSuccess(),
         );
     }
 
@@ -79,8 +77,8 @@ final class IsTypeTest extends TestCase
     {
         return [
             [
-                'NonExistent', 
-                'Expected string to be a primitive, class, interface, union or intersection. Got "NonExistent".'
+                'NonExistent',
+                'Expected string to be a primitive, class, interface, union or intersection. Got "NonExistent".',
             ],
         ];
     }

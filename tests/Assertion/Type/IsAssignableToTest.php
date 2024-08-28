@@ -13,9 +13,7 @@ namespace Vivarium\Test\Assertion\Type;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsAssignableTo;
-use Vivarium\Test\Assertion\Stub\StubClass;
 
-use function sprintf;
 use function array_merge;
 
 /** @coversDefaultClass \Vivarium\Assertion\Type\IsAssignableTo */
@@ -25,7 +23,6 @@ final class IsAssignableToTest extends TestCase
      * @covers ::__construct()
      * @covers ::getAssertion()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $type, string $target): void
@@ -40,7 +37,6 @@ final class IsAssignableToTest extends TestCase
      * @covers ::__construct()
      * @covers ::getAssertion()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      */
     public function testAssertException(string $type, string $target, string $message): void
@@ -56,13 +52,12 @@ final class IsAssignableToTest extends TestCase
      * @covers ::__construct()
      * @covers ::getAssertion()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $type, string $target): void
     {
         static::assertTrue(
-            (new IsAssignableTo($target))($type)
+            (new IsAssignableTo($target))($type),
         );
     }
 
@@ -70,13 +65,12 @@ final class IsAssignableToTest extends TestCase
      * @covers ::__construct()
      * @covers ::getAssertion()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $type, string $target): void
     {
         static::assertFalse(
-            (new IsAssignableTo($target))($type)
+            (new IsAssignableTo($target))($type),
         );
     }
 
@@ -86,7 +80,7 @@ final class IsAssignableToTest extends TestCase
             IsAssignableToClassTest::provideSuccess(),
             IsAssignableToIntersectionTest::provideSuccess(),
             IsAssignableToPrimitiveTest::provideSuccess(),
-            IsAssignableToUnionTest::provideSuccess()
+            IsAssignableToUnionTest::provideSuccess(),
         );
     }
 
@@ -96,7 +90,7 @@ final class IsAssignableToTest extends TestCase
             IsAssignableToClassTest::provideFailure(),
             IsAssignableToIntersectionTest::provideFailure(),
             IsAssignableToPrimitiveTest::provideFailure(),
-            IsAssignableToUnionTest::provideFailure()
+            IsAssignableToUnionTest::provideFailure(),
         );
     }
 }

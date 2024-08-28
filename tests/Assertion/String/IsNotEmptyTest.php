@@ -20,7 +20,6 @@ final class IsNotEmptyTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $string): void
@@ -34,7 +33,6 @@ final class IsNotEmptyTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideNonValid()
      */
@@ -50,7 +48,6 @@ final class IsNotEmptyTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $string): void
@@ -61,7 +58,6 @@ final class IsNotEmptyTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $string): void
@@ -69,13 +65,12 @@ final class IsNotEmptyTest extends TestCase
         static::assertFalse((new IsNotEmpty())($string));
     }
 
-
     public static function provideSuccess(): array
     {
         return [
             ['Foo'],
             ['A'],
-            ['Hello World']
+            ['Hello World'],
         ];
     }
 
@@ -84,14 +79,14 @@ final class IsNotEmptyTest extends TestCase
         return [
             ['', 'Expected string to be not empty.'],
             [' ', 'Expected string to be not empty.'],
-            ['       ', 'Expected string to be not empty.']
+            ['       ', 'Expected string to be not empty.'],
         ];
     }
 
     public static function provideNonValid(): array
     {
         return [
-            [42, 'Expected value to be string. Got integer.']
+            [42, 'Expected value to be string. Got integer.'],
         ];
     }
 }

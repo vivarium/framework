@@ -22,7 +22,6 @@ final class IsInterfaceTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $type): void
@@ -33,9 +32,8 @@ final class IsInterfaceTest extends TestCase
             ->assert($type);
     }
 
-    /** 
-     * @covers ::assert() 
-     *
+    /**
+     * @covers ::assert()
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -50,7 +48,6 @@ final class IsInterfaceTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $type): void
@@ -62,13 +59,12 @@ final class IsInterfaceTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $type): void
     {
         static::assertFalse(
-            (new IsInterface())($type)
+            (new IsInterface())($type),
         );
     }
 
@@ -85,20 +81,20 @@ final class IsInterfaceTest extends TestCase
     {
         return [
             [
-                'NonExistentClass', 
-                'Expected string to be interface name. Got "NonExistentClass".'
+                'NonExistentClass',
+                'Expected string to be interface name. Got "NonExistentClass".',
             ],
             [
                 StubClass::class,
-                'Expected string to be interface name. Got "Vivarium\Test\Assertion\Stub\StubClass".'
-            ]
+                'Expected string to be interface name. Got "Vivarium\Test\Assertion\Stub\StubClass".',
+            ],
         ];
     }
 
     public static function provideInvalid(): array
     {
         return [
-            [42, 'Expected value to be string. Got integer.']
+            [42, 'Expected value to be string. Got integer.'],
         ];
     }
 }

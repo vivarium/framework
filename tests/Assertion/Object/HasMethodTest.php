@@ -13,10 +13,9 @@ use Vivarium\Test\Assertion\Stub\StubClass;
 /** @coversDefaultClass \Vivarium\Assertion\Object\HasMethod */
 final class HasMethodTest extends TestCase
 {
-    /** 
+    /**
      * @covers ::__construct()
      * @covers ::assert()
-     *  
      * @dataProvider provideSuccess()
      */
     public function testAssert(string|object $class, string $method): void
@@ -27,10 +26,9 @@ final class HasMethodTest extends TestCase
             ->assert($class);
     }
 
-    /** 
+    /**
      * @covers ::__construct()
-     * @covers ::assert() 
-     * 
+     * @covers ::assert()
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -43,29 +41,27 @@ final class HasMethodTest extends TestCase
             ->assert($class);
     }
 
-    /** 
+    /**
      * @covers ::__construct()
-     * @covers ::__invoke() 
-     *
+     * @covers ::__invoke()
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string|object $class, string $method): void
     {
         static::assertTrue(
-            (new HasMethod($method))($class)
+            (new HasMethod($method))($class),
         );
     }
 
-    /** 
+    /**
      * @covers ::__construct()
-     * @covers ::__invoke() 
-     *
+     * @covers ::__invoke()
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string|object $class, string $method): void
     {
         static::assertFalse(
-            (new HasMethod($method))($class)
+            (new HasMethod($method))($class),
         );
     }
 
@@ -87,7 +83,7 @@ final class HasMethodTest extends TestCase
     public static function provideInvalid(): array
     {
         return [
-            ['RandomString', '__toString', 'Value must be either class, interface or object. Got "RandomString"']
+            ['RandomString', '__toString', 'Value must be either class, interface or object. Got "RandomString"'],
         ];
     }
 }

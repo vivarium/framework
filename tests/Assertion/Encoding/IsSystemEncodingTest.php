@@ -18,10 +18,9 @@ use Vivarium\Assertion\Exception\AssertionFailed;
 final class IsSystemEncodingTest extends TestCase
 {
         /**
-     * @covers ::assert()
-     * 
-     * @dataProvider provideSuccess()
-     */
+         * @covers ::assert()
+         * @dataProvider provideSuccess()
+         */
     public function testAssert(string $encoding): void
     {
         static::expectNotToPerformAssertions();
@@ -31,7 +30,6 @@ final class IsSystemEncodingTest extends TestCase
 
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -45,25 +43,23 @@ final class IsSystemEncodingTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $encoding): void
     {
         static::assertTrue(
-            (new IsSystemEncoding())($encoding)
+            (new IsSystemEncoding())($encoding),
         );
     }
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string|int $encoding): void
     {
         static::assertFalse(
-            (new IsSystemEncoding())($encoding)
+            (new IsSystemEncoding())($encoding),
         );
     }
 
@@ -73,21 +69,21 @@ final class IsSystemEncodingTest extends TestCase
             ['UTF-8'],
             ['UTF-32'],
             ['ASCII'],
-            ['Windows-1251']
+            ['Windows-1251'],
         ];
     }
 
     public static function provideFailure(): array
     {
         return [
-            ['Foo', '"Foo" is not a valid system encoding.']
+            ['Foo', '"Foo" is not a valid system encoding.'],
         ];
     }
 
     public static function provideInvalid(): array
     {
         return [
-            [42, 'Expected value to be string. Got integer.']
+            [42, 'Expected value to be string. Got integer.'],
         ];
     }
 }

@@ -18,10 +18,9 @@ use Vivarium\Assertion\Var\IsFloat;
 final class IsFloatTest extends TestCase
 {
         /**
-     * @covers ::assert()
-     * 
-     * @dataProvider provideSuccess()
-     */
+         * @covers ::assert()
+         * @dataProvider provideSuccess()
+         */
     public function testAssert(mixed $var): void
     {
         static::expectNotToPerformAssertions();
@@ -32,7 +31,6 @@ final class IsFloatTest extends TestCase
 
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      */
     public function testAssertException(mixed $var, string $message): void
@@ -46,42 +44,42 @@ final class IsFloatTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(mixed $var): void
     {
         static::assertTrue(
-            (new IsFloat())($var)
+            (new IsFloat())($var),
         );
     }
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(mixed $var): void
     {
         static::assertFalse(
-            (new IsFloat())($var)
+            (new IsFloat())($var),
         );
     }
 
+    /** @return array<array<float>> */
     public static function provideSuccess(): array
     {
         return [
             [4.5],
             [4.0],
-            [4.999999]
+            [4.999999],
         ];
     }
 
+    /** @return array<array<scalar, string>> */
     public static function provideFailure(): array
     {
         return [
             [42, 'Expected value to be float. Got integer.'],
-            ['string', 'Expected value to be float. Got string.']
+            ['string', 'Expected value to be float. Got string.'],
         ];
     }
 }

@@ -23,7 +23,6 @@ final class IsEqualsToTest extends TestCase
      * @covers ::__construct()
      * @covers ::assert()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(mixed $first, mixed $second): void
@@ -38,7 +37,6 @@ final class IsEqualsToTest extends TestCase
      * @covers ::__construct()
      * @covers ::assert()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testAssertException(mixed $first, mixed $second, string $message): void
@@ -50,6 +48,7 @@ final class IsEqualsToTest extends TestCase
             ->assert($second);
     }
 
+    /** @return array<array<scalar|object, scalar|object>> */
     public static function provideSuccess(): array
     {
         $stdClass = new stdClass();
@@ -63,11 +62,20 @@ final class IsEqualsToTest extends TestCase
         ];
     }
 
+    /** @return array<array<scalar|object, scalar|object, string>> */
     public static function provideFailure(): array
     {
         return [
-            ['RandomString', 'Hello World', 'Expected value to be equals to "RandomString". Got "Hello World".'],
-            [new EqualityStub(), 5, 'Expected value to be equals to "Vivarium\Test\Equality\Stub\EqualityStub". Got 5.']
+            [
+                'RandomString',
+                'Hello World',
+                'Expected value to be equals to "RandomString". Got "Hello World".',
+            ],
+            [
+                new EqualityStub(),
+                5,
+                'Expected value to be equals to "Vivarium\Test\Equality\Stub\EqualityStub". Got 5.',
+            ],
         ];
     }
 }
