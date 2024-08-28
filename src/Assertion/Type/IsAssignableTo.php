@@ -12,14 +12,6 @@ namespace Vivarium\Assertion\Type;
 
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\Type\IsClassOrInterface;
-use Vivarium\Assertion\String\IsEmpty;
-use Vivarium\Assertion\Type\IsIntersection;
-use Vivarium\Assertion\Type\IsType;
-use Vivarium\Assertion\Type\IsUnion;
-
-use function sprintf;
 
 /** @template-implements Assertion<non-empty-string> */
 final class IsAssignableTo implements Assertion

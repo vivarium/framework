@@ -19,10 +19,9 @@ use Vivarium\Assertion\Var\IsInteger;
 final class IsCallableTest extends TestCase
 {
         /**
-     * @covers ::assert()
-     * 
-     * @dataProvider provideSuccess()
-     */
+         * @covers ::assert()
+         * @dataProvider provideSuccess()
+         */
     public function testAssert(mixed $var): void
     {
         static::expectNotToPerformAssertions();
@@ -33,7 +32,6 @@ final class IsCallableTest extends TestCase
 
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      */
     public function testAssertException(mixed $var, string $message): void
@@ -47,42 +45,46 @@ final class IsCallableTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(mixed $var): void
     {
         static::assertTrue(
-            (new IsCallable())($var)
+            (new IsCallable())($var),
         );
     }
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(mixed $var): void
     {
         static::assertFalse(
-            (new IsCallable())($var)
+            (new IsCallable())($var),
         );
     }
 
+    /** @return array<array<callable>> */
     public static function provideSuccess(): array
     {
         return [
             [new IsInteger()],
-            [function (): int { return 42; }],
-            [fn (int $a): int => $a]
+            [
+                static function (): int {
+                    return 42;
+                },
+            ],
+            [static fn (int $a): int => $a],
         ];
     }
 
+    /** @return array<array<scalar, string>> */
     public static function provideFailure(): array
     {
         return [
             [42, 'Expected value to be callable. Got integer.'],
-            ['string', 'Expected value to be callable. Got string.']
+            ['string', 'Expected value to be callable. Got string.'],
         ];
     }
 }

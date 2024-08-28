@@ -21,7 +21,6 @@ final class IsObjectTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(mixed $var): void
@@ -34,7 +33,6 @@ final class IsObjectTest extends TestCase
 
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      */
     public function testAssertException(mixed $var, string $message): void
@@ -48,28 +46,27 @@ final class IsObjectTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(mixed $var): void
     {
         static::assertTrue(
-            (new IsObject())($var)
+            (new IsObject())($var),
         );
     }
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(mixed $var): void
     {
         static::assertFalse(
-            (new IsObject())($var)
+            (new IsObject())($var),
         );
     }
 
+    /** @return array<array<object>> */
     public static function provideSuccess(): array
     {
         return [
@@ -78,11 +75,12 @@ final class IsObjectTest extends TestCase
         ];
     }
 
+    /** @return array<array<array|scalar, string>> */
     public static function provideFailure(): array
     {
         return [
             [[], 'Expected value to be object. Got array.'],
-            [42, 'Expected value to be object. Got integer.']
+            [42, 'Expected value to be object. Got integer.'],
         ];
     }
 }

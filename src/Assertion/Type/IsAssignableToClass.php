@@ -13,7 +13,6 @@ namespace Vivarium\Assertion\Type;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\Type\IsClassOrInterface;
 use Vivarium\Assertion\String\IsEmpty;
 
 use function is_a;

@@ -18,10 +18,9 @@ use Vivarium\Assertion\Var\IsString;
 final class IsStringTest extends TestCase
 {
         /**
-     * @covers ::assert()
-     * 
-     * @dataProvider provideSuccess()
-     */
+         * @covers ::assert()
+         * @dataProvider provideSuccess()
+         */
     public function testAssert(mixed $var): void
     {
         static::expectNotToPerformAssertions();
@@ -32,7 +31,6 @@ final class IsStringTest extends TestCase
 
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      */
     public function testAssertException(mixed $var, string $message): void
@@ -46,28 +44,27 @@ final class IsStringTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(mixed $var): void
     {
         static::assertTrue(
-            (new IsString())($var)
+            (new IsString())($var),
         );
     }
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(mixed $var): void
     {
         static::assertFalse(
-            (new IsString())($var)
+            (new IsString())($var),
         );
     }
 
+    /** @return array<string> */
     public static function provideSuccess(): array
     {
         return [
@@ -78,11 +75,12 @@ final class IsStringTest extends TestCase
         ];
     }
 
+    /** @return array<array<array|scalar, string>> */
     public static function provideFailure(): array
     {
         return [
             [[], 'Expected value to be string. Got array.'],
-            [42, 'Expected value to be string. Got integer.']
+            [42, 'Expected value to be string. Got integer.'],
         ];
     }
 }

@@ -25,7 +25,6 @@ final class IsInstanceOfTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(object $target, string $class): void
@@ -39,7 +38,6 @@ final class IsInstanceOfTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -53,28 +51,26 @@ final class IsInstanceOfTest extends TestCase
     }
 
         /**
-     * @covers ::__construct()
-     * @covers ::__invoke()
-     * 
-     * @dataProvider provideSuccess()
-     */
+         * @covers ::__construct()
+         * @covers ::__invoke()
+         * @dataProvider provideSuccess()
+         */
     public function testInvoke(object $target, string $class): void
     {
         static::assertTrue(
-            (new IsInstanceOf($class))($target)
+            (new IsInstanceOf($class))($target),
         );
     }
 
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(object $target, string $class): void
     {
         static::assertFalse(
-            (new IsInstanceOf($class))($target)
+            (new IsInstanceOf($class))($target),
         );
     }
 
@@ -92,9 +88,9 @@ final class IsInstanceOfTest extends TestCase
     {
         return [
             [
-                new stdClass(), 
-                Traversable::class, 
-                'Expected object to be instance of "Traversable". Got "stdClass".'
+                new stdClass(),
+                Traversable::class,
+                'Expected object to be instance of "Traversable". Got "stdClass".',
             ],
         ];
     }
@@ -103,15 +99,15 @@ final class IsInstanceOfTest extends TestCase
     {
         return [
             [
-                'RandomString', 
-                Traversable::class, 
-                'Expected value to be object. Got string.'
+                'RandomString',
+                Traversable::class,
+                'Expected value to be object. Got string.',
             ],
             [
                 new stdClass(),
                 'RandomString',
-                'Argument must be a class or interface name. Got "RandomString"'
-            ]
+                'Argument must be a class or interface name. Got "RandomString"',
+            ],
         ];
     }
 }

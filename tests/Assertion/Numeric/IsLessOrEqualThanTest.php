@@ -20,7 +20,6 @@ final class IsLessOrEqualThanTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(int $test, int $limit): void
@@ -34,7 +33,6 @@ final class IsLessOrEqualThanTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -50,26 +48,24 @@ final class IsLessOrEqualThanTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(int $test, int $limit): void
     {
         static::assertTrue(
-            (new IsLessOrEqualThan($limit))($test)
+            (new IsLessOrEqualThan($limit))($test),
         );
     }
 
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(int|float $test, int|float $limit): void
     {
         static::assertFalse(
-            (new IsLessOrEqualThan($limit))($test)
+            (new IsLessOrEqualThan($limit))($test),
         );
     }
 
@@ -78,7 +74,7 @@ final class IsLessOrEqualThanTest extends TestCase
         return [
             [10, 10],
             [10, 11],
-            [10, 42]
+            [10, 42],
         ];
     }
 
@@ -86,14 +82,14 @@ final class IsLessOrEqualThanTest extends TestCase
     {
         return [
             [10, 3, 'Expected number to be less or equal than 3. Got 10.'],
-            [10, 9.99, 'Expected number to be less or equal than 9.99. Got 10.']
+            [10, 9.99, 'Expected number to be less or equal than 9.99. Got 10.'],
         ];
     }
 
     public static function provideInvalid(): array
     {
         return [
-            ['String', 10, 'Expected value to be either integer or float. Got string.']
+            ['String', 10, 'Expected value to be either integer or float. Got string.'],
         ];
     }
 }

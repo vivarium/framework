@@ -16,7 +16,6 @@ final class IsClassOrInterfaceTest extends TestCase
     /**
      * @covers ::assert()
      * @covers ::__construct()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $type): void
@@ -27,10 +26,9 @@ final class IsClassOrInterfaceTest extends TestCase
             ->assert($type);
     }
 
-    /** 
+    /**
      * @covers ::assert()
      * @covers ::__construct()
-     *
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -46,7 +44,6 @@ final class IsClassOrInterfaceTest extends TestCase
     /**
      * @covers ::__invoke()
      * @covers ::__construct()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $type): void
@@ -59,13 +56,12 @@ final class IsClassOrInterfaceTest extends TestCase
     /**
      * @covers ::__invoke()
      * @covers ::__construct()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $type): void
     {
         static::assertFalse(
-            (new IsClassOrInterface())($type)
+            (new IsClassOrInterface())($type),
         );
     }
 
@@ -83,8 +79,8 @@ final class IsClassOrInterfaceTest extends TestCase
     {
         return [
             [
-                'NonExistentClass', 
-                'Expected string to be class or interface name. Got "NonExistentClass".'
+                'NonExistentClass',
+                'Expected string to be class or interface name. Got "NonExistentClass".',
             ],
         ];
     }
@@ -92,7 +88,7 @@ final class IsClassOrInterfaceTest extends TestCase
     public static function provideInvalid(): array
     {
         return [
-            [42, 'Expected string to be class or interface name. Got 42']
+            [42, 'Expected string to be class or interface name. Got 42'],
         ];
     }
 }

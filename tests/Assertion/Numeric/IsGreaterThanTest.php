@@ -20,7 +20,6 @@ final class IsGreaterThanTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(int $test, int $limit): void
@@ -34,7 +33,6 @@ final class IsGreaterThanTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -50,26 +48,24 @@ final class IsGreaterThanTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(int $test, int $limit): void
     {
         static::assertTrue(
-            (new IsGreaterThan($limit))($test)
+            (new IsGreaterThan($limit))($test),
         );
     }
 
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(int|float $test, int $limit): void
     {
         static::assertFalse(
-            (new IsGreaterThan($limit))($test)
+            (new IsGreaterThan($limit))($test),
         );
     }
 
@@ -77,7 +73,7 @@ final class IsGreaterThanTest extends TestCase
     {
         return [
             [11, 10],
-            [42, 10]
+            [42, 10],
         ];
     }
 
@@ -85,14 +81,14 @@ final class IsGreaterThanTest extends TestCase
     {
         return [
             [3, 10, 'Expected number to be greater than 10. Got 3.'],
-            [9.99, 10, 'Expected number to be greater than 10. Got 9.99.']
+            [9.99, 10, 'Expected number to be greater than 10. Got 9.99.'],
         ];
     }
 
     public static function provideInvalid(): array
     {
         return [
-            ['String', 10, 'Expected value to be either integer or float. Got string.']
+            ['String', 10, 'Expected value to be either integer or float. Got string.'],
         ];
     }
 }

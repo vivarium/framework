@@ -20,7 +20,6 @@ final class IsInClosedRangeTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(int|float $number, int|float $min, int|float $max): void
@@ -34,7 +33,6 @@ final class IsInClosedRangeTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -50,26 +48,24 @@ final class IsInClosedRangeTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(int|float $number, int|float $min, int|float $max): void
     {
         static::assertTrue(
-            (new IsInClosedRange($min, $max))($number)
+            (new IsInClosedRange($min, $max))($number),
         );
     }
 
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(int|float $number, int|float $min, int|float $max): void
     {
         static::assertFalse(
-            (new IsInClosedRange($min, $max))($number)
+            (new IsInClosedRange($min, $max))($number),
         );
     }
 
@@ -79,7 +75,7 @@ final class IsInClosedRangeTest extends TestCase
             [0, 0, 9],
             [9, 0, 9],
             [5, 0, 9],
-            [1, 1, 1]
+            [1, 1, 1],
         ];
     }
 
@@ -87,7 +83,7 @@ final class IsInClosedRangeTest extends TestCase
     {
         return [
             [10, 0, 9, 'Expected number to be in closed range [0, 9]. Got 10.'],
-            [9.0001, 0, 9, 'Expected number to be in closed range [0, 9]. Got 9.0001.']
+            [9.0001, 0, 9, 'Expected number to be in closed range [0, 9]. Got 9.0001.'],
         ];
     }
 
@@ -95,7 +91,7 @@ final class IsInClosedRangeTest extends TestCase
     {
         return [
             [5, 10, 0, 'Lower bound must be lower or equal than upper bound. Got [10, 0].'],
-            ['String', 0, 10, 'Expected value to be either integer or float. Got string.']
+            ['String', 0, 10, 'Expected value to be either integer or float. Got string.'],
         ];
     }
 }

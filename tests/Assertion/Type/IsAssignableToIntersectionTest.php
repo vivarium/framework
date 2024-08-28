@@ -13,13 +13,14 @@ use Vivarium\Test\Assertion\Stub\Stub;
 use Vivarium\Test\Assertion\Stub\StubClass;
 use Vivarium\Test\Assertion\Stub\StubClassExtension;
 
+use function sprintf;
+
 /** @coversDefaultClass \Vivarium\Assertion\Type\IsAssignableToIntersection */
 final class IsAssignableToIntersectionTest extends TestCase
 {
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $class, string $intersection): void
@@ -33,7 +34,6 @@ final class IsAssignableToIntersectionTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -49,26 +49,24 @@ final class IsAssignableToIntersectionTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $class, string $intersection): void
     {
         static::assertTrue(
-            (new IsAssignableToIntersection($intersection))($class)
+            (new IsAssignableToIntersection($intersection))($class),
         );
     }
 
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $class, string $intersection): void
     {
         static::assertFalse(
-            (new IsAssignableToIntersection($intersection))($class)
+            (new IsAssignableToIntersection($intersection))($class),
         );
     }
 
@@ -76,9 +74,9 @@ final class IsAssignableToIntersectionTest extends TestCase
     {
         return [
             [
-                StubClassExtension::class, 
-                Stub::class . '&' . InvokableStub::class
-            ]
+                StubClassExtension::class,
+                Stub::class . '&' . InvokableStub::class,
+            ],
         ];
     }
 
@@ -86,14 +84,14 @@ final class IsAssignableToIntersectionTest extends TestCase
     {
         return [
             [
-                StubClass::class, 
-                Stub::class . '&' . InvokableStub::class, 
+                StubClass::class,
+                Stub::class . '&' . InvokableStub::class,
                 sprintf(
                     'Expected class to be assignable to intersection "%s" Got "%s".',
                     Stub::class . '&' . InvokableStub::class,
                     StubClass::class,
-                )
-            ]
+                ),
+            ],
         ];
     }
 
@@ -103,8 +101,8 @@ final class IsAssignableToIntersectionTest extends TestCase
             [
                 stdClass::class,
                 'int&string',
-                'Expected string to be intersection. Got "int&string".'
-            ]
+                'Expected string to be intersection. Got "int&string".',
+            ],
         ];
     }
 }

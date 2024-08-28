@@ -13,10 +13,9 @@ use Vivarium\Test\Assertion\Stub\StubClass;
 /** @coversDefaultClass \Vivarium\Assertion\Object\HasProperty */
 final class HasPropertyTest extends TestCase
 {
-    /** 
+    /**
      * @covers ::__construct()
      * @covers ::assert()
-     *  
      * @dataProvider provideSuccess()
      */
     public function testAssert(string|object $class, string $method): void
@@ -27,10 +26,9 @@ final class HasPropertyTest extends TestCase
             ->assert($class);
     }
 
-    /** 
+    /**
      * @covers ::__construct()
-     * @covers ::assert() 
-     * 
+     * @covers ::assert()
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -43,29 +41,27 @@ final class HasPropertyTest extends TestCase
             ->assert($class);
     }
 
-    /** 
+    /**
      * @covers ::__construct()
-     * @covers ::__invoke() 
-     *
+     * @covers ::__invoke()
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string|object $class, string $method): void
     {
         static::assertTrue(
-            (new HasProperty($method))($class)
+            (new HasProperty($method))($class),
         );
     }
 
-    /** 
+    /**
      * @covers ::__construct()
-     * @covers ::__invoke() 
-     *
+     * @covers ::__invoke()
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string|object $class, string $method): void
     {
         static::assertFalse(
-            (new HasProperty($method))($class)
+            (new HasProperty($method))($class),
         );
     }
 
@@ -73,7 +69,7 @@ final class HasPropertyTest extends TestCase
     {
         return [
             [StubClass::class, 'prop'],
-            [new StubClass(), 'prop']
+            [new StubClass(), 'prop'],
         ];
     }
 
@@ -87,7 +83,7 @@ final class HasPropertyTest extends TestCase
     public static function provideInvalid(): array
     {
         return [
-            ['RandomString', 'prop', 'Value must be either class, interface or object. Got "RandomString"']
+            ['RandomString', 'prop', 'Value must be either class, interface or object. Got "RandomString"'],
         ];
     }
 }

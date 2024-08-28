@@ -13,9 +13,7 @@ namespace Vivarium\Assertion\Type;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
-use Vivarium\Assertion\Type\IsBasicType;
 use Vivarium\Assertion\String\IsEmpty;
-use Vivarium\Assertion\Type\IsIntersection;
 
 use function explode;
 use function sprintf;

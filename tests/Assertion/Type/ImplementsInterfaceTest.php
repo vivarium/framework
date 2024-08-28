@@ -24,7 +24,6 @@ final class ImplementsInterfaceTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $class, string $interface): void
@@ -38,7 +37,6 @@ final class ImplementsInterfaceTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -54,33 +52,31 @@ final class ImplementsInterfaceTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $class, string $interface): void
     {
         static::assertTrue(
-            (new ImplementsInterface($interface))($class)
+            (new ImplementsInterface($interface))($class),
         );
     }
 
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $class, string $interface): void
     {
         static::assertFalse(
-            (new ImplementsInterface($interface))($class)
+            (new ImplementsInterface($interface))($class),
         );
     }
 
     public static function provideSuccess(): array
     {
         return [
-            [StubClass::class, Stub::class]
+            [StubClass::class, Stub::class],
         ];
     }
 
@@ -88,9 +84,9 @@ final class ImplementsInterfaceTest extends TestCase
     {
         return [
             [
-                stdClass::class, 
-                Traversable::class, 
-                'Expected class "stdClass" to implements "Traversable".'
+                stdClass::class,
+                Traversable::class,
+                'Expected class "stdClass" to implements "Traversable".',
             ],
         ];
     }
@@ -99,15 +95,15 @@ final class ImplementsInterfaceTest extends TestCase
     {
         return [
             [
-                stdClass::class, 
-                stdClass::class, 
-                'Expected string to be interface name. Got "stdClass".'
+                stdClass::class,
+                stdClass::class,
+                'Expected string to be interface name. Got "stdClass".',
             ],
             [
-                Traversable::class, 
-                Traversable::class, 
-                'Expected string to be class name. Got "Traversable".'
-            ]
+                Traversable::class,
+                Traversable::class,
+                'Expected string to be class name. Got "Traversable".',
+            ],
         ];
     }
 }

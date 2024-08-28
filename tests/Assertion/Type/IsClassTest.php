@@ -21,7 +21,6 @@ final class IsClassTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $type): void
@@ -32,9 +31,8 @@ final class IsClassTest extends TestCase
             ->assert($type);
     }
 
-    /** 
-     * @covers ::assert() 
-     *
+    /**
+     * @covers ::assert()
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -49,7 +47,6 @@ final class IsClassTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $type): void
@@ -61,13 +58,12 @@ final class IsClassTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $type): void
     {
         static::assertFalse(
-            (new IsClass())($type)
+            (new IsClass())($type),
         );
     }
 
@@ -84,20 +80,20 @@ final class IsClassTest extends TestCase
     {
         return [
             [
-                'NonExistentClass', 
-                'Expected string to be class name. Got "NonExistentClass".'
+                'NonExistentClass',
+                'Expected string to be class name. Got "NonExistentClass".',
             ],
             [
                 Stub::class,
-                'Expected string to be class name. Got "Vivarium\Test\Assertion\Stub\Stub".'
-            ]
+                'Expected string to be class name. Got "Vivarium\Test\Assertion\Stub\Stub".',
+            ],
         ];
     }
 
     public static function provideInvalid(): array
     {
         return [
-            [42, 'Expected value to be string. Got integer.']
+            [42, 'Expected value to be string. Got integer.'],
         ];
     }
 }

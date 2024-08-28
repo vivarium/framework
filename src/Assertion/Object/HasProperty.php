@@ -12,7 +12,7 @@ use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\Type\IsClassOrInterface;
 use Vivarium\Assertion\Var\IsObject;
 
-use function method_exists;
+use function property_exists;
 use function sprintf;
 
 /** @template-implements Assertion<class-string|object> */

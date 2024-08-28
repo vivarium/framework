@@ -19,7 +19,6 @@ final class IsEncodingTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $encoding): void
@@ -31,7 +30,6 @@ final class IsEncodingTest extends TestCase
 
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -45,25 +43,23 @@ final class IsEncodingTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $encoding): void
     {
         static::assertTrue(
-            (new IsEncoding())($encoding)
+            (new IsEncoding())($encoding),
         );
     }
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string|int $encoding): void
     {
         static::assertFalse(
-            (new IsEncoding())($encoding)
+            (new IsEncoding())($encoding),
         );
     }
 
@@ -72,21 +68,21 @@ final class IsEncodingTest extends TestCase
         return [
             ['UTF-8'],
             ['UTF-32'],
-            ['ASCII']
+            ['ASCII'],
         ];
     }
 
     public static function provideFailure(): array
     {
         return [
-            ['Windows-1251', '"Windows-1251" is not a valid encoding.']
+            ['Windows-1251', '"Windows-1251" is not a valid encoding.'],
         ];
     }
 
     public static function provideInvalid(): array
     {
         return [
-            [42, 'Expected value to be string. Got integer.']
+            [42, 'Expected value to be string. Got integer.'],
         ];
     }
 }

@@ -20,7 +20,6 @@ class ContainsTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $string, string $substring): void
@@ -34,7 +33,6 @@ class ContainsTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideNonValid()
      */
@@ -48,9 +46,8 @@ class ContainsTest extends TestCase
     }
 
     /**
-     * @covers ::__construct() 
+     * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $string, string $substring): void
@@ -59,9 +56,8 @@ class ContainsTest extends TestCase
     }
 
     /**
-     * @covers ::__construct() 
+     * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $string, string $substring): void
@@ -77,7 +73,7 @@ class ContainsTest extends TestCase
             ['Hello World', 'Hello'],
             ['Hello World', 'World'],
             ['Hello World', 'lo Wo'],
-            ['Hello World', ' ']
+            ['Hello World', ' '],
         ];
     }
 
@@ -85,14 +81,14 @@ class ContainsTest extends TestCase
     {
         return [
             ['Hello World', 'Foo', 'Expected that string contains "Foo".'],
-            ['Hello World', '  ', 'Expected that string contains "  ".']
+            ['Hello World', '  ', 'Expected that string contains "  ".'],
         ];
     }
 
     public static function provideNonValid(): array
     {
         return [
-            [42, 'Foo', 'Expected value to be string. Got integer.']
+            [42, 'Foo', 'Expected value to be string. Got integer.'],
         ];
     }
 }

@@ -20,7 +20,6 @@ final class IsLongTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $string, int $length, string $encoding): void
@@ -34,7 +33,6 @@ final class IsLongTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideNonValid()
      */
@@ -48,11 +46,10 @@ final class IsLongTest extends TestCase
     }
 
         /**
-     * @covers ::__construct()
-     * @covers ::__invoke()
-     * 
-     * @dataProvider provideSuccess()
-     */
+         * @covers ::__construct()
+         * @covers ::__invoke()
+         * @dataProvider provideSuccess()
+         */
     public function testInvoke(string $string, int $length, string $encoding): void
     {
         static::assertTrue((new IsLong($length, $encoding))($string));
@@ -61,7 +58,6 @@ final class IsLongTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string|int $string, int $length, string $encoding, string $message): void
@@ -73,7 +69,7 @@ final class IsLongTest extends TestCase
     {
         return [
             ['Hello World', 11, 'UTF-8'],
-            ['π', 1, 'UTF-8']
+            ['π', 1, 'UTF-8'],
         ];
     }
 
@@ -81,7 +77,7 @@ final class IsLongTest extends TestCase
     {
         return [
             ['Hello', 6, 'UTF-8', 'Expected string to be long 6. Got 5.'],
-            ['π', 2, 'UTF-8', 'Expected string to be long 2. Got 1.']
+            ['π', 2, 'UTF-8', 'Expected string to be long 2. Got 1.'],
         ];
     }
 
@@ -89,7 +85,7 @@ final class IsLongTest extends TestCase
     {
         return [
             ['Hello', 6, 'Foo', '"Foo" is not a valid system encoding.'],
-            [42, 3, 'UTF-8', 'Expected value to be string. Got integer.']
+            [42, 3, 'UTF-8', 'Expected value to be string. Got integer.'],
         ];
     }
 }

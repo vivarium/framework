@@ -20,7 +20,6 @@ final class IsLongAtLeastTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $string, int $length, string $encoding): void
@@ -34,7 +33,6 @@ final class IsLongAtLeastTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideNonValid()
      */
@@ -48,11 +46,10 @@ final class IsLongAtLeastTest extends TestCase
     }
 
         /**
-     * @covers ::__construct()
-     * @covers ::__invoke()
-     * 
-     * @dataProvider provideSuccess()
-     */
+         * @covers ::__construct()
+         * @covers ::__invoke()
+         * @dataProvider provideSuccess()
+         */
     public function testInvoke(string $string, int $length, string $encoding): void
     {
         static::assertTrue((new IsLongAtLeast($length, $encoding))($string));
@@ -61,7 +58,6 @@ final class IsLongAtLeastTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $string, int $length, string $encoding): void
@@ -74,7 +70,7 @@ final class IsLongAtLeastTest extends TestCase
         return [
             ['Hello', 3, 'UTF-8'],
             ['Hello', 5, 'UTF-8'],
-            ['π', 1, 'UTF-8']
+            ['π', 1, 'UTF-8'],
         ];
     }
 
@@ -82,7 +78,7 @@ final class IsLongAtLeastTest extends TestCase
     {
         return [
             ['Hello', 6, 'UTF-8', 'Expected string to be long at least 6. Got 5'],
-            ['π', 2, 'UTF-8', 'Expected string to be long at least 2. Got 1.']
+            ['π', 2, 'UTF-8', 'Expected string to be long at least 2. Got 1.'],
         ];
     }
 
@@ -91,7 +87,7 @@ final class IsLongAtLeastTest extends TestCase
         return [
             ['Hello', 3, 'Foo', '"Foo" is not a valid system encoding.'],
             ['Hello', 0, 'UTF-8', 'Expected number to be greater than 0. Got 0.'],
-            [42, 5, 'UTF-8', 'Expected value to be string. Got integer.']
+            [42, 5, 'UTF-8', 'Expected value to be string. Got integer.'],
         ];
     }
 }

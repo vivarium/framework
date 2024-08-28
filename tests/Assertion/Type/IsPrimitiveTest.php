@@ -24,9 +24,8 @@ final class IsPrimitiveTest extends TestCase
             ->assert($type);
     }
 
-    /** 
-     * @covers ::assert() 
-     * 
+    /**
+     * @covers ::assert()
      * @dataProvider provideFailure()
      */
     public function testAssertException(string $type, string $message): void
@@ -40,25 +39,23 @@ final class IsPrimitiveTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $type): void
     {
         static::assertTrue(
-            (new IsPrimitive())($type)
+            (new IsPrimitive())($type),
         );
     }
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $type): void
     {
         static::assertFalse(
-            (new IsPrimitive())($type)
+            (new IsPrimitive())($type),
         );
     }
 
@@ -79,7 +76,7 @@ final class IsPrimitiveTest extends TestCase
     {
         return [
             ['RandomString', 'Expected string to be a primitive type. Got "RandomString".'],
-            [Stub::class, 'Expected string to be a primitive type. Got "Vivarium\Test\Assertion\Stub\Stub".']
+            [Stub::class, 'Expected string to be a primitive type. Got "Vivarium\Test\Assertion\Stub\Stub".'],
         ];
     }
 }

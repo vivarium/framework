@@ -20,7 +20,6 @@ class EndsWithTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $string, string $end): void
@@ -34,7 +33,6 @@ class EndsWithTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideNonValid()
      */
@@ -50,7 +48,6 @@ class EndsWithTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $string, string $end): void
@@ -61,7 +58,6 @@ class EndsWithTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $string, string $end): void
@@ -73,21 +69,21 @@ class EndsWithTest extends TestCase
     {
         return [
             ['Hello World', 'd'],
-            ['Hello World', ' World']
+            ['Hello World', ' World'],
         ];
     }
 
     public static function provideFailure(): array
     {
         return [
-            ['Foo Bar', 'd', 'Expected that string "Foo Bar" ends with "d".']
+            ['Foo Bar', 'd', 'Expected that string "Foo Bar" ends with "d".'],
         ];
     }
 
     public static function provideNonValid(): array
     {
         return [
-            [42, 'Hello', 'Expected value to be string. Got integer.']
+            [42, 'Hello', 'Expected value to be string. Got integer.'],
         ];
     }
 }

@@ -19,7 +19,6 @@ final class IsArrayTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(mixed $var): void
@@ -32,7 +31,6 @@ final class IsArrayTest extends TestCase
 
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      */
     public function testAssertException(mixed $var, string $message): void
@@ -46,42 +44,42 @@ final class IsArrayTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(mixed $var): void
     {
         static::assertTrue(
-            (new IsArray())($var)
+            (new IsArray())($var),
         );
     }
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(mixed $var): void
     {
         static::assertFalse(
-            (new IsArray())($var)
+            (new IsArray())($var),
         );
     }
 
+    /** @return array<array<scalar>> */
     public static function provideSuccess(): array
     {
         return [
             [[]],
             [[1, 2, 3]],
-            [['a', 'b', 'c']]
+            [['a', 'b', 'c']],
         ];
     }
 
+    /** @return array<array<scalar, string>> */
     public static function provideFailure(): array
     {
         return [
             [42, 'Expected value to be array. Got integer.'],
-            ['string', 'Expected value to be array. Got string.']
+            ['string', 'Expected value to be array. Got string.'],
         ];
     }
 }

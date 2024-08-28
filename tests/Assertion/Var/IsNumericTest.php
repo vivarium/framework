@@ -20,7 +20,6 @@ final class IsNumericTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(mixed $var): void
@@ -34,7 +33,6 @@ final class IsNumericTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      */
     public function testAssertException(mixed $var, string $message): void
@@ -49,29 +47,28 @@ final class IsNumericTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(mixed $var): void
     {
         static::assertTrue(
-            (new IsNumeric())($var)
+            (new IsNumeric())($var),
         );
     }
 
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(mixed $var): void
     {
         static::assertFalse(
-            (new IsNumeric())($var)
+            (new IsNumeric())($var),
         );
     }
 
+    /** @return array<array<int|float>> */
     public static function provideSuccess(): array
     {
         return [
@@ -80,15 +77,16 @@ final class IsNumericTest extends TestCase
             [-1],
             [4.0],
             [4.5],
-            [4.99999]
+            [4.99999],
         ];
     }
 
+    /** @return array<array<array|scalar, string>> */
     public static function provideFailure(): array
     {
         return [
             [[], 'Expected value to be either integer or float. Got array.'],
-            ['String', 'Expected value to be either integer or float. Got string.']
+            ['String', 'Expected value to be either integer or float. Got string.'],
         ];
     }
 }

@@ -14,7 +14,6 @@ final class IsIntersectionTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $type): void
@@ -25,9 +24,8 @@ final class IsIntersectionTest extends TestCase
             ->assert($type);
     }
 
-    /** 
-     * @covers ::assert() 
-     *
+    /**
+     * @covers ::assert()
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -42,7 +40,6 @@ final class IsIntersectionTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $type): void
@@ -54,13 +51,12 @@ final class IsIntersectionTest extends TestCase
 
     /**
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $type): void
     {
         static::assertFalse(
-            (new IsIntersection())($type)
+            (new IsIntersection())($type),
         );
     }
 
@@ -68,7 +64,7 @@ final class IsIntersectionTest extends TestCase
     public static function provideSuccess(): array
     {
         return [
-            ['stdClass&Vivarium\Test\Assertion\Stub\StubClass']
+            ['stdClass&Vivarium\Test\Assertion\Stub\StubClass'],
         ];
     }
 
@@ -76,32 +72,32 @@ final class IsIntersectionTest extends TestCase
     {
         return [
             [
-                'NonExistentClass&stdClass', 
-                'Expected string to be intersection. Got "NonExistentClass&stdClass".'
+                'NonExistentClass&stdClass',
+                'Expected string to be intersection. Got "NonExistentClass&stdClass".',
             ],
             [
                 StubClass::class,
-                'Expected string to be intersection. Got "Vivarium\Test\Assertion\Stub\StubClass".'
+                'Expected string to be intersection. Got "Vivarium\Test\Assertion\Stub\StubClass".',
             ],
             [
                 'int&float',
-                'Expected string to be intersection. Got "int&float".'
+                'Expected string to be intersection. Got "int&float".',
             ],
             [
                 'stdClass&stdClass',
-                'Expected string to be intersection. Got "stdClass&stdClass".'
+                'Expected string to be intersection. Got "stdClass&stdClass".',
             ],
             [
                 'Vivarium\Test\Assertion\Stub\StubClass&',
-                'Expected string to be intersection. Got "Vivarium\Test\Assertion\Stub\StubClass&".'
-            ]
+                'Expected string to be intersection. Got "Vivarium\Test\Assertion\Stub\StubClass&".',
+            ],
         ];
     }
 
     public static function provideInvalid(): array
     {
         return [
-            [42, 'Expected value to be string. Got integer']
+            [42, 'Expected value to be string. Got integer'],
         ];
     }
 }

@@ -11,13 +11,14 @@ use Vivarium\Assertion\Type\IsAssignableToPrimitive;
 use Vivarium\Test\Assertion\Stub\StubClass;
 use Vivarium\Test\Assertion\Stub\StubClassExtension;
 
+use function sprintf;
+
 /** @coversDefaultClass \Vivarium\Assertion\Type\IsAssignableToPrimitive */
 final class IsAssignableToPrimitiveTest extends TestCase
 {
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $type, string $primitive): void
@@ -31,7 +32,6 @@ final class IsAssignableToPrimitiveTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -47,26 +47,24 @@ final class IsAssignableToPrimitiveTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $type, string $primitive): void
     {
         static::assertTrue(
-            (new IsAssignableToPrimitive($primitive))($type)
+            (new IsAssignableToPrimitive($primitive))($type),
         );
     }
 
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $type, string $primitive): void
     {
         static::assertFalse(
-            (new IsAssignableToPrimitive($primitive))($type)
+            (new IsAssignableToPrimitive($primitive))($type),
         );
     }
 
@@ -85,18 +83,18 @@ final class IsAssignableToPrimitiveTest extends TestCase
     {
         return [
             [
-                'float', 
-                'int', 
-                'Expected type to be assignable to primitive type "int". Got "float".'
+                'float',
+                'int',
+                'Expected type to be assignable to primitive type "int". Got "float".',
             ],
             [
-                StubClass::class, 
+                StubClass::class,
                 'int',
                 sprintf(
                     'Expected type to be assignable to primitive type "int". Got "%s".',
-                    StubClass::class
-                )
-            ]
+                    StubClass::class,
+                ),
+            ],
         ];
     }
 
@@ -106,8 +104,8 @@ final class IsAssignableToPrimitiveTest extends TestCase
             [
                 stdClass::class,
                 'RandomString',
-                'Expected string to be a primitive type. Got "RandomString".'
-            ]
+                'Expected string to be a primitive type. Got "RandomString".',
+            ],
         ];
     }
 }

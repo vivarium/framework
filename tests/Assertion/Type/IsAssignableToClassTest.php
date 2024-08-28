@@ -25,7 +25,6 @@ final class IsAssignableToClassTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $class, string $interface): void
@@ -39,7 +38,6 @@ final class IsAssignableToClassTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -55,26 +53,24 @@ final class IsAssignableToClassTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $class, string $interface): void
     {
         static::assertTrue(
-            (new IsAssignableToClass($interface))($class)
+            (new IsAssignableToClass($interface))($class),
         );
     }
 
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $class, string $interface): void
     {
         static::assertFalse(
-            (new IsAssignableToClass($interface))($class)
+            (new IsAssignableToClass($interface))($class),
         );
     }
 
@@ -83,7 +79,7 @@ final class IsAssignableToClassTest extends TestCase
         return [
             [Stub::class, Stub::class],
             [StubClass::class, Stub::class],
-            [StubClassExtension::class, StubClass::class]
+            [StubClassExtension::class, StubClass::class],
         ];
     }
 
@@ -91,14 +87,14 @@ final class IsAssignableToClassTest extends TestCase
     {
         return [
             [
-                StubClass::class, 
-                StubClassExtension::class, 
+                StubClass::class,
+                StubClassExtension::class,
                 sprintf(
                     'Expected class "%s" to be assignable to "%2$s".',
                     StubClass::class,
                     StubClassExtension::class,
-                )
-            ]
+                ),
+            ],
         ];
     }
 
@@ -106,15 +102,15 @@ final class IsAssignableToClassTest extends TestCase
     {
         return [
             [
-                StubClass::class, 
-                'RandomString', 
-                'Expected string to be class or interface name. Got "RandomString"'
+                StubClass::class,
+                'RandomString',
+                'Expected string to be class or interface name. Got "RandomString"',
             ],
             [
-                'RandomString', 
-                StubClass::class, 
-                'Expected string to be class or interface name. Got "RandomString"'
-            ]
+                'RandomString',
+                StubClass::class,
+                'Expected string to be class or interface name. Got "RandomString"',
+            ],
         ];
     }
 }

@@ -10,13 +10,14 @@ use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsAssignableToUnion;
 use Vivarium\Test\Assertion\Stub\StubClass;
 
+use function sprintf;
+
 /** @coversDefaultClass \Vivarium\Assertion\Type\IsAssignableToUnion */
 final class IsAssignableToUnionTest extends TestCase
 {
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $type, string $union): void
@@ -30,7 +31,6 @@ final class IsAssignableToUnionTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * 
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -46,26 +46,24 @@ final class IsAssignableToUnionTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideSuccess()
      */
     public function testInvoke(string $type, string $union): void
     {
         static::assertTrue(
-            (new IsAssignableToUnion($union))($type)
+            (new IsAssignableToUnion($union))($type),
         );
     }
 
     /**
      * @covers ::__construct()
      * @covers ::__invoke()
-     * 
      * @dataProvider provideFailure()
      */
     public function testInvokeFailure(string $type, string $union): void
     {
         static::assertFalse(
-            (new IsAssignableToUnion($union))($type)
+            (new IsAssignableToUnion($union))($type),
         );
     }
 
@@ -73,21 +71,21 @@ final class IsAssignableToUnionTest extends TestCase
     {
         return [
             [
-                stdClass::class, 
-                stdClass::class . '|' . StubClass::class
+                stdClass::class,
+                stdClass::class . '|' . StubClass::class,
             ],
             [
-                StubClass::class, 
-                stdClass::class . '|' . StubClass::class
+                StubClass::class,
+                stdClass::class . '|' . StubClass::class,
             ],
             [
                 'int',
-                'int|float'
+                'int|float',
             ],
             [
                 'float',
-                'int|float'
-            ]
+                'int|float',
+            ],
         ];
     }
 
@@ -95,21 +93,21 @@ final class IsAssignableToUnionTest extends TestCase
     {
         return [
             [
-                'float', 
-                stdClass::class . '|' . StubClass::class, 
+                'float',
+                stdClass::class . '|' . StubClass::class,
                 sprintf(
                     'Expected type to be assignable to union "%s" Got "float".',
                     stdClass::class . '|' . StubClass::class,
-                )
+                ),
             ],
             [
-                StubClass::class, 
+                StubClass::class,
                 'int|float',
                 sprintf(
                     'Expected type to be assignable to union "int|float" Got "%s".',
-                    StubClass::class
-                )
-            ]
+                    StubClass::class,
+                ),
+            ],
         ];
     }
 
@@ -119,8 +117,8 @@ final class IsAssignableToUnionTest extends TestCase
             [
                 stdClass::class,
                 'Foo&Bar',
-                'Expected string to be union. Got "Foo&Bar".'
-            ]
+                'Expected string to be union. Got "Foo&Bar".',
+            ],
         ];
     }
 }
