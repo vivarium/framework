@@ -121,7 +121,7 @@ final class CheckTest extends CheckTestCase
      * @covers ::type()
      * @covers ::__call()
      * 
-     * @dataProvider Vivarium\Test\Check\CheckIfStringTest::provideMethods()
+     * @dataProvider Vivarium\Test\Check\CheckIfTypeTest::provideMethods()
      */
     public function testType(string $method): void
     {
