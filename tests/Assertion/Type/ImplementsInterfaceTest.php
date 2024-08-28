@@ -15,6 +15,8 @@ use stdClass;
 use Traversable;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\ImplementsInterface;
+use Vivarium\Test\Assertion\Stub\Stub;
+use Vivarium\Test\Assertion\Stub\StubClass;
 
 /** @coversDefaultClass \Vivarium\Assertion\Type\ImplementsInterface */
 final class ImplementsInterfaceTest extends TestCase
@@ -22,52 +24,90 @@ final class ImplementsInterfaceTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssert(): void
+    public function testAssert(string $class, string $interface): void
     {
         static::expectNotToPerformAssertions();
 
-        $mock = $this->createMock(Traversable::class);
-
-        (new ImplementsInterface(Traversable::class))
-            ->assert($mock::class);
+        (new ImplementsInterface($interface))
+            ->assert($class);
     }
 
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     * @dataProvider provideInvalid()
      */
-    public function testAssertException(): void
+    public function testAssertException(string $class, string $interface, string $message): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected class "stdClass" to implements "Traversable".');
+        static::expectExceptionMessage($message);
 
-        (new ImplementsInterface(Traversable::class))
-            ->assert(stdClass::class);
-    }
-
-    /** @covers ::assert() */
-    public function testAssertWithoutInterface(): void
-    {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be interface name. Got "stdClass".');
-
-        (new ImplementsInterface(stdClass::class))
-            ->assert(stdClass::class);
+        (new ImplementsInterface($interface))
+            ->assert($class);
     }
 
     /**
-     * @covers ::assert()
+     * @covers ::__construct()
      * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssertWithoutClass(): void
+    public function testInvoke(string $class, string $interface): void
     {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be a class name. Got "Traversable".');
+        static::assertTrue(
+            (new ImplementsInterface($interface))($class)
+        );
+    }
 
-        (new ImplementsInterface(Traversable::class))
-            ->assert(Traversable::class);
+    /**
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testInvokeFailure(string $class, string $interface): void
+    {
+        static::assertFalse(
+            (new ImplementsInterface($interface))($class)
+        );
+    }
+
+    public static function provideSuccess(): array
+    {
+        return [
+            [StubClass::class, Stub::class]
+        ];
+    }
+
+    public static function provideFailure(): array
+    {
+        return [
+            [
+                stdClass::class, 
+                Traversable::class, 
+                'Expected class "stdClass" to implements "Traversable".'
+            ],
+        ];
+    }
+
+    public static function provideInvalid(): array
+    {
+        return [
+            [
+                stdClass::class, 
+                stdClass::class, 
+                'Expected string to be interface name. Got "stdClass".'
+            ],
+            [
+                Traversable::class, 
+                Traversable::class, 
+                'Expected string to be class name. Got "Traversable".'
+            ]
+        ];
     }
 }

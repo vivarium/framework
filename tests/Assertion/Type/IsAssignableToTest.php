@@ -13,117 +13,90 @@ namespace Vivarium\Test\Assertion\Type;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsAssignableTo;
-use Vivarium\Test\Assertion\Stub\InvokableStub;
-use Vivarium\Test\Assertion\Stub\Stub;
 use Vivarium\Test\Assertion\Stub\StubClass;
-use Vivarium\Test\Assertion\Stub\StubClassExtension;
 
 use function sprintf;
+use function array_merge;
 
 /** @coversDefaultClass \Vivarium\Assertion\Type\IsAssignableTo */
 final class IsAssignableToTest extends TestCase
 {
     /**
-     * @covers ::assert()
-     * @covers ::__invoke()
+     * @covers ::__construct()
      * @covers ::getAssertion()
-     * @dataProvider pairAssignmentProvider()
+     * @covers ::assert()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssert(string $type, string $assign): void
+    public function testAssert(string $type, string $target): void
     {
         static::expectNotToPerformAssertions();
 
-        (new IsAssignableTo($type))
-            ->assert($assign);
+        (new IsAssignableTo($target))
+            ->assert($type);
     }
 
     /**
-     * @covers ::__invoke()
+     * @covers ::__construct()
      * @covers ::getAssertion()
-     * @dataProvider pairAssignmentProvider()
+     * @covers ::assert()
+     * 
+     * @dataProvider provideFailure()
      */
-    public function testInvoke(string $type, string $assign): void
+    public function testAssertException(string $type, string $target, string $message): void
     {
-        static::assertTrue((new IsAssignableTo($type))($assign));
+        static::expectException(AssertionFailed::class);
+        static::expectExceptionMessage($message);
+
+        (new IsAssignableTo($target))
+            ->assert($type);
     }
 
     /**
      * @covers ::__construct()
-     * @covers ::assert()
+     * @covers ::getAssertion()
      * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssertException(): void
+    public function testInvoke(string $type, string $target): void
     {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage(
-            sprintf(
-                'Expected type "%s" to be assignable to "%2$s".',
-                Stub::class,
-                StubClassExtension::class,
-            ),
+        static::assertTrue(
+            (new IsAssignableTo($target))($type)
         );
-
-        (new IsAssignableTo(StubClassExtension::class))
-            ->assert(Stub::class);
-    }
-
-    /** @covers ::__construct() */
-    public function testConstructorWithoutClass(): void
-    {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage(
-            'Expected string to be a primitive, class, interface, union or intersection. Got "RandomString"',
-        );
-
-        /**
-         * This is covered by static analysis, but it is a valid runtime call
-         *
-         * @psalm-suppress ArgumentTypeCoercion
-         * @psalm-suppress UndefinedClass
-         */
-        (new IsAssignableTo('RandomString'))
-            ->assert(Stub::class);
     }
 
     /**
      * @covers ::__construct()
-     * @covers ::assert()
+     * @covers ::getAssertion()
      * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
      */
-    public function testAssertWithoutClass(): void
-    {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage(
-            'Expected string to be a primitive, class, interface, union or intersection. Got "RandomString".',
-        );
-
-        (new IsAssignableTo(Stub::class))
-            ->assert('RandomString');
-    }
-
-    /** @covers ::__invoke() */
-    public function testInvokeFalsy(): void
+    public function testInvokeFailure(string $type, string $target): void
     {
         static::assertFalse(
-            (new IsAssignableTo(StubClassExtension::class))('string'),
+            (new IsAssignableTo($target))($type)
         );
     }
 
-    /** @return array<array<string>> */
-    public static function pairAssignmentProvider(): array
+    public static function provideSuccess(): array
     {
-        return [
-            [Stub::class, Stub::class],
-            [Stub::class, StubClass::class],
-            [Stub::class, StubClassExtension::class],
-            [StubClass::class, StubClassExtension::class],
-            ['float', 'int'],
-            ['string', 'string'],
-            ['callable', InvokableStub::class],
-            ['string', StubClass::class],
-            ['stdClass|' . StubClass::class, 'stdClass'],
-            ['stdClass|' . StubClass::class, StubClassExtension::class],
-            [Stub::class . '&' . InvokableStub::class, StubClassExtension::class],
-        ];
+        return array_merge(
+            IsAssignableToClassTest::provideSuccess(),
+            IsAssignableToIntersectionTest::provideSuccess(),
+            IsAssignableToPrimitiveTest::provideSuccess(),
+            IsAssignableToUnionTest::provideSuccess()
+        );
+    }
+
+    public static function provideFailure(): array
+    {
+        return array_merge(
+            IsAssignableToClassTest::provideFailure(),
+            IsAssignableToIntersectionTest::provideFailure(),
+            IsAssignableToPrimitiveTest::provideFailure(),
+            IsAssignableToUnionTest::provideFailure()
+        );
     }
 }

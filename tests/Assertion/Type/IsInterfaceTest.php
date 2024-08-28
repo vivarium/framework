@@ -90,7 +90,7 @@ final class IsInterfaceTest extends TestCase
             ],
             [
                 StubClass::class,
-                'Expected string to be interface name. Got "Vivarium\Test\Assertion\Stub".'
+                'Expected string to be interface name. Got "Vivarium\Test\Assertion\Stub\StubClass".'
             ]
         ];
     }

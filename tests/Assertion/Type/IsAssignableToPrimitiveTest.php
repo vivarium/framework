@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vivarium\Test\Assertion\Type;
 
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsAssignableToPrimitive;
 use Vivarium\Test\Assertion\Stub\StubClass;
@@ -14,10 +15,12 @@ use Vivarium\Test\Assertion\Stub\StubClassExtension;
 final class IsAssignableToPrimitiveTest extends TestCase
 {
     /**
+     * @covers ::__construct()
      * @covers ::assert()
-     * @dataProvider primitivePairs()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssert(string $primitive, string $type): void
+    public function testAssert(string $type, string $primitive): void
     {
         static::expectNotToPerformAssertions();
 
@@ -26,54 +29,85 @@ final class IsAssignableToPrimitiveTest extends TestCase
     }
 
     /**
-     * @covers ::__invoke()
-     * @dataProvider primitivePairs()
+     * @covers ::__construct()
+     * @covers ::assert()
+     * 
+     * @dataProvider provideFailure()
+     * @dataProvider provideInvalid()
      */
-    public function testInvoke(string $primitive, string $type): void
+    public function testAssertException(string $type, string $primitive, string $message): void
+    {
+        static::expectException(AssertionFailed::class);
+        static::expectExceptionMessage($message);
+
+        (new IsAssignableToPrimitive($primitive))
+            ->assert($type);
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
+     */
+    public function testInvoke(string $type, string $primitive): void
     {
         static::assertTrue(
-            (new IsAssignableToPrimitive($primitive))($type),
+            (new IsAssignableToPrimitive($primitive))($type)
         );
     }
 
-    /** @covers ::__invoke() */
-    public function testInvokeFalsy(): void
+    /**
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testInvokeFailure(string $type, string $primitive): void
     {
         static::assertFalse(
-            (new IsAssignableToPrimitive('int'))(StubClass::class),
+            (new IsAssignableToPrimitive($primitive))($type)
         );
     }
 
-    /** @covers ::assert() */
-    public function testAssertException(): void
-    {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage(
-            'Expected type to be assignable to primitive type "int". Got "float".',
-        );
-
-        (new IsAssignableToPrimitive('int'))
-            ->assert('float');
-    }
-
-    /** @covers ::__construct() */
-    public function testConstructorException(): void
-    {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be a primitive type. Got "RandomString".');
-
-        new IsAssignableToPrimitive('RandomString');
-    }
-
-    /** @return array<array<string>> */
-    public static function primitivePairs(): array
+    public static function provideSuccess(): array
     {
         return [
-            ['float', 'int'],
+            ['int', 'float'],
             ['string', 'string'],
-            ['string', StubClass::class],
-            ['object', StubClass::class],
-            ['callable', StubClassExtension::class],
+            [StubClass::class, 'string'],
+            [StubClass::class, 'object'],
+            [StubClassExtension::class, 'callable'],
+        ];
+    }
+
+    public static function provideFailure(): array
+    {
+        return [
+            [
+                'float', 
+                'int', 
+                'Expected type to be assignable to primitive type "int". Got "float".'
+            ],
+            [
+                StubClass::class, 
+                'int',
+                sprintf(
+                    'Expected type to be assignable to primitive type "int". Got "%s".',
+                    StubClass::class
+                )
+            ]
+        ];
+    }
+
+    public static function provideInvalid(): array
+    {
+        return [
+            [
+                stdClass::class,
+                'RandomString',
+                'Expected string to be a primitive type. Got "RandomString".'
+            ]
         ];
     }
 }

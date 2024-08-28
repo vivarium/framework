@@ -25,72 +25,96 @@ final class IsAssignableToClassTest extends TestCase
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssert(): void
+    public function testAssert(string $class, string $interface): void
     {
         static::expectNotToPerformAssertions();
 
-        (new IsAssignableToClass(Stub::class))
-            ->assert(Stub::class);
-
-        (new IsAssignableToClass(Stub::class))
-            ->assert(StubClass::class);
-
-        (new IsAssignableToClass(StubClass::class))
-            ->assert(StubClassExtension::class);
+        (new IsAssignableToClass($interface))
+            ->assert($class);
     }
 
     /**
      * @covers ::__construct()
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     * @dataProvider provideInvalid()
      */
-    public function testAssertException(): void
+    public function testAssertException(string $class, string $interface, string $message): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage(
-            sprintf(
-                'Expected class "%s" to be assignable to "%2$s".',
-                Stub::class,
-                StubClassExtension::class,
-            ),
-        );
+        static::expectExceptionMessage($message);
 
-        (new IsAssignableToClass(StubClassExtension::class))
-            ->assert(Stub::class);
-    }
-
-    /** @covers ::__construct() */
-    public function testConstructorWithoutClass(): void
-    {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage(
-            'Expected string to be class or interface name. Got "RandomString"',
-        );
-
-        /**
-         * This is covered by static analysis, but it is a valid runtime call
-         *
-         * @psalm-suppress ArgumentTypeCoercion
-         * @psalm-suppress UndefinedClass
-         * @phpstan-ignore-next-line
-         */
-        (new IsAssignableToClass('RandomString'))
-            ->assert(Stub::class);
+        (new IsAssignableToClass($interface))
+            ->assert($class);
     }
 
     /**
      * @covers ::__construct()
-     * @covers ::assert()
      * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssertWithoutClass(): void
+    public function testInvoke(string $class, string $interface): void
     {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be class or interface name. Got "RandomString"');
+        static::assertTrue(
+            (new IsAssignableToClass($interface))($class)
+        );
+    }
 
-        (new IsAssignableToClass(Stub::class))
-            ->assert('RandomString');
+    /**
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testInvokeFailure(string $class, string $interface): void
+    {
+        static::assertFalse(
+            (new IsAssignableToClass($interface))($class)
+        );
+    }
+
+    public static function provideSuccess(): array
+    {
+        return [
+            [Stub::class, Stub::class],
+            [StubClass::class, Stub::class],
+            [StubClassExtension::class, StubClass::class]
+        ];
+    }
+
+    public static function provideFailure(): array
+    {
+        return [
+            [
+                StubClass::class, 
+                StubClassExtension::class, 
+                sprintf(
+                    'Expected class "%s" to be assignable to "%2$s".',
+                    StubClass::class,
+                    StubClassExtension::class,
+                )
+            ]
+        ];
+    }
+
+    public static function provideInvalid(): array
+    {
+        return [
+            [
+                StubClass::class, 
+                'RandomString', 
+                'Expected string to be class or interface name. Got "RandomString"'
+            ],
+            [
+                'RandomString', 
+                StubClass::class, 
+                'Expected string to be class or interface name. Got "RandomString"'
+            ]
+        ];
     }
 }
