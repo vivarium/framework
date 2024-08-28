@@ -58,7 +58,7 @@ final class IsSubclassOf implements Assertion
         (new Either(
             new IsClass(),
             new IsInterface(),
-        ))->assert($value, 'Argument must be a class or interface name. Got %s');
+        ))->assert($value, 'Expected string to be class or interface name. Got %s');
 
         return is_subclass_of($value, $this->class, true);
     }
