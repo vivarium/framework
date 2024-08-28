@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vivarium\Test\Assertion\Type;
 
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsAssignableToUnion;
 use Vivarium\Test\Assertion\Stub\StubClass;
@@ -13,52 +14,113 @@ use Vivarium\Test\Assertion\Stub\StubClass;
 final class IsAssignableToUnionTest extends TestCase
 {
     /**
+     * @covers ::__construct()
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssert(): void
+    public function testAssert(string $type, string $union): void
     {
         static::expectNotToPerformAssertions();
 
-        $union = 'stdClass|' . StubClass::class;
-
-        $assertion = new IsAssignableToUnion($union);
-        $assertion->assert('stdClass');
-        $assertion->assert(StubClass::class);
-    }
-
-    /** @covers ::__invoke() */
-    public function testInvoke(): void
-    {
-        $union = 'stdClass|' . StubClass::class;
-
-        $assertion = new IsAssignableToUnion($union);
-
-        static::assertTrue($assertion('stdClass'));
-        static::assertTrue($assertion(StubClass::class));
-        static::assertFalse($assertion('int'));
+        (new IsAssignableToUnion($union))
+            ->assert($type);
     }
 
     /**
+     * @covers ::__construct()
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     * @dataProvider provideInvalid()
      */
-    public function testAssertException(): void
+    public function testAssertException(string $type, string $union, string $message): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected type to be assignable to union "int|float" Got "stdClass".');
+        static::expectExceptionMessage($message);
 
-        (new IsAssignableToUnion('int|float'))
-            ->assert('stdClass');
+        (new IsAssignableToUnion($union))
+            ->assert($type);
     }
 
-    /** @covers ::__construct() */
-    public function testConstructorException(): void
+    /**
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
+     */
+    public function testInvoke(string $type, string $union): void
     {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be union. Got "Foo&Bar".');
+        static::assertTrue(
+            (new IsAssignableToUnion($union))($type)
+        );
+    }
 
-        (new IsAssignableToUnion('Foo&Bar'))
-            ->assert('stdClass');
+    /**
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testInvokeFailure(string $type, string $union): void
+    {
+        static::assertFalse(
+            (new IsAssignableToUnion($union))($type)
+        );
+    }
+
+    public static function provideSuccess(): array
+    {
+        return [
+            [
+                stdClass::class, 
+                stdClass::class . '|' . StubClass::class
+            ],
+            [
+                StubClass::class, 
+                stdClass::class . '|' . StubClass::class
+            ],
+            [
+                'int',
+                'int|float'
+            ],
+            [
+                'float',
+                'int|float'
+            ]
+        ];
+    }
+
+    public static function provideFailure(): array
+    {
+        return [
+            [
+                'float', 
+                stdClass::class . '|' . StubClass::class, 
+                sprintf(
+                    'Expected type to be assignable to union "%s" Got "float".',
+                    stdClass::class . '|' . StubClass::class,
+                )
+            ],
+            [
+                StubClass::class, 
+                'int|float',
+                sprintf(
+                    'Expected type to be assignable to union "int|float" Got "%s".',
+                    StubClass::class
+                )
+            ]
+        ];
+    }
+
+    public static function provideInvalid(): array
+    {
+        return [
+            [
+                stdClass::class,
+                'Foo&Bar',
+                'Expected string to be union. Got "Foo&Bar".'
+            ]
+        ];
     }
 }

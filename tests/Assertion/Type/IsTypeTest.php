@@ -13,7 +13,8 @@ final class IsTypeTest extends TestCase
 {
     /**
      * @covers ::assert()
-     * @dataProvider provideTypes()
+     * 
+     * @dataProvider provideSuccess()
      */
     public function testAssert(string $type): void
     {
@@ -23,55 +24,64 @@ final class IsTypeTest extends TestCase
             ->assert($type);
     }
 
-    /** @covers ::assert() */
-    public function testAssertException(): void
+    /**
+     * @covers ::assert()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testAssertException(string $type, string $message): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage(
-            'Expected string to be a primitive, class, interface, union or intersection. Got "NonExistentClass".',
-        );
+        static::expectExceptionMessage($message);
 
         (new IsType())
-            ->assert('NonExistentClass');
-    }
-
-    /** @covers ::assert() */
-    public function testAssertWithNonString(): void
-    {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage(
-            'Expected string to be a primitive, class, interface, union or intersection. Got 1.',
-        );
-
-        (new IsType())
-            ->assert(1);
+            ->assert($type);
     }
 
     /**
      * @covers ::__invoke()
-     * @dataProvider provideTypes()
+     * 
+     * @dataProvider provideSuccess()
      */
     public function testInvoke(string $type): void
     {
         static::assertTrue(
-            (new IsType())($type),
+            (new IsType())($type)
         );
     }
 
-    /** @return array<array<string>> */
-    public static function provideTypes(): array
+    /**
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testInvokeFailure(string $type): void
+    {
+        static::assertFalse(
+            (new IsType())($type)
+        );
+    }
+
+    public static function provideSuccess(): array
+    {
+        return array_merge(
+            IsBasicTypeTest::provideSuccess(),
+            IsClassOrInterfaceTest::provideSuccess(),
+            IsClassTest::provideSuccess(),
+            IsInterfaceTest::provideSuccess(),
+            IsIntersectionTest::provideSuccess(),
+            IsPrimitiveTest::provideSuccess(),
+            IsUnionTest::provideSuccess()
+        );
+    }
+
+    public static function provideFailure(): array
     {
         return [
-            ['int'],
-            ['float'],
-            ['string'],
-            ['callable'],
-            ['object'],
-            ['array'],
-            ['stdClass'],
-            ['Vivarium\Test\Assertion\Stub\StubClass'],
-            ['stdClass|Vivarium\Test\Assertion\Stub\StubClass'],
-            ['stdClass&Vivarium\Test\Assertion\Stub\StubClass'],
+            [
+                'NonExistent', 
+                'Expected string to be a primitive, class, interface, union or intersection. Got "NonExistent".'
+            ],
         ];
     }
 }

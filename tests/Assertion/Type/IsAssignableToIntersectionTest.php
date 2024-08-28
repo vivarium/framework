@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vivarium\Test\Assertion\Type;
 
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsAssignableToIntersection;
 use Vivarium\Test\Assertion\Stub\InvokableStub;
@@ -16,57 +17,94 @@ use Vivarium\Test\Assertion\Stub\StubClassExtension;
 final class IsAssignableToIntersectionTest extends TestCase
 {
     /**
+     * @covers ::__construct()
      * @covers ::assert()
-     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
      */
-    public function testAssert(): void
+    public function testAssert(string $class, string $intersection): void
     {
         static::expectNotToPerformAssertions();
 
-        $intersection = Stub::class . '&' . InvokableStub::class;
-
         (new IsAssignableToIntersection($intersection))
-            ->assert(StubClassExtension::class);
+            ->assert($class);
     }
 
-    /** @covers ::__invoke() */
-    public function testInvoke(): void
+    /**
+     * @covers ::__construct()
+     * @covers ::assert()
+     * 
+     * @dataProvider provideFailure()
+     * @dataProvider provideInvalid()
+     */
+    public function testAssertException(string $class, string $intersection, string $message): void
     {
-        $intersection = Stub::class . '&' . InvokableStub::class;
+        static::expectException(AssertionFailed::class);
+        static::expectExceptionMessage($message);
 
+        (new IsAssignableToIntersection($intersection))
+            ->assert($class);
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
+     */
+    public function testInvoke(string $class, string $intersection): void
+    {
         static::assertTrue(
-            (new IsAssignableToIntersection($intersection))(StubClassExtension::class),
-        );
-
-        static::assertFalse(
-            (new IsAssignableToIntersection($intersection))(StubClass::class),
+            (new IsAssignableToIntersection($intersection))($class)
         );
     }
 
     /**
-     * @covers ::assert()
+     * @covers ::__construct()
      * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
      */
-    public function testAssertException(): void
+    public function testInvokeFailure(string $class, string $intersection): void
     {
-        $intersection = Stub::class . '&' . InvokableStub::class;
-
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage(
-            'Expected class to be assignable to intersection "' . $intersection . '" Got "' . StubClass::class . '".',
+        static::assertFalse(
+            (new IsAssignableToIntersection($intersection))($class)
         );
-
-        (new IsAssignableToIntersection($intersection))
-            ->assert(StubClass::class);
     }
 
-    /** @covers ::__construct() */
-    public function testConstructorException(): void
+    public static function provideSuccess(): array
     {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be intersection. Got "int&string".');
+        return [
+            [
+                StubClassExtension::class, 
+                Stub::class . '&' . InvokableStub::class
+            ]
+        ];
+    }
 
-        (new IsAssignableToIntersection('int&string'))
-            ->assert('stdClass');
+    public static function provideFailure(): array
+    {
+        return [
+            [
+                StubClass::class, 
+                Stub::class . '&' . InvokableStub::class, 
+                sprintf(
+                    'Expected class to be assignable to intersection "%s" Got "%s".',
+                    Stub::class . '&' . InvokableStub::class,
+                    StubClass::class,
+                )
+            ]
+        ];
+    }
+
+    public static function provideInvalid(): array
+    {
+        return [
+            [
+                stdClass::class,
+                'int&string',
+                'Expected string to be intersection. Got "int&string".'
+            ]
+        ];
     }
 }

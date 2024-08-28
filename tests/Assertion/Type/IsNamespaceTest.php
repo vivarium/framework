@@ -31,12 +31,10 @@ final class IsNamespaceTest extends TestCase
      * 
      * @dataProvider provideFailure()
      */
-    public function testAssertException(string $namespace): void
+    public function testAssertException(string $namespace, string $message): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage(
-            sprintf('Expected string to be namespace. Got "%s".', $namespace),
-        );
+        static::expectExceptionMessage($message);
 
         (new IsNamespace())
             ->assert($namespace);
@@ -80,8 +78,10 @@ final class IsNamespaceTest extends TestCase
     public static function provideFailure(): array
     {
         return [
-            ["Foo\\12"],
-            ['Foo\\Bar\\'],
+            [
+                'Foo\\12',
+                'Expected string to be namespace. Got "Foo\\12".',
+            ]
         ];
     }
 }

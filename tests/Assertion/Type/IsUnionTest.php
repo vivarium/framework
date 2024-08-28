@@ -5,64 +5,94 @@ declare(strict_types=1);
 namespace Vivarium\Test\Assertion\Type;
 
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsUnion;
+use Vivarium\Test\Assertion\Stub\StubClass;
 
 /** @coversDefaultClass \Vivarium\Assertion\Type\IsUnion */
 final class IsUnionTest extends TestCase
 {
-    /** @covers ::assert() */
-    public function testAssert(): void
+    /**
+     * @covers ::assert()
+     * 
+     * @dataProvider provideSuccess()
+     */
+    public function testAssert(string $type): void
     {
         static::expectNotToPerformAssertions();
 
         (new IsUnion())
-            ->assert('stdClass|Vivarium\Test\Assertion\Stub\StubClass');
+            ->assert($type);
     }
 
-    /** @covers ::assert() */
-    public function testAssertException(): void
+    /** 
+     * @covers ::assert() 
+     *
+     * @dataProvider provideFailure()
+     * @dataProvider provideInvalid()
+     */
+    public function testAssertException(string|int $type, string $message): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be union. Got "Foo|Bar".');
+        static::expectExceptionMessage($message);
 
         (new IsUnion())
-            ->assert('Foo|Bar');
+            ->assert($type);
     }
 
-    /** @covers ::assert() */
-    public function testAssertExceptionSingleString(): void
-    {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected string to be union. Got "stdClass".');
-
-        (new IsUnion())
-            ->assert('stdClass');
-    }
-
-    /** @covers ::assert() */
-    public function testAssertWithNonString(): void
-    {
-        static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected value to be string. Got integer.');
-
-        (new IsUnion())
-            ->assert(1);
-    }
-
-    /** @covers ::__invoke() */
-    public function testInvoke(): void
+    /**
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideSuccess()
+     */
+    public function testInvoke(string $type): void
     {
         static::assertTrue(
-            (new IsUnion())('stdClass|Vivarium\Test\Assertion\Stub\StubClass'),
+            (new IsUnion())($type),
         );
+    }
 
+    /**
+     * @covers ::__invoke()
+     * 
+     * @dataProvider provideFailure()
+     */
+    public function testInvokeFailure(string $type): void
+    {
         static::assertFalse(
-            (new IsUnion())('Foo|Bar'),
+            (new IsUnion())($type)
         );
+    }
 
-        static::assertFalse(
-            (new IsUnion())('stdClass'),
-        );
+    /** @return array<array<string>> */
+    public static function provideSuccess(): array
+    {
+        return [
+            [stdClass::class . '|' . StubClass::class],
+            ['int|float'],
+            ['int|' . stdClass::class]
+        ];
+    }
+
+    public static function provideFailure(): array
+    {
+        return [
+            [
+                'Foo|Bar', 
+                'Expected string to be union. Got "Foo|Bar".'
+            ],
+            [
+                stdClass::class,
+                'Expected string to be union. Got "stdClass".'
+            ],
+        ];
+    }
+
+    public static function provideInvalid(): array
+    {
+        return [
+            [42, 'Expected value to be string. Got integer.']
+        ];
     }
 }

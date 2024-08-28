@@ -79,7 +79,7 @@ final class IsPrimitiveTest extends TestCase
     {
         return [
             ['RandomString', 'Expected string to be a primitive type. Got "RandomString".'],
-            [Stub::class, 'Expected string to be a primitive type. Got Vivarium\Test\Assertion\Stub\Stub.']
+            [Stub::class, 'Expected string to be a primitive type. Got "Vivarium\Test\Assertion\Stub\Stub".']
         ];
     }
 }
