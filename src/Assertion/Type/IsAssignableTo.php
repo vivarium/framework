@@ -41,18 +41,7 @@ final class IsAssignableTo implements Assertion
         (new IsType())
             ->assert($value);
 
-        try {
-            $this->assertion->assert($value);
-        } catch (AssertionFailed $ex) {
-            $message = sprintf(
-                ! (new IsEmpty())($message) ?
-                    $message : 'Expected type %s to be assignable to %2$s.',
-                (new TypeToString())($value),
-                (new TypeToString())($this->type),
-            );
-
-            throw new AssertionFailed($message, $ex->getCode(), $ex);
-        }
+        $this->assertion->assert($value);
     }
 
     /** @psalm-assert-if-true string $value */
