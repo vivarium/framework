@@ -67,7 +67,7 @@ final class Check
     /** @param array<mixed> $arguments */
     public function __call(string $name, array $arguments): bool
     {
-        /** @var class-string<Assertion> $assertion */
+        /** @var class-string<Assertion<mixed>> $assertion */
         $assertion = $this->namespace . '\\' . ucfirst($name);
         if (! class_exists($assertion)) {
             throw new NoSuchMethod($name, $assertion);
