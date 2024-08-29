@@ -28,7 +28,8 @@ final class ImplementsInterface implements Assertion
     /** @param class-string<T> $interface */
     public function __construct(private string $interface)
     {
-        (new IsInterface())->assert($interface);
+        (new IsInterface())
+            ->assert($interface);
     }
 
     /** @psalm-assert class-string<T> $value */
@@ -52,7 +53,8 @@ final class ImplementsInterface implements Assertion
      */
     public function __invoke(mixed $value): bool
     {
-        (new IsClass())->assert($value);
+        (new IsClass())
+            ->assert($value);
 
         $interfaces = class_implements($value);
 

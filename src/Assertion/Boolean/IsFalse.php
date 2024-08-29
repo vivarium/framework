@@ -38,7 +38,8 @@ final class IsFalse implements Assertion
     /** @psalm-assert-if-true false $value */
     public function __invoke(mixed $value): bool
     {
-        (new IsBoolean())->assert($value);
+        (new IsBoolean())
+            ->assert($value);
 
         return $value === false;
     }

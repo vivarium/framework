@@ -58,7 +58,8 @@ final class IsInstanceOf implements Assertion
     /** @psalm-assert-if-true T $value */
     public function __invoke(mixed $value): bool
     {
-        (new IsObject())->assert($value);
+        (new IsObject())
+            ->assert($value);
 
         return $value instanceof $this->class;
     }

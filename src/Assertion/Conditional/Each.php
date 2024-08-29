@@ -32,11 +32,13 @@ final class Each implements Assertion
     /** @psalm-assert array<T> $value */
     public function assert(mixed $value, string $message = ''): void
     {
-        (new IsArray())->assert($value);
+        (new IsArray())
+            ->assert($value);
 
         foreach ($value as $key => $element) {
             try {
-                $this->assertion->assert($element);
+                $this->assertion
+                    ->assert($element);
             } catch (AssertionFailed $ex) {
                 $message = sprintf(
                     ! (new IsEmpty())($message) ?

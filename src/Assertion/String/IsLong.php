@@ -24,7 +24,8 @@ final class IsLong implements Assertion
 {
     public function __construct(private int $length, private string $encoding = 'UTF-8')
     {
-        (new IsSystemEncoding())->assert($encoding);
+        (new IsSystemEncoding())
+            ->assert($encoding);
     }
 
     /** @psalm-assert string $value */

@@ -43,7 +43,8 @@ final class Contains implements Assertion
     /** @psalm-assert string $value */
     public function __invoke(mixed $value): bool
     {
-        (new IsString())->assert($value);
+        (new IsString())
+            ->assert($value);
 
         return str_contains($value, $this->substring);
     }
