@@ -42,7 +42,8 @@ final class IsInterface implements Assertion
      */
     public function __invoke(mixed $value): bool
     {
-        (new IsString())->assert($value);
+        (new IsString())
+            ->assert($value);
 
         return interface_exists($value);
     }

@@ -43,14 +43,17 @@ final class IsSystemEncoding implements Assertion
      */
     public function __invoke(mixed $value): bool
     {
-        (new IsString())->assert($value);
+        (new IsString())
+            ->assert($value);
 
         $encoding = mb_internal_encoding();
-        (new IsString())->assert($encoding);
+        (new IsString())
+            ->assert($encoding);
 
         try {
             $valid = @mb_internal_encoding($value);
-            (new IsBoolean())->assert($valid);
+            (new IsBoolean())
+                ->assert($valid);
         } catch (ValueError) {
             $valid = false;
         } finally {

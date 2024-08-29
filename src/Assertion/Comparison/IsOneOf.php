@@ -48,7 +48,11 @@ final class IsOneOf implements Assertion
     public function __invoke(mixed $value): bool
     {
         foreach ($this->choices as $choice) {
-            if ((new EqualsBuilder())->append($value, $choice)->isEquals()) {
+            if (
+                (new EqualsBuilder())
+                ->append($value, $choice)
+                ->isEquals()
+            ) {
                 return true;
             }
         }

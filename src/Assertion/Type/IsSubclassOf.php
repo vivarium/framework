@@ -28,7 +28,8 @@ final class IsSubclassOf implements Assertion
     /** @param class-string<T> $class */
     public function __construct(private string $class)
     {
-        (new IsClassOrInterface())->assert($class);
+        (new IsClassOrInterface())
+            ->assert($class);
     }
 
     /** @psalm-assert class-string<T> $value */

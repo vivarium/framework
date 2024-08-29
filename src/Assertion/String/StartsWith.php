@@ -45,7 +45,8 @@ final class StartsWith implements Assertion
     /** @psalm-assert string $value */
     public function __invoke(mixed $value): bool
     {
-        (new IsString())->assert($value);
+        (new IsString())
+            ->assert($value);
 
         $startLength = strlen($this->start);
         $substr      = substr($value, 0, $startLength);
