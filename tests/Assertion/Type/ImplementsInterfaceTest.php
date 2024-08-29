@@ -22,8 +22,11 @@ use Vivarium\Test\Assertion\Stub\StubClass;
 final class ImplementsInterfaceTest extends TestCase
 {
     /**
+     * @param class-string $interface
+     *
      * @covers ::__construct()
      * @covers ::assert()
+     *
      * @dataProvider provideSuccess()
      */
     public function testAssert(string $class, string $interface): void
@@ -35,8 +38,11 @@ final class ImplementsInterfaceTest extends TestCase
     }
 
     /**
+     * @param class-string $interface
+     *
      * @covers ::__construct()
      * @covers ::assert()
+     *
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
@@ -50,6 +56,8 @@ final class ImplementsInterfaceTest extends TestCase
     }
 
     /**
+     * @param class-string $interface
+     *
      * @covers ::__construct()
      * @covers ::__invoke()
      * @dataProvider provideSuccess()
@@ -62,6 +70,8 @@ final class ImplementsInterfaceTest extends TestCase
     }
 
     /**
+     * @param class-string $interface
+     *
      * @covers ::__construct()
      * @covers ::__invoke()
      * @dataProvider provideFailure()
@@ -73,6 +83,7 @@ final class ImplementsInterfaceTest extends TestCase
         );
     }
 
+    /** @return array<array<class-string>> */
     public static function provideSuccess(): array
     {
         return [
@@ -80,6 +91,7 @@ final class ImplementsInterfaceTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:class-string, 1:class-string, 2:string}> */
     public static function provideFailure(): array
     {
         return [
@@ -91,6 +103,7 @@ final class ImplementsInterfaceTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:class-string, 1:class-string, 2:string}> */
     public static function provideInvalid(): array
     {
         return [

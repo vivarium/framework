@@ -90,6 +90,7 @@ final class EitherTest extends TestCase
         );
     }
 
+    /** @return array<array{0:Assertion, 1:Assertion, 2:int|object}> */
     public static function provideSuccess(): array
     {
         return [
@@ -116,6 +117,7 @@ final class EitherTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:Assertion, 1:Assertion, 2:int|object}> */
     public static function provideFailure(): array
     {
         return [

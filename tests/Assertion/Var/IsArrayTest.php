@@ -64,7 +64,7 @@ final class IsArrayTest extends TestCase
         );
     }
 
-    /** @return array<array<scalar>> */
+    /** @return array<array<array<scalar>>> */
     public static function provideSuccess(): array
     {
         return [
@@ -74,7 +74,7 @@ final class IsArrayTest extends TestCase
         ];
     }
 
-    /** @return array<array<scalar, string>> */
+    /** @return array<array{0:mixed, 1:string}> */
     public static function provideFailure(): array
     {
         return [

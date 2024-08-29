@@ -42,7 +42,7 @@ final class IsIntersection implements Assertion
                 (new IsClassOrInterface())
                     ->assert($type);
 
-                if (count(array_keys($types, $type)) > 1) {
+                if (count(array_keys($types, $type, true)) > 1) {
                     throw new AssertionFailed(
                         sprintf(
                             'Duplicate type %s is reduntant.',

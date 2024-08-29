@@ -15,11 +15,10 @@ use Vivarium\Check\CheckIfObject;
 /** @coversDefaultClass \Vivarium\Check\CheckIfObject */
 final class CheckIfObjectTest extends CheckTestCase
 {
-    const NAMESPACE = 'Vivarium\Test\Assertion\Object';
+    public const NAMESPACE = 'Vivarium\Test\Assertion\Object';
 
     /**
      * @covers ::__callStatic()
-     * 
      * @dataProvider provideMethods()
      */
     public function testCallStatic(string $method): void
@@ -27,16 +26,17 @@ final class CheckIfObjectTest extends CheckTestCase
         $this->doTest(
             CheckIfObject::class,
             $method,
-            static::NAMESPACE
+            self::NAMESPACE,
         );
     }
 
+    /** @return array<array<string>> */
     public static function provideMethods(): array
     {
         return [
             ['hasMethod'],
             ['hasProperty'],
-            ['isInstanceOf']
+            ['isInstanceOf'],
         ];
     }
 }

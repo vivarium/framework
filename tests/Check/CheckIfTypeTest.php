@@ -11,14 +11,14 @@ declare(strict_types=1);
 namespace Vivarium\Test\Check;
 
 use Vivarium\Check\CheckIfType;
+
 /** @coversDefaultClass \Vivarium\Check\CheckIfType */
 final class CheckIfTypeTest extends CheckTestCase
 {
-    const NAMESPACE = 'Vivarium\Test\Assertion\Type';
+    public const NAMESPACE = 'Vivarium\Test\Assertion\Type';
 
     /**
      * @covers ::__callStatic()
-     * 
      * @dataProvider provideMethods()
      */
     public function testCallStatic(string $method): void
@@ -26,10 +26,11 @@ final class CheckIfTypeTest extends CheckTestCase
         $this->doTest(
             CheckIfType::class,
             $method,
-            static::NAMESPACE
+            self::NAMESPACE,
         );
     }
 
+    /** @return array<array<string>> */
     public static function provideMethods(): array
     {
         return [

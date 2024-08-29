@@ -75,7 +75,7 @@ final class IsObjectTest extends TestCase
         ];
     }
 
-    /** @return array<array<array|scalar, string>> */
+    /** @return array<array{0:mixed, 1:string}> */
     public static function provideFailure(): array
     {
         return [

@@ -48,7 +48,7 @@ final class IsEqualsToTest extends TestCase
             ->assert($second);
     }
 
-    /** @return array<array<scalar|object, scalar|object>> */
+    /** @return array<array<scalar|object>> */
     public static function provideSuccess(): array
     {
         $stdClass = new stdClass();
@@ -62,7 +62,7 @@ final class IsEqualsToTest extends TestCase
         ];
     }
 
-    /** @return array<array<scalar|object, scalar|object, string>> */
+    /** @return array<array{0: mixed, 1:mixed, 2:string}> */
     public static function provideFailure(): array
     {
         return [

@@ -10,17 +10,15 @@ declare(strict_types=1);
 
 namespace Vivarium\Test\Check;
 
-use PHPUnit\Framework\TestCase;
 use Vivarium\Check\CheckIfEncoding;
 
 /** @coversDefaultClass \Vivarium\Check\CheckIfEncoding */
 final class CheckIfEncodingTest extends CheckTestCase
 {
-    const NAMESPACE = 'Vivarium\Test\Assertion\Encoding';
+    public const NAMESPACE = 'Vivarium\Test\Assertion\Encoding';
 
     /**
      * @covers ::__callStatic()
-     * 
      * @dataProvider provideMethods()
      */
     public function testCallStatic(string $method): void
@@ -28,16 +26,17 @@ final class CheckIfEncodingTest extends CheckTestCase
         $this->doTest(
             CheckIfEncoding::class,
             $method,
-            static::NAMESPACE
+            self::NAMESPACE,
         );
     }
 
+    /** @return array<array<string>> */
     public static function provideMethods(): array
     {
         return [
             ['isEncoding'],
             ['isRegexEncoding'],
-            ['isSystemEncoding']
+            ['isSystemEncoding'],
         ];
     }
 }

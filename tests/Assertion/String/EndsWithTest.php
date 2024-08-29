@@ -65,6 +65,7 @@ class EndsWithTest extends TestCase
         static::assertFalse((new EndsWith($end))($string));
     }
 
+    /** @return array<array<string>> */
     public static function provideSuccess(): array
     {
         return [
@@ -73,6 +74,7 @@ class EndsWithTest extends TestCase
         ];
     }
 
+    /** @return array<array<string>> */
     public static function provideFailure(): array
     {
         return [
@@ -80,6 +82,7 @@ class EndsWithTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:int, 1:string, 2:string}> */
     public static function provideNonValid(): array
     {
         return [

@@ -23,15 +23,17 @@ use function sprintf;
 final class IsAssignableToClassTest extends TestCase
 {
     /**
+     * @param class-string $type
+     *
      * @covers ::__construct()
      * @covers ::assert()
      * @dataProvider provideSuccess()
      */
-    public function testAssert(string $class, string $interface): void
+    public function testAssert(string $class, string $type): void
     {
         static::expectNotToPerformAssertions();
 
-        (new IsAssignableToClass($interface))
+        (new IsAssignableToClass($type))
             ->assert($class);
     }
 
@@ -41,39 +43,48 @@ final class IsAssignableToClassTest extends TestCase
      * @dataProvider provideFailure()
      * @dataProvider provideInvalid()
      */
-    public function testAssertException(string $class, string $interface, string $message): void
+    public function testAssertException(string $class, string $type, string $message): void
     {
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage($message);
 
-        (new IsAssignableToClass($interface))
+        /**
+         * @psalm-suppress ArgumentTypeCoercion
+         * @phpstan-ignore argument.type
+         */
+        (new IsAssignableToClass($type))
             ->assert($class);
     }
 
     /**
+     * @param class-string $type
+     *
      * @covers ::__construct()
      * @covers ::__invoke()
      * @dataProvider provideSuccess()
      */
-    public function testInvoke(string $class, string $interface): void
+    public function testInvoke(string $class, string $type): void
     {
         static::assertTrue(
-            (new IsAssignableToClass($interface))($class),
+            (new IsAssignableToClass($type))($class),
         );
     }
 
     /**
+     * @param class-string $type
+     *
      * @covers ::__construct()
      * @covers ::__invoke()
      * @dataProvider provideFailure()
      */
-    public function testInvokeFailure(string $class, string $interface): void
+    public function testInvokeFailure(string $class, string $type): void
     {
         static::assertFalse(
-            (new IsAssignableToClass($interface))($class),
+            (new IsAssignableToClass($type))($class),
         );
     }
 
+    /** @return array<array<class-string>> */
     public static function provideSuccess(): array
     {
         return [
@@ -83,6 +94,7 @@ final class IsAssignableToClassTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:class-string, 1:class-string, 2:string}> */
     public static function provideFailure(): array
     {
         return [
@@ -98,6 +110,7 @@ final class IsAssignableToClassTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:string, 1:string, 2:string}> */
     public static function provideInvalid(): array
     {
         return [

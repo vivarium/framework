@@ -20,7 +20,7 @@ use Vivarium\Test\Equality\Stub\EqualityStub;
 final class IsOneOfTest extends TestCase
 {
     /**
-     * @param array<array<scalar|object, array<scalar|object>>> $values
+     * @param array<scalar|object> $values
      *
      * @covers ::__construct()
      * @covers ::assert()
@@ -38,7 +38,7 @@ final class IsOneOfTest extends TestCase
     }
 
     /**
-     * @param array<array<scalar|object, array<scalar|object>, string>> $values
+     * @param array<scalar|object> $values
      *
      * @covers ::__construct()
      * @covers ::assert()
@@ -55,7 +55,7 @@ final class IsOneOfTest extends TestCase
             ->assert($value);
     }
 
-    /** @return array<array<scalar|object, array<scalar|object>>> */
+    /** @return array<array{0: scalar|object, 1:array<scalar|object>}> */
     public static function provideSuccess(): array
     {
         $stdClass = new stdClass();
@@ -70,7 +70,7 @@ final class IsOneOfTest extends TestCase
         ];
     }
 
-    /** @return array<array<scalar|object, array<scalar|object>, string>> */
+    /** @return array<array{0: int, 1:array<int>, 2:string}> */
     public static function provideFailure(): array
     {
         return [

@@ -65,6 +65,7 @@ final class StartsWithTest extends TestCase
         static::assertFalse((new StartsWith($start))($string));
     }
 
+    /** @return array<array<string>> */
     public static function provideSuccess(): array
     {
         return [
@@ -75,6 +76,7 @@ final class StartsWithTest extends TestCase
         ];
     }
 
+    /** @return array<array<string>> */
     public static function provideFailure(): array
     {
         return [
@@ -82,6 +84,7 @@ final class StartsWithTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:int, 1:string, 2:string}> */
     public static function provideNonString(): array
     {
         return [

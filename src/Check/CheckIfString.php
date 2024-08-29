@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace Vivarium\Check;
 
-use Vivarium\Check\Check;
-
 /**
  * @method static bool contains(string $string, string $substring)
  * @method static bool endsWith(string $string, string $end)
@@ -27,12 +25,13 @@ final class CheckIfString
 {
     private static Check|null $check = null;
 
-    public static function __callStatic($name, $arguments)
+    /** @param array<mixed> $arguments */
+    public static function __callStatic(string $name, array $arguments): bool
     {
         if (static::$check === null) {
             static::$check = Check::string();
         }
 
-        return static::$check->$name(...$arguments);
+        return static::$check->__call($name, $arguments);
     }
 }

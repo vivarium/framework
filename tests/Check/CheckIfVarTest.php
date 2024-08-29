@@ -15,11 +15,10 @@ use Vivarium\Check\CheckIfVar;
 /** @coversDefaultClass \Vivarium\Check\CheckIfVar */
 final class CheckIfVarTest extends CheckTestCase
 {
-    const NAMESPACE = 'Vivarium\Test\Assertion\Var';
+    public const NAMESPACE = 'Vivarium\Test\Assertion\Var';
 
     /**
      * @covers ::__callStatic()
-     * 
      * @dataProvider provideMethods()
      */
     public function testCallStatic(string $method): void
@@ -27,10 +26,11 @@ final class CheckIfVarTest extends CheckTestCase
         $this->doTest(
             CheckIfVar::class,
             $method,
-            static::NAMESPACE
+            self::NAMESPACE,
         );
     }
 
+    /** @return array<array<string>> */
     public static function provideMethods(): array
     {
         return [
