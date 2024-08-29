@@ -26,9 +26,13 @@ use Vivarium\Test\Assertion\Stub\StubClass;
 final class EitherTest extends TestCase
 {
     /**
+     * @param Assertion<mixed> $assertion1
+     * @param Assertion<mixed> $assertion2
+     *
      * @covers ::__construct()
      * @covers ::assert()
      * @covers ::safeAssert()
+     *
      * @dataProvider provideSuccess()
      */
     public function testAssert(Assertion $assertion1, Assertion $assertion2, mixed $value): void
@@ -42,9 +46,13 @@ final class EitherTest extends TestCase
     }
 
     /**
+     * @param Assertion<mixed> $assertion1
+     * @param Assertion<mixed> $assertion2
+     *
      * @covers ::__construct()
      * @covers ::assert()
      * @covers ::safeAssert()
+     *
      * @dataProvider provideFailure()
      */
     public function testAssertException(Assertion $assertion1, Assertion $assertion2, mixed $value): void
@@ -59,9 +67,13 @@ final class EitherTest extends TestCase
     }
 
     /**
+     * @param Assertion<mixed> $assertion1
+     * @param Assertion<mixed> $assertion2
+     *
      * @covers ::__construct()
      * @covers ::__invoke()
      * @covers ::safeAssert()
+     *
      * @dataProvider provideSuccess()
      */
     public function testInvoke(Assertion $assertion1, Assertion $assertion2, mixed $value): void
@@ -74,12 +86,16 @@ final class EitherTest extends TestCase
         );
     }
 
-        /**
-         * @covers ::__construct()
-         * @covers ::__invoke()
-         * @covers ::safeAssert()
-         * @dataProvider provideFailure()
-         */
+    /**
+     * @param Assertion<mixed> $assertion1
+     * @param Assertion<mixed> $assertion2
+     *
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     * @covers ::safeAssert()
+     *
+     * @dataProvider provideFailure()
+     */
     public function testInvokeFailure(Assertion $assertion1, Assertion $assertion2, mixed $value): void
     {
         static::assertFalse(
@@ -90,7 +106,7 @@ final class EitherTest extends TestCase
         );
     }
 
-    /** @return array<array{0:Assertion, 1:Assertion, 2:int|object}> */
+    /** @return array<array{0:Assertion<mixed>, 1:Assertion<mixed>, 2:int|object}> */
     public static function provideSuccess(): array
     {
         return [
@@ -117,7 +133,7 @@ final class EitherTest extends TestCase
         ];
     }
 
-    /** @return array<array{0:Assertion, 1:Assertion, 2:int|object}> */
+    /** @return array<array{0:Assertion<mixed>, 1:Assertion<mixed>, 2:int|object}> */
     public static function provideFailure(): array
     {
         return [
