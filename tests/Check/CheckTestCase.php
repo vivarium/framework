@@ -1,16 +1,29 @@
 <?php
 
+/*
+ * This file is part of Vivarium
+ * SPDX-License-Identifier: MIT
+ * Copyright (c) 2021 Luca Cantoreggi
+ */
+
+declare(strict_types=1);
+
 namespace Vivarium\Test\Check;
 
 use PHPUnit\Framework\TestCase;
+use Vivarium\Assertion\Var\IsCallable;
 
+use function array_slice;
 use function call_user_func;
+use function call_user_func_array;
+use function count;
 use function ucfirst;
 
 abstract class CheckTestCase extends TestCase
 {
-    const SUCCESS = 'provideSuccess';
-    const FAILURE = 'provideFailure';
+    public const SUCCESS = 'provideSuccess';
+
+    public const FAILURE = 'provideFailure';
 
     protected function doTest(string|object $class, string $method, string $namespace): void
     {
@@ -20,32 +33,41 @@ abstract class CheckTestCase extends TestCase
 
     private function doTestSuccess(string|object $class, string $method, string $namespace): void
     {
-        foreach ($this->getTests($namespace, $method, static::SUCCESS) as $test) {
+        $fn = [$class, $method];
+        (new IsCallable())
+            ->assert($fn);
+
+        foreach ($this->getTests($namespace, $method, self::SUCCESS) as $test) {
             static::assertTrue(
-                call_user_func(
-                    [$class, $method],
-                    ...$test
-                )
+                call_user_func_array($fn, $test),
             );
         }
     }
 
     private function doTestFailure(string|object $class, string $method, string $namespace): void
     {
-        foreach ($this->getTests($namespace, $method, static::FAILURE) as $test) {
+        $fn = [$class, $method];
+        (new IsCallable())
+            ->assert($fn);
+
+        foreach ($this->getTests($namespace, $method, self::FAILURE) as $test) {
             static::assertFalse(
-                call_user_func(
-                    [$class, $method],
-                    ...array_slice($test, 0, count($test) - 1)
-                )
+                call_user_func_array(
+                    $fn,
+                    array_slice($test, 0, count($test) - 1),
+                ),
             );
         }
     }
-    
+
+    /** @return array<array<mixed>> */
     private function getTests(string $namespace, string $method, string $provider): array
     {
-        return call_user_func(
-            [$namespace . '\\' . ucfirst($method) . 'Test', $provider]
-        );
+        $fn = [$namespace . '\\' . ucfirst($method) . 'Test', $provider];
+        (new IsCallable())
+            ->assert($fn);
+
+        /** @psalm-var array<array<mixed>> */
+        return call_user_func($fn);
     }
 }

@@ -22,7 +22,7 @@ final class IsLessOrEqualThanTest extends TestCase
      * @covers ::assert()
      * @dataProvider provideSuccess()
      */
-    public function testAssert(int $test, int $limit): void
+    public function testAssert(int|float $test, int|float $limit): void
     {
         static::expectNotToPerformAssertions();
 
@@ -50,7 +50,7 @@ final class IsLessOrEqualThanTest extends TestCase
      * @covers ::__invoke()
      * @dataProvider provideSuccess()
      */
-    public function testInvoke(int $test, int $limit): void
+    public function testInvoke(int|float $test, int|float $limit): void
     {
         static::assertTrue(
             (new IsLessOrEqualThan($limit))($test),
@@ -69,6 +69,7 @@ final class IsLessOrEqualThanTest extends TestCase
         );
     }
 
+    /** @return array<array<int|float>> */
     public static function provideSuccess(): array
     {
         return [
@@ -78,6 +79,7 @@ final class IsLessOrEqualThanTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:int|float, 1:int|float, 2:string}> */
     public static function provideFailure(): array
     {
         return [
@@ -86,6 +88,7 @@ final class IsLessOrEqualThanTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:string, 1:int|float, 2:string}> */
     public static function provideInvalid(): array
     {
         return [

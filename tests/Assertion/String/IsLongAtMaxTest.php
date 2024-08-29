@@ -65,6 +65,7 @@ final class IsLongAtMaxTest extends TestCase
         static::assertFalse((new IsLongAtMax($length, $encoding))($string));
     }
 
+    /** @return array<array{0:string, 1:int, 2:string}> */
     public static function provideSuccess(): array
     {
         return [
@@ -74,6 +75,7 @@ final class IsLongAtMaxTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:string, 1:int, 2:string, 3:string}> */
     public static function provideFailure(): array
     {
         return [
@@ -82,6 +84,7 @@ final class IsLongAtMaxTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:int|string, 1:int, 2:string, 3:string}> */
     public static function provideNonValid(): array
     {
         return [

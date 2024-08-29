@@ -23,6 +23,8 @@ use Vivarium\Test\Assertion\Stub\StubClassExtension;
 final class IsInstanceOfTest extends TestCase
 {
     /**
+     * @param class-string $class
+     *
      * @covers ::__construct()
      * @covers ::assert()
      * @dataProvider provideSuccess()
@@ -46,11 +48,17 @@ final class IsInstanceOfTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage($message);
 
+        /**
+         * @psalm-suppress ArgumentTypeCoercion
+         * @phpstan-ignore argument.type
+         */
         (new IsInstanceOf($class))
             ->assert($target);
     }
 
         /**
+         * @param class-string $class
+         *
          * @covers ::__construct()
          * @covers ::__invoke()
          * @dataProvider provideSuccess()
@@ -63,6 +71,8 @@ final class IsInstanceOfTest extends TestCase
     }
 
     /**
+     * @param class-string $class
+     *
      * @covers ::__construct()
      * @covers ::__invoke()
      * @dataProvider provideFailure()
@@ -74,6 +84,7 @@ final class IsInstanceOfTest extends TestCase
         );
     }
 
+    /** @return array<array{0:object, 1:class-string}> */
     public static function provideSuccess(): array
     {
         return [
@@ -84,6 +95,7 @@ final class IsInstanceOfTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:object, 1:class-string, 2:string}> */
     public static function provideFailure(): array
     {
         return [
@@ -95,6 +107,7 @@ final class IsInstanceOfTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:string|object, 1:string, 2:string}> */
     public static function provideInvalid(): array
     {
         return [

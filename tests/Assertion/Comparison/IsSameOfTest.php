@@ -63,7 +63,7 @@ final class IsSameOfTest extends TestCase
         ];
     }
 
-    /** @return array<array<scalar|object, scalar|object, string>> */
+    /** @return array<array{0:string|object, 1:string|object, 2:string}> */
     public static function provideFailure(): array
     {
         return [

@@ -15,11 +15,10 @@ use Vivarium\Check\CheckIfElement;
 /** @coversDefaultClass \Vivarium\Check\CheckIfElement */
 final class CheckIfElementTest extends CheckTestCase
 {
-    const NAMESPACE = 'Vivarium\Test\Assertion\Comparison';
+    public const NAMESPACE = 'Vivarium\Test\Assertion\Comparison';
 
     /**
      * @covers ::__callStatic()
-     * 
      * @dataProvider provideMethods()
      */
     public function testCallStatic(string $method): void
@@ -27,16 +26,17 @@ final class CheckIfElementTest extends CheckTestCase
         $this->doTest(
             CheckIfElement::class,
             $method,
-            static::NAMESPACE
+            self::NAMESPACE,
         );
     }
 
+    /** @return array<array<string>> */
     public static function provideMethods(): array
     {
         return [
             ['isEqualsTo'],
             ['isOneOf'],
-            ['isSameOf']
+            ['isSameOf'],
         ];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vivarium\Check\Exception;
 
 use RuntimeException;
@@ -14,8 +16,8 @@ final class TooMuchArguments extends RuntimeException
             sprintf(
                 'Too much arguments provided. Expected %s, got %s',
                 $expected,
-                $actual
-            )
+                $actual,
+            ),
         );
     }
 }

@@ -65,6 +65,7 @@ class ContainsTest extends TestCase
         static::assertFalse((new Contains($substring))($string));
     }
 
+    /** @return array<array<string>> */
     public static function provideSuccess(): array
     {
         return [
@@ -77,6 +78,7 @@ class ContainsTest extends TestCase
         ];
     }
 
+    /** @return array<array<string>> */
     public static function provideFailure(): array
     {
         return [
@@ -85,6 +87,7 @@ class ContainsTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:int, 1:string, 2:string}> */
     public static function provideNonValid(): array
     {
         return [

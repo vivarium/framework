@@ -72,6 +72,7 @@ final class IsPrimitiveTest extends TestCase
         ];
     }
 
+    /** @return array<array<string>> */
     public static function provideFailure(): array
     {
         return [

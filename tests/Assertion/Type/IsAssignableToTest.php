@@ -74,6 +74,7 @@ final class IsAssignableToTest extends TestCase
         );
     }
 
+    /** @return array<array<string>> */
     public static function provideSuccess(): array
     {
         return array_merge(
@@ -84,6 +85,7 @@ final class IsAssignableToTest extends TestCase
         );
     }
 
+    /** @return array<array<string>> */
     public static function provideFailure(): array
     {
         return array_merge(

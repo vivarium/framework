@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Vivarium
+ * SPDX-License-Identifier: MIT
+ * Copyright (c) 2021 Luca Cantoreggi
+ */
+
+declare(strict_types=1);
+
 namespace Vivarium\Test\Check;
 
 use Vivarium\Check\Check;
@@ -7,18 +15,16 @@ use Vivarium\Check\Exception\NoSuchMethod;
 use Vivarium\Check\Exception\TooFewArguments;
 use Vivarium\Check\Exception\TooMuchArguments;
 
-/**
- * @coversDefaultClass \Vivarium\Check\Check
- */
+/** @coversDefaultClass \Vivarium\Check\Check */
 final class CheckTest extends CheckTestCase
 {
-    const COMPARISON_NAMESPACE = 'Vivarium\Test\Assertion\Comparison';
-    const ENCODING_NAMESPACE   = 'Vivarium\Test\Assertion\Encoding';
-    const NUMERIC_NAMESPACE    = 'Vivarium\Test\Assertion\Numeric';
-    const OBJECT_NAMESPACE     = 'Vivarium\Test\Assertion\Object';
-    const STRING_NAMESPACE     = 'Vivarium\Test\Assertion\String';
-    const TYPE_NAMESPACE       = 'Vivarium\Test\Assertion\Type';
-    const VAR_NAMESPACE        = 'Vivarium\Test\Assertion\Var';
+    public const COMPARISON_NAMESPACE = 'Vivarium\Test\Assertion\Comparison';
+    public const ENCODING_NAMESPACE   = 'Vivarium\Test\Assertion\Encoding';
+    public const NUMERIC_NAMESPACE    = 'Vivarium\Test\Assertion\Numeric';
+    public const OBJECT_NAMESPACE     = 'Vivarium\Test\Assertion\Object';
+    public const STRING_NAMESPACE     = 'Vivarium\Test\Assertion\String';
+    public const TYPE_NAMESPACE       = 'Vivarium\Test\Assertion\Type';
+    public const VAR_NAMESPACE        = 'Vivarium\Test\Assertion\Var';
 
     /**
      * @covers ::__construct()
@@ -29,10 +35,16 @@ final class CheckTest extends CheckTestCase
     {
         $check = Check::boolean();
 
+        // @phpstan-ignore method.notFound
         static::assertTrue($check->isTrue(true));
+
+        // @phpstan-ignore method.notFound
         static::assertTrue($check->isFalse(false));
 
+        // @phpstan-ignore method.notFound
         static::assertFalse($check->isTrue(false));
+
+        // @phpstan-ignore method.notFound
         static::assertFalse($check->isFalse(true));
     }
 
@@ -40,15 +52,14 @@ final class CheckTest extends CheckTestCase
      * @covers ::__construct()
      * @covers ::comparison()
      * @covers ::__call()
-     * 
-     * @dataProvider Vivarium\Test\Check\CheckIfElementTest::provideMethods()
+     * @dataProvider \Vivarium\Test\Check\CheckIfElementTest::provideMethods()
      */
-    public function testComparison($method): void
+    public function testComparison(string $method): void
     {
         $this->doTest(
-            Check::comparison(), 
-            $method, 
-            static::COMPARISON_NAMESPACE
+            Check::comparison(),
+            $method,
+            self::COMPARISON_NAMESPACE,
         );
     }
 
@@ -56,31 +67,29 @@ final class CheckTest extends CheckTestCase
      * @covers ::__construct()
      * @covers ::encoding()
      * @covers ::__call()
-     * 
-     * @dataProvider Vivarium\Test\Check\CheckIfEncodingTest::provideMethods()
+     * @dataProvider \Vivarium\Test\Check\CheckIfEncodingTest::provideMethods()
      */
-    public function testEncoding($method): void
+    public function testEncoding(string $method): void
     {
         $this->doTest(
-            Check::encoding(), 
-            $method, 
-            static::ENCODING_NAMESPACE
+            Check::encoding(),
+            $method,
+            self::ENCODING_NAMESPACE,
         );
     }
 
-        /**
+    /**
      * @covers ::__construct()
      * @covers ::numeric()
      * @covers ::__call()
-     * 
-     * @dataProvider Vivarium\Test\Check\CheckIfNumberTest::provideMethods()
+     * @dataProvider \Vivarium\Test\Check\CheckIfNumberTest::provideMethods()
      */
-    public function testNumeric($method): void
+    public function testNumeric(string $method): void
     {
         $this->doTest(
-            Check::numeric(), 
-            $method, 
-            static::NUMERIC_NAMESPACE
+            Check::numeric(),
+            $method,
+            self::NUMERIC_NAMESPACE,
         );
     }
 
@@ -88,15 +97,14 @@ final class CheckTest extends CheckTestCase
      * @covers ::__construct()
      * @covers ::object()
      * @covers ::__call()
-     * 
-     * @dataProvider Vivarium\Test\Check\CheckIfObjectTest::provideMethods()
+     * @dataProvider \Vivarium\Test\Check\CheckIfObjectTest::provideMethods()
      */
-    public function testObject($method): void
+    public function testObject(string $method): void
     {
         $this->doTest(
-            Check::object(), 
-            $method, 
-            static::OBJECT_NAMESPACE
+            Check::object(),
+            $method,
+            self::OBJECT_NAMESPACE,
         );
     }
 
@@ -104,48 +112,44 @@ final class CheckTest extends CheckTestCase
      * @covers ::__construct()
      * @covers ::string()
      * @covers ::__call()
-     * 
-     * @dataProvider Vivarium\Test\Check\CheckIfStringTest::provideMethods()
+     * @dataProvider \Vivarium\Test\Check\CheckIfStringTest::provideMethods()
      */
     public function testString(string $method): void
     {
         $this->doTest(
-            Check::string(), 
-            $method, 
-            static::STRING_NAMESPACE
+            Check::string(),
+            $method,
+            self::STRING_NAMESPACE,
         );
     }
 
         /**
-     * @covers ::__construct()
-     * @covers ::type()
-     * @covers ::__call()
-     * 
-     * @dataProvider Vivarium\Test\Check\CheckIfTypeTest::provideMethods()
-     */
+         * @covers ::__construct()
+         * @covers ::type()
+         * @covers ::__call()
+         * @dataProvider \Vivarium\Test\Check\CheckIfTypeTest::provideMethods()
+         */
     public function testType(string $method): void
     {
         $this->doTest(
-            Check::type(), 
-            $method, 
-            static::TYPE_NAMESPACE
+            Check::type(),
+            $method,
+            self::TYPE_NAMESPACE,
         );
     }
 
-
         /**
-     * @covers ::__construct()
-     * @covers ::var()
-     * @covers ::__call()
-     * 
-     * @dataProvider Vivarium\Test\Check\CheckIfVarTest::provideMethods()
-     */
+         * @covers ::__construct()
+         * @covers ::var()
+         * @covers ::__call()
+         * @dataProvider \Vivarium\Test\Check\CheckIfVarTest::provideMethods()
+         */
     public function testVar(string $method): void
     {
         $this->doTest(
-            Check::var(), 
-            $method, 
-            static::VAR_NAMESPACE
+            Check::var(),
+            $method,
+            self::VAR_NAMESPACE,
         );
     }
 
@@ -157,10 +161,12 @@ final class CheckTest extends CheckTestCase
     {
         static::expectException(NoSuchMethod::class);
         static::expectExceptionMessage(
-            'No such method nonExistentMethod. Missing class Vivarium\Assertion\String\NonExistentMethod'
+            'No such method nonExistentMethod. Missing class Vivarium\Assertion\String\NonExistentMethod',
         );
 
         $check = Check::string();
+
+        // @phpstan-ignore method.notFound
         $check->nonExistentMethod();
     }
 
@@ -172,10 +178,12 @@ final class CheckTest extends CheckTestCase
     {
         static::expectException(TooFewArguments::class);
         static::expectExceptionMessage(
-            'Too few arguments provided. Expected 1, got 0'
+            'Too few arguments provided. Expected 1, got 0',
         );
 
         $check = Check::boolean();
+
+        // @phpstan-ignore method.notFound
         $check->isTrue();
     }
 
@@ -187,10 +195,12 @@ final class CheckTest extends CheckTestCase
     {
         static::expectException(TooMuchArguments::class);
         static::expectExceptionMessage(
-            'Too much arguments provided. Expected 1, got 2'
+            'Too much arguments provided. Expected 1, got 2',
         );
 
         $check = Check::boolean();
+
+        // @phpstan-ignore method.notFound
         $check->isTrue(true, false);
     }
 }

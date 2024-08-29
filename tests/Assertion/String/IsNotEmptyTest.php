@@ -65,6 +65,7 @@ final class IsNotEmptyTest extends TestCase
         static::assertFalse((new IsNotEmpty())($string));
     }
 
+    /** @return array<array<string>> */
     public static function provideSuccess(): array
     {
         return [
@@ -74,6 +75,7 @@ final class IsNotEmptyTest extends TestCase
         ];
     }
 
+    /** @return array<array<string>> */
     public static function provideFailure(): array
     {
         return [
@@ -83,6 +85,7 @@ final class IsNotEmptyTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:int, 1:string}> */
     public static function provideNonValid(): array
     {
         return [

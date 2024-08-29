@@ -65,6 +65,7 @@ final class HasMethodTest extends TestCase
         );
     }
 
+    /** @return array<array{0:object|class-string, 1:string}> */
     public static function provideSuccess(): array
     {
         return [
@@ -73,6 +74,7 @@ final class HasMethodTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:class-string, 1:string, 2:string}> */
     public static function provideFailure(): array
     {
         return [
@@ -80,6 +82,7 @@ final class HasMethodTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:string, 1:string, 2:string}> */
     public static function provideInvalid(): array
     {
         return [

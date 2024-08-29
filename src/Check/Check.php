@@ -1,25 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vivarium\Check;
 
 use ReflectionClass;
+use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Type\IsNamespace;
 use Vivarium\Check\Exception\NoSuchMethod;
 use Vivarium\Check\Exception\TooFewArguments;
 use Vivarium\Check\Exception\TooMuchArguments;
 
+use function array_slice;
 use function class_exists;
+use function count;
+use function ucfirst;
 
 final class Check
 {
-    private string $namespace;
-
-    private function __construct(string $namespace)
+    private function __construct(private string $namespace)
     {
-        (new IsNamespace)
+        (new IsNamespace())
             ->assert($namespace);
-
-        $this->namespace = $namespace;
     }
 
     public static function boolean(): Check
@@ -29,12 +31,12 @@ final class Check
 
     public static function comparison(): Check
     {
-        return new Check('Vivarium\Assertion\Comparison',);
+        return new Check('Vivarium\Assertion\Comparison');
     }
 
     public static function encoding(): Check
     {
-        return new Check('Vivarium\Assertion\Encoding',);
+        return new Check('Vivarium\Assertion\Encoding');
     }
 
     public static function numeric(): Check
@@ -62,8 +64,10 @@ final class Check
         return new Check('Vivarium\Assertion\Var');
     }
 
-    public function __call($name, $arguments)
+    /** @param array<mixed> $arguments */
+    public function __call(string $name, array $arguments): bool
     {
+        /** @var class-string<Assertion> $assertion */
         $assertion = $this->namespace . '\\' . ucfirst($name);
         if (! class_exists($assertion)) {
             throw new NoSuchMethod($name, $assertion);

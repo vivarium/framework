@@ -69,6 +69,7 @@ final class IsInHalfOpenLeftRangeTest extends TestCase
         );
     }
 
+    /** @return array<array<int|float>> */
     public static function provideSuccess(): array
     {
         return [
@@ -78,6 +79,7 @@ final class IsInHalfOpenLeftRangeTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:int|float, 1:int|float, 2:int|float, 3:string}> */
     public static function provideFailure(): array
     {
         return [
@@ -86,6 +88,7 @@ final class IsInHalfOpenLeftRangeTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:int|float|string, 1:int|float, 2:int|float, 3:string}> */
     public static function provideInvalid(): array
     {
         return [

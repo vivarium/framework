@@ -52,7 +52,9 @@ final class IsLongTest extends TestCase
          */
     public function testInvoke(string $string, int $length, string $encoding): void
     {
-        static::assertTrue((new IsLong($length, $encoding))($string));
+        static::assertTrue(
+            (new IsLong($length, $encoding))($string),
+        );
     }
 
     /**
@@ -60,11 +62,14 @@ final class IsLongTest extends TestCase
      * @covers ::__invoke()
      * @dataProvider provideFailure()
      */
-    public function testInvokeFailure(string|int $string, int $length, string $encoding, string $message): void
+    public function testInvokeFailure(string|int $string, int $length, string $encoding): void
     {
-        static::assertFalse((new IsLong($length, $encoding))($string));
+        static::assertFalse(
+            (new IsLong($length, $encoding))($string),
+        );
     }
 
+    /** @return array<array{0:string, 1:int, 2:string}> */
     public static function provideSuccess(): array
     {
         return [
@@ -73,6 +78,7 @@ final class IsLongTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:string, 1:int, 2:string, 3:string}> */
     public static function provideFailure(): array
     {
         return [
@@ -81,6 +87,7 @@ final class IsLongTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:int|string, 1:int, 2:string, 3:string}> */
     public static function provideNonValid(): array
     {
         return [

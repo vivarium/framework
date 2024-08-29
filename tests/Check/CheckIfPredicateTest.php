@@ -27,6 +27,6 @@ final class CheckIfPredicateTest extends TestCase
     public function testIsFalse(): void
     {
         static::assertTrue(CheckIfPredicate::isFalse(false));
-        static::assertfalse(CheckIfPredicate::isFalse(true));
-    }    
+        static::assertFalse(CheckIfPredicate::isFalse(true));
+    }
 }

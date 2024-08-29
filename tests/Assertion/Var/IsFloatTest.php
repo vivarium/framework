@@ -74,7 +74,7 @@ final class IsFloatTest extends TestCase
         ];
     }
 
-    /** @return array<array<scalar, string>> */
+    /** @return array<array{0:mixed, 1:string}> */
     public static function provideFailure(): array
     {
         return [

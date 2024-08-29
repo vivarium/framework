@@ -15,11 +15,10 @@ use Vivarium\Check\CheckIfNumber;
 /** @coversDefaultClass \Vivarium\Check\CheckIfNumber */
 final class CheckIfNumberTest extends CheckTestCase
 {
-    const NAMESPACE = 'Vivarium\Test\Assertion\Numeric';
+    public const NAMESPACE = 'Vivarium\Test\Assertion\Numeric';
 
     /**
      * @covers ::__callStatic()
-     * 
      * @dataProvider provideMethods()
      */
     public function testCallStatic(string $method): void
@@ -27,10 +26,11 @@ final class CheckIfNumberTest extends CheckTestCase
         $this->doTest(
             CheckIfNumber::class,
             $method,
-            static::NAMESPACE
+            self::NAMESPACE,
         );
     }
 
+    /** @return array<array<string>> */
     public static function provideMethods(): array
     {
         return [

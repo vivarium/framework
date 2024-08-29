@@ -19,12 +19,13 @@ final class CheckIfObject
 {
     private static Check|null $check = null;
 
-    public static function __callStatic($name, $arguments)
+    /** @param array<mixed> $arguments */
+    public static function __callStatic(string $name, array $arguments): bool
     {
         if (static::$check === null) {
             static::$check = Check::object();
         }
 
-        return static::$check->$name(...$arguments);
+        return static::$check->__call($name, $arguments);
     }
 }

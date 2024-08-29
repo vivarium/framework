@@ -15,11 +15,10 @@ use Vivarium\Check\CheckIfString;
 /** @coversDefaultClass \Vivarium\Check\CheckIfString */
 final class CheckIfStringTest extends CheckTestCase
 {
-    const NAMESPACE = 'Vivarium\Test\Assertion\String';
+    public const NAMESPACE = 'Vivarium\Test\Assertion\String';
 
     /**
      * @covers ::__callStatic()
-     * 
      * @dataProvider provideMethods()
      */
     public function testCallStatic(string $method): void
@@ -27,10 +26,11 @@ final class CheckIfStringTest extends CheckTestCase
         $this->doTest(
             CheckIfString::class,
             $method,
-            static::NAMESPACE
+            self::NAMESPACE,
         );
     }
 
+    /** @return array<array<string>> */
     public static function provideMethods(): array
     {
         return [

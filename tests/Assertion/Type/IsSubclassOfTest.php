@@ -23,6 +23,8 @@ use function sprintf;
 final class IsSubclassOfTest extends TestCase
 {
     /**
+     * @param class-string $subclass
+     *
      * @covers ::__construct()
      * @covers ::assert()
      * @dataProvider provideSuccess()
@@ -46,11 +48,17 @@ final class IsSubclassOfTest extends TestCase
         static::expectException(AssertionFailed::class);
         static::expectExceptionMessage($message);
 
+        /**
+         * @psalm-suppress ArgumentTypeCoercion
+         * @phpstan-ignore argument.type
+         */
         (new IsSubclassOf($subclass))
             ->assert($class);
     }
 
     /**
+     * @param class-string $subclass
+     *
      * @covers ::__construct()
      * @covers ::__invoke()
      * @dataProvider provideSuccess()
@@ -63,6 +71,8 @@ final class IsSubclassOfTest extends TestCase
     }
 
     /**
+     * @param class-string $subclass
+     *
      * @covers ::__construct()
      * @covers ::__invoke()
      * @dataProvider provideFailure()
@@ -74,6 +84,7 @@ final class IsSubclassOfTest extends TestCase
         );
     }
 
+    /** @return array<array<class-string>> */
     public static function provideSuccess(): array
     {
         return [
@@ -88,6 +99,7 @@ final class IsSubclassOfTest extends TestCase
         ];
     }
 
+    /** @return array<array{0:class-string, 1:class-string, 2:string}> */
     public static function provideFailure(): array
     {
         return [
@@ -103,6 +115,7 @@ final class IsSubclassOfTest extends TestCase
         ];
     }
 
+    /** @return array<array<string>> */
     public static function provideInvalid(): array
     {
         return [

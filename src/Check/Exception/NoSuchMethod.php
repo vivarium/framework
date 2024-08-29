@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vivarium\Check\Exception;
 
 use RuntimeException;
 
 use function sprintf;
-use function ucfirst;
 
 final class NoSuchMethod extends RuntimeException
 {
@@ -15,8 +16,8 @@ final class NoSuchMethod extends RuntimeException
             sprintf(
                 'No such method %s. Missing class %s.',
                 $method,
-                $class
-            )
+                $class,
+            ),
         );
     }
 }
