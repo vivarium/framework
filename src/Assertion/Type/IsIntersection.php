@@ -28,37 +28,14 @@ final class IsIntersection implements Assertion
     /** @psalm-assert non-empty-string $value */
     public function assert(mixed $value, string $message = ''): void
     {
-        (new IsString())
-            ->assert($value);
-
-        try {
-            $types = explode('&', $value);
-
-            if (count($types) <= 1) {
-                throw new AssertionFailed('Intersection must be composed at least by two elements.');
-            }
-
-            foreach ($types as $type) {
-                (new IsClassOrInterface())
-                    ->assert($type);
-
-                if (count(array_keys($types, $type, true)) > 1) {
-                    throw new AssertionFailed(
-                        sprintf(
-                            'Duplicate type %s is reduntant.',
-                            (new TypeToString())($type),
-                        ),
-                    );
-                }
-            }
-        } catch (AssertionFailed $ex) {
+        if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
                     $message : 'Expected string to be intersection. Got %s.',
                 (new TypeToString())($value),
             );
 
-            throw new AssertionFailed($message, $ex->getCode(), $ex);
+            throw new AssertionFailed($message);
         }
     }
 
@@ -68,12 +45,25 @@ final class IsIntersection implements Assertion
      */
     public function __invoke(mixed $value): bool
     {
-        try {
-            $this->assert($value);
+        (new IsString())
+            ->assert($value);
 
-            return true;
-        } catch (AssertionFailed) {
+        $types = explode('&', $value);
+
+        if (count($types) <= 1) {
             return false;
         }
+
+        foreach ($types as $type) {
+            if (! (new IsClassOrInterface())($type)) {
+                return false;
+            }
+
+            if (count(array_keys($types, $type, true)) > 1) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

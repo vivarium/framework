@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace Vivarium\Assertion\Type;
 
 use Vivarium\Assertion\Assertion;
-use Vivarium\Assertion\Conditional\Each;
 use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
@@ -27,27 +26,14 @@ final class IsUnion implements Assertion
     /** @psalm-assert non-empty-string $value */
     public function assert(mixed $value, string $message = ''): void
     {
-        (new IsString())
-            ->assert($value);
-
-        try {
-            $types = explode('|', $value);
-
-            if (count($types) <= 1) {
-                throw new AssertionFailed('Union must be composed at least by two elements.');
-            }
-
-            (new Each(
-                new IsBasicType(),
-            ))->assert($types);
-        } catch (AssertionFailed $ex) {
+        if (! $this($value)) {
             $message = sprintf(
                 ! (new IsEmpty())($message) ?
                     $message : 'Expected string to be union. Got %s.',
                 (new TypeToString())($value),
             );
 
-            throw new AssertionFailed($message, $ex->getCode(), $ex);
+            throw new AssertionFailed($message);
         }
     }
 
@@ -57,12 +43,21 @@ final class IsUnion implements Assertion
      */
     public function __invoke(mixed $value): bool
     {
-        try {
-            $this->assert($value);
+        (new IsString())
+            ->assert($value);
 
-            return true;
-        } catch (AssertionFailed) {
+        $types = explode('|', $value);
+
+        if (count($types) <= 1) {
             return false;
         }
+
+        foreach ($types as $type) {
+            if (! (new IsBasicType())($type)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
