@@ -48,8 +48,12 @@ final class IsPrimitive implements Assertion
 
         return (new IsOneOf([
             'int',
+            'integer',
             'float',
+            'double',
             'string',
+            'bool',
+            'boolean',
             'array',
             'callable',
             'object',
